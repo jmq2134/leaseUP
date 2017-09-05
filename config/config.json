@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "Jujupop12",
+    "database": "fip_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "Jujupop12",
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "b36fef22d4fda9",
+    "password": "a73ded5e",
+    "database": "heroku_781090fc2b66d2d",
+    "host": "us-cdbr-iron-east-05.cleardb.net",
+    "dialect": "mysql"
+  }
+}
