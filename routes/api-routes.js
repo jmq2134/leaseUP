@@ -8,13 +8,15 @@ var db = require("../models/index.js");
         res.render('login.html', req);
     });
 
+
     /// REDIRECT FROM LOGIN TO DASHBOARD IF VALIDATED
     app.get("/login", function(req, res) {
         res.render('dashboard.html', req);
     });
 
+
     /// ROUTE TO SHOPPING CENTER PAGE BY ID
-    app.get("/:centerID", function(req, res) {
+    app.get("/center/:centerID", function(req, res) {
     	console.log(req.params.centerID);
     	console.log(req.body);
 
@@ -22,7 +24,6 @@ var db = require("../models/index.js");
 
         res.render(render, req);
     });
-
 
 
     /// ROUTE TO AVON
@@ -86,8 +87,8 @@ var db = require("../models/index.js");
 
 	    // LOG INFO FROM REQ.BODY FROM MODAL FORM
         console.log("------------------------");
+        console.log("centerID:" + req.params.centerID);
         console.log(req.body);
-        console.log(req.params.centerID);
         console.log("------------------------");
 
         // ADD TO TENANTS TABLE
@@ -114,7 +115,8 @@ var db = require("../models/index.js");
 	    app.post("/api/edit/:centerID/:tenantID", function(req, res) {
 
         console.log("\n\n\n>>>>");
-        console.log(req.params.tenantID);
+        console.log("centerID:" + req.params.centerID);
+        console.log("tenantID:" + req.params.tenantID);
         console.log(req.body);
         console.log("\n\n\n>>>>");
 
@@ -157,6 +159,12 @@ var db = require("../models/index.js");
 	/// DELETE A TENANT
 
 	app.post("/api/remove/:centerID/:tenantID", function (req,res) {
+
+		console.log("\n\n\n>>>>");
+        console.log("centerID:" + req.params.centerID);
+        console.log("tenantID:" + req.params.tenantID);
+        console.log(req.body);
+        console.log("\n\n\n>>>>");
 
         db.Tenants.destroy(
 
