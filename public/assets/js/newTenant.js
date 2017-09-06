@@ -77,10 +77,10 @@ $(document).ready(function() {
         });
 
 
-        // A function for creating a game
+        // A function for creating a new tenant
         function newTenant(tenantData) {
             $.post("/api/newTenant", tenantData)
-            console.log("connected");
+            console.log("running new tenant funciton with tenantData");
         }
 
     };
