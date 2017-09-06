@@ -1,13 +1,20 @@
 $(document).ready(function() {
 
     // Getting references to the add new tenant inputs
-    var nameInput = $("#player-name");
-    var emailInput = $("#player-email");
-    var passwordInput = $("#player-password");
-    var teamInput = $("#team-name");
-    var courseName = $("#course-name");
-    var eventDate = $("#event-date");
-    var eventTime = $("#event-time");
+    var tenantName = $("#tenantName");
+    var tenantSF = $("#tenantSF");
+    var leaseStart = $("#leaseStart");
+    var leaseEnd = $("#leaseEnd");
+    var basePSF = $("#basePSF");
+    var camPSF = $("#camPSF");
+    var salesPSF = $("#salesPSF");
+    var noticeDate = $("#noticeDate");
+    var noticeRent = $("#noticeRent");
+
+    var totalPSF = parseInt(req.body.basePSF) + parseInt(req.body.camPSF);
+    var annualRent = parseInt(req.body.basePSF) * parseInt(req.body.tenantSF);
+    var annualSales = parseInt(salesPSF) * parseInt(req.body.tenantSF);
+    var occupancy = parseInt(salesPSF) / parseInt(totalPSF);
 
     // Handle new tenant submit
     $(document).on("submit", "#form--event-add", handleTenantFormSubmit);
@@ -15,39 +22,58 @@ $(document).ready(function() {
     // A function to handle what happens when the form is submitted to create a new tenant
     function handleTenantFormSubmit(event) {
 
-        console.log("calling add new tenant");
+        console.log("calling add new tenant function");
 
         event.preventDefault();
 
-        // Don't do anything if the name fields hasn't been filled out
-        if (!nameInput.val().trim().trim()) {
+        // Don't do anything if the name field hasn't been filled out
+        if (!tenantName.val().trim().trim()) {
             return;
         }
 
         // Calling the newTenant function and passing in the values in the new tenant input
         newTenant({
 
-            coursename: courseName
+            tenantName: tenantName
                 .val()
                 .trim(),
-            date: eventDate
+            tenantSF: tenantSF
                 .val()
                 .trim(),
-            time: eventTime
+            leaseStart: leaseStart
                 .val()
                 .trim(),
-            playername: nameInput
+            leaseEnd: leaseEnd
                 .val()
                 .trim(),
-            email: emailInput
+            basePSF: basePSF
                 .val()
                 .trim(),
-            password: passwordInput
+            camPSF: camPSF
                 .val()
                 .trim(),
-            teamname: teamInput
+            totalPSF: totalPSF
+                .val()
+                .trim(),
+            annualRent: annualRent
+                .val()
+                .trim(),
+            salesPSF: salesPSF
+                .val()
+                .trim(),
+            annualSales: annualSales
+                .val()
+                .trim(),
+            occupancy: occupancy
+                .val()
+                .trim(),
+            noticeDate: noticeDate
+                .val()
+                .trim(),
+            noticeRent: noticeRent
                 .val()
                 .trim()
+
         });
 
 
