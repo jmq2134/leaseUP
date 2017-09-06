@@ -13,6 +13,17 @@ var db = require("../models/index.js");
         res.render('dashboard.html', req);
     });
 
+    /// ROUTE TO SHOPPING CENTER PAGE BY ID
+    app.get("/:centerID", function(req, res) {
+    	console.log(req.params.centerID);
+    	console.log(req.body);
+
+    	var render = req.body.centerName + ".html";
+
+        res.render(render, req);
+    });
+
+
 
     /// ROUTE TO AVON
     app.get("/avon", function(req, res) {
@@ -71,11 +82,12 @@ var db = require("../models/index.js");
 
 	/// ADD A NEW TENANT
 
-	    app.post("/api/newTenant", function(req, res) {
+	    app.post("/api/newTenant/:centerID", function(req, res) {
 
 	    // LOG INFO FROM REQ.BODY FROM MODAL FORM
         console.log("------------------------");
         console.log(req.body);
+        console.log(req.params.centerID);
         console.log("------------------------");
 
         // ADD TO TENANTS TABLE
