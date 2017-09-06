@@ -7,6 +7,14 @@ module.exports = function(sequelize, DataTypes) {
 
   });
 
+  Centers.associate = function(models) {
+
+    Centers.hasMany(models.Tenants, {
+      onDelete: "cascade"
+    });
+
+  };
+
   return Centers;
 
 };

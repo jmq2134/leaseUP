@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
 
   Tenants.associate = function(models) {
 
-    Tenants.hasMany(models.Centers, {
+    Tenants.hasOne(models.Centers, {
       onDelete: "cascade"
     });
 
