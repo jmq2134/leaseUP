@@ -24,6 +24,7 @@
     "fs": "0.0.1-security",
     "mysql": "^2.14.1",
     "mysql2": "^1.4.2",
+    "passport": "^0.4.0",
     "path": "^0.12.7",
     "sequelize": "^4.8.2"
   }

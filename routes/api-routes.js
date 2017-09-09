@@ -1,5 +1,6 @@
 // REQUIRE FILES
 var db = require("../models/index.js");
+var passport = require("passport");
 
 // Routes ============================================================= //
 
@@ -16,11 +17,13 @@ module.exports = function(app) {
         res.render('login', req);
     });
 
-
     /// SHOW REGISTER ON BUTTON CLICK
     app.get("/register", function(req, res) {
         res.render('register', req);
     });
+
+
+    // ---------------------------- API GET ROUTES ---------------------------- //
 
     /// SHOW ALL SHOPPING CENTER INFO
     app.get("/api/centers", function(req, res) {
@@ -56,6 +59,17 @@ module.exports = function(app) {
 
 
     // ---------------------------- POST ROUTES ---------------------------- //
+
+
+    /// PASSPORT AUTHENTICATION
+
+    app.post('/login',
+        passport.authenticate('local', {
+            successRedirect: '/dashboard',
+            failureRedirect: '/login',
+            failureFlash: true
+        })
+    );
 
     /// ADD A NEW TENANT
 
