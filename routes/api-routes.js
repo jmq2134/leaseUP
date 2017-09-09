@@ -7,23 +7,31 @@ module.exports = function(app) {
 
     // ---------------------------- GET ROUTES ---------------------------- //
 
-    // /// SHOW LOGIN ON LOAD
-    app.get("/", function(req, res) {
+    app.get('/', function(req, res) {
+        res.redirect('/login');
+    });
+
+    /// SHOW LOGIN ON LOAD
+    app.get("/login", function(req, res) {
         res.render('login', req);
+    });
+
+
+    /// SHOW REGISTER ON BUTTON CLICK
+    app.get("/register", function(req, res) {
+        res.render('register', req);
     });
 
     /// SHOW ALL SHOPPING CENTER INFO
     app.get("/api/centers", function(req, res) {
-        db.Centers.findAll({
-        }).then(function(dbCenters) {
+        db.Centers.findAll({}).then(function(dbCenters) {
             res.json(dbCenters);
         });
     })
 
     /// SHOW ALL TENANT INFO
     app.get("/api/tenants", function(req, res) {
-        db.Tenants.findAll({
-        }).then(function(dbTenants) {
+        db.Tenants.findAll({}).then(function(dbTenants) {
             res.json(dbTenants);
         });
     })
@@ -44,44 +52,6 @@ module.exports = function(app) {
 
         res.render(render, req);
     });
-
-
-    /// ROUTE TO AVON
-    app.get("/avon", function(req, res) {
-        res.render('avon.html', req);
-    });
-
-
-    /// ROUTE TO HAWTHORNE
-    app.get("/hawthorne", function(req, res) {
-        res.render('hawthorne.html', req);
-    });
-
-
-    /// ROUTE TO LEGACY
-    app.get("/legacy", function(req, res) {
-        res.render('legacy.html', req);
-    });
-
-
-    /// ROUTE TO MENTOR
-    app.get("/mentor", function(req, res) {
-        res.render('mentor.html', req);
-    });
-
-
-    /// ROUTE TO STEELYARD
-    app.get("/steelyard", function(req, res) {
-        res.render('steelyard.html', req);
-    });
-
-
-    /// ROUTE TO OAKWOOD
-    app.get("/oakwood", function(req, res) {
-        res.render('oakwood.html', req);
-    });
-
-
 
 
 
