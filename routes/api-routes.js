@@ -1,17 +1,5 @@
-
 // REQUIRE FILES
-var express = require('express');
-var router = express.Router();
 var db = require("../models/index.js");
-
-
-// GET ALL BURGERS
-router.get('/', function(req, res) {
-    db.centers.findAll().then(function(data) {
-        var hbsObject = { centers: data };
-        res.render('index.html', hbsObject);
-    });
-});
 
 // Routes ============================================================= //
 
@@ -19,20 +7,36 @@ module.exports = function(app) {
 
     // ---------------------------- GET ROUTES ---------------------------- //
 
-    /// SHOW LOGIN ON LOAD
-    router.get("/", function(req, res) {
-        res.render('login.html', req);
+    // /// SHOW LOGIN ON LOAD
+    app.get("/", function(req, res) {
+        res.render('login', req);
     });
+
+    /// SHOW ALL SHOPPING CENTER INFO
+    app.get("/api/centers", function(req, res) {
+        db.Centers.findAll({
+        }).then(function(dbCenters) {
+            res.json(dbCenters);
+        });
+    })
+
+    /// SHOW ALL TENANT INFO
+    app.get("/api/tenants", function(req, res) {
+        db.Tenants.findAll({
+        }).then(function(dbTenants) {
+            res.json(dbTenants);
+        });
+    })
 
 
     /// REDIRECT FROM LOGIN TO DASHBOARD IF VALIDATED
-    router.get("/login", function(req, res) {
+    app.get("/login", function(req, res) {
         res.render('dashboard.html', req);
     });
 
 
     /// ROUTE TO SHOPPING CENTER PAGE BY ID
-    router.get("/center/:centerID", function(req, res) {
+    app.get("/center/:centerID", function(req, res) {
         console.log(req.params.centerID);
         console.log(req.body);
 
@@ -43,61 +47,49 @@ module.exports = function(app) {
 
 
     /// ROUTE TO AVON
-    router.get("/avon", function(req, res) {
+    app.get("/avon", function(req, res) {
         res.render('avon.html', req);
     });
 
 
     /// ROUTE TO HAWTHORNE
-    router.get("/hawthorne", function(req, res) {
+    app.get("/hawthorne", function(req, res) {
         res.render('hawthorne.html', req);
     });
 
 
     /// ROUTE TO LEGACY
-    router.get("/legacy", function(req, res) {
+    app.get("/legacy", function(req, res) {
         res.render('legacy.html', req);
     });
 
 
     /// ROUTE TO MENTOR
-    router.get("/mentor", function(req, res) {
+    app.get("/mentor", function(req, res) {
         res.render('mentor.html', req);
     });
 
 
     /// ROUTE TO STEELYARD
-    router.get("/steelyard", function(req, res) {
+    app.get("/steelyard", function(req, res) {
         res.render('steelyard.html', req);
     });
 
 
     /// ROUTE TO OAKWOOD
-    router.get("/oakwood", function(req, res) {
+    app.get("/oakwood", function(req, res) {
         res.render('oakwood.html', req);
     });
 
 
-    /// SHOW ALL TENANT INFO
-    router.get("/api/tenants", function(req, res) {
-        db.Tenants.findAll({}).then(function(dbTenants) {
-            res.json(dbTenants);
-        });
-    });
 
-    /// SHOW ALL SHOPPING CENTER INFO
-    router.get("/api/centers", function(req, res) {
-        db.Tenants.findAll({}).then(function(dbCenters) {
-            res.json(dbCenters);
-        });
-    });
 
 
     // ---------------------------- POST ROUTES ---------------------------- //
 
     /// ADD A NEW TENANT
 
-    router.post("/api/newTenant/:centerID", function(req, res) {
+    app.post("/api/newTenant/:centerID", function(req, res) {
 
         // LOG INFO FROM REQ.BODY FROM MODAL FORM
         console.log("------------------------");
@@ -126,7 +118,7 @@ module.exports = function(app) {
 
     /// EDIT AN EXISTING TENANT
 
-    router.post("/api/edit/:centerID/:tenantID", function(req, res) {
+    app.post("/api/edit/:centerID/:tenantID", function(req, res) {
 
         console.log("\n\n\n>>>>");
         console.log("centerID:" + req.params.centerID);
@@ -172,7 +164,7 @@ module.exports = function(app) {
 
         /// DELETE A TENANT
 
-        router.post("/api/remove/:centerID/:tenantID", function(req, res) {
+        app.post("/api/remove/:centerID/:tenantID", function(req, res) {
 
             console.log("\n\n\n>>>>");
             console.log("centerID:" + req.params.centerID);
