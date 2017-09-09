@@ -1,0 +1,30 @@
+{
+  "name": "leaseup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmq2134/leaseUP.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmq2134/leaseUP/issues"
+  },
+  "homepage": "https://github.com/jmq2134/leaseUP#readme",
+  "dependencies": {
+    "body-parser": "^1.18.0",
+    "express": "^4.15.4",
+    "express-handlebars": "^3.0.0",
+    "fs": "0.0.1-security",
+    "mysql": "^2.14.1",
+    "mysql2": "^1.4.2",
+    "path": "^0.12.7",
+    "sequelize": "^4.8.2"
+  }
+}

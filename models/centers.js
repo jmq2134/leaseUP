@@ -1,9 +1,12 @@
+'use strict';
+var Sequelize = require('sequelize');
+
 module.exports = function(sequelize, DataTypes) {
   
   var Centers = sequelize.define("Centers", {
 
     centerName: DataTypes.STRING,
-    centerAddress: DataTypes.STRING
+    centerAddress: DataTypes.STRING,
 
   });
 

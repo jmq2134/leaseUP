@@ -1,3 +1,6 @@
+'use strict';
+var Sequelize = require('sequelize');
+
 module.exports = function(sequelize, DataTypes) {
   
   var Tenants = sequelize.define("Tenants", {
@@ -14,16 +17,16 @@ module.exports = function(sequelize, DataTypes) {
     annualSales: DataTypes.STRING,
     occupancy: DataTypes.STRING,
     noticeDate: DataTypes.STRING,
-    noticeRent: DataTypes.String 
+    noticeRent: DataTypes.STRING
 
   });
 
-  Tenants.associate = function(models) {
+  // Tenants.associate = function(models) {
 
-    Tenants.hasOne(models.Centers, {
-      onDelete: "cascade"
-    });
+  //   Tenants.hasOne(models.Centers, {
+  //     onDelete: "cascade"
+  //   });
 
-  };
+  // };
   return Tenants;
 };

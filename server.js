@@ -2,7 +2,7 @@
 // =============================================================
 var express = require("express");
 var bodyParser = require("body-parser");
-var sequelize = require('sequelize');
+var sequelize = require("sequelize");
 
 // Sets up the Express App
 // =============================================================
@@ -22,16 +22,16 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static("./public"));
 
 // Setting handlebars as rendering engine
-var exhb = require("express-handlebars");
+// var exhb = require("express-handlebars");
 
-app.engine("handlebars", exhb({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+// app.engine("handlebars", exhb({ defaultLayout: "main" }));
+// app.set("view engine", "handlebars");
 
 // Routes =============================================================
-require("../routes/api-routes.js")(app);
+require("./routes/api-routes.js")(app);
 
 // Syncing our sequelize models and then starting our express app
-db.sequelize.sync().then(function() {
+db.sequelize.sync({force: true}).then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
