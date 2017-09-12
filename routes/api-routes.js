@@ -8,18 +8,44 @@ module.exports = function(app) {
 
     // ---------------------------- GET ROUTES ---------------------------- //
 
+    /// REDIRECT TO LOGIN
     app.get('/', function(req, res) {
         res.redirect('/login');
     });
 
-    /// SHOW LOGIN ON LOAD
-    app.get("/login", function(req, res) {
+    /// LOAD LOGIN
+    app.get('/login', function(req, res) {
         res.render('login', req);
     });
 
     /// SHOW REGISTER ON BUTTON CLICK
     app.get("/register", function(req, res) {
         res.render('register', req);
+    });
+
+    /// DASHBOARD
+    app.get('/dashboard', function(req, res) {
+        db.Centers.findAll().then(function(data) {
+            var hbsObject = { centers: data };
+            res.render('dashboard', hbsObject);
+        });
+    });
+
+    /// MAP
+    app.get("/map", function(req, res) {
+        res.render('map', req);
+    });
+
+    /// ROUTE TO SHOPPING CENTER PAGE BY ID
+    app.get("/center/:centerID", function(req, res) {
+        db.Tenants.findAll({
+            where: {
+                CenterId: req.params.centerID
+            }
+        }).then(function(data) {
+            var hbsObject = { tenants: data };
+            res.render('center', hbsObject);
+        });
     });
 
 
@@ -40,21 +66,7 @@ module.exports = function(app) {
     })
 
 
-    /// REDIRECT FROM LOGIN TO DASHBOARD IF VALIDATED
-    app.get("/login", function(req, res) {
-        res.render('dashboard.html', req);
-    });
 
-
-    /// ROUTE TO SHOPPING CENTER PAGE BY ID
-    app.get("/center/:centerID", function(req, res) {
-        console.log(req.params.centerID);
-        console.log(req.body);
-
-        var render = req.body.centerName + ".html";
-
-        res.render(render, req);
-    });
 
 
 

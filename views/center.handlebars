@@ -1,0 +1,231 @@
+<body>
+    <div class="wrapper">
+        <div class="sidebar" data-color="green" data-image="../../public/assets/img/full-screen-image-3.jpg">
+            <!--
+            Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+            Tip 2: you can also add an image using data-image tag
+        -->
+            <div class="logo">
+                <a href="" class="logo-text">
+                FIP
+            </a>
+            </div>
+            <div class="logo logo-mini">
+                <a href="" class="logo-text">
+                FIP
+            </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <div class="user">
+                    <!--                 <div class="photo">
+                    <img src="../assets/img/default-avatar.png" />
+                </div> -->
+                    <div class="info">
+                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                        UserName
+<!--                         <b class="caret"></b> -->
+                    </a>
+                        <!--                     <div class="collapse" id="collapseExample">
+                        <ul class="nav">
+                            <li><a href="#">My Profile</a></li>
+                            <li><a href="#">Edit Profile</a></li>
+                            <li><a href="#">Settings</a></li>
+                        </ul>
+                    </div> -->
+                    </div>
+                </div>
+                <!-- NAVBAR -->
+                <ul class="nav">
+                    <li class="active">
+                        <a href="dashboard.html">
+                        <i class="pe-7s-graph"></i>
+                        <p>Dashboard</p>
+                    </a>
+                    </li>
+                    <!-- SHOPPING CENTERS -->
+                    <li>
+                        <a data-toggle="collapse" href="#componentsExamples">
+                            <i class="pe-7s-plugin"></i>
+                            <p>Shopping Centers
+                               <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="componentsExamples">
+                            <ul class="nav">
+                                {{#each centers}}
+                                <li>
+                                    <li><a href="/center/{{this.id}}">{{this.centerName}}</a></li>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- MAP -->
+                    <li>
+                        <a data-toggle="collapse" href="fullscreen.html">
+                        <i class="pe-7s-map-marker"></i>
+                        <p>Map</p>
+                    </a>
+                    </li>
+                    <!-- CALENDAR -->
+                    <li>
+                        <a href="calendar.html">
+                        <i class="pe-7s-date"></i>
+                        <p>Calendar</p>
+                    </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- TOP HEADER -->
+        <div class="main-panel">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon">
+                            <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
+                            <i class="fa fa-navicon visible-on-sidebar-mini"></i>
+                        </button>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">FIP ASSET MANAGEMENT DASHBOARD</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <form class="navbar-form navbar-left navbar-search-form" role="search">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                <input type="text" value="" class="form-control" placeholder="Search...">
+                            </div>
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="charts.html">
+                                <i class="fa fa-line-chart"></i>
+                                <p>Stats</p>
+                            </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-gavel"></i>
+                                <p class="hidden-md hidden-lg">
+                                    Actions
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Create New Post</a></li>
+                                    <li><a href="#">Manage Something</a></li>
+                                    <li><a href="#">Do Nothing</a></li>
+                                    <li><a href="#">Submit to live</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Another Action</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span class="notification">5</span>
+                                <p class="hidden-md hidden-lg">
+                                    Notifications
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Notification 1</a></li>
+                                    <li><a href="#">Notification 2</a></li>
+                                    <li><a href="#">Notification 3</a></li>
+                                    <li><a href="#">Notification 4</a></li>
+                                    <li><a href="#">Another notification</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown dropdown-with-icons">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-list"></i>
+                                <p class="hidden-md hidden-lg">
+                                    More
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                                <ul class="dropdown-menu dropdown-with-icons">
+                                    <li>
+                                        <a href="#">
+                                        <i class="pe-7s-mail"></i> Messages
+                                    </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                        <i class="pe-7s-help1"></i> Help Center
+                                    </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                        <i class="pe-7s-tools"></i> Settings
+                                    </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                        <i class="pe-7s-lock"></i> Lock Screen
+                                    </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-danger">
+                                        <i class="pe-7s-close-circle"></i>
+                                        Log out
+                                    </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <h2>CENTER PAGE</h2>
+            <p>{{this.CenterId}}</p>
+            <p>hello</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- create button -->
+                    <button type="button" class="btn btn-default btn-lg btn-block" id="button-create" data-toggle='modal' data-target='#modal--create'>Create an Event</button>
+                </div>
+            </div>
+            <!-- Modal for Create Feature -->
+            <div class="modal fade" id="modal--create" tabindex="-1" role="dialog" aria-labelledby="modal--create">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Enter Information on Your Event</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <form method="POST" action="/api/newGame" id="form--event-add">
+                                        <div class="input-group">
+                                            <label class="input-group-addon" for="course">Player Information</label>
+                                            <input type="text" id="player-name" name="playername" class="form-control" placeholder="Player Name">
+                                            <input type="text" id="player-email" name="email" class="form-control" placeholder="Email Address">
+                                            <input type="text" id="player-password" name="password" class="form-control" placeholder="Password">
+                                        </div>
+                                        <div class="input-group">
+                                            <label class="input-group-addon" for="player">Event Information</label>
+                                            <input type="text" id="team-name" name="teamname" class="form-control" placeholder="Team Name">
+                                            <input type="text" id="course-name" name="coursename" class="form-control" placeholder="Course Name">
+                                            <input type="text" id="event-date" name="date" class="form-control" placeholder="Date">
+                                            <input type="text" id="event-time" name="time" class="form-control" placeholder="Time">
+                                        </div>
+                                        <!-- Submit Button -->
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-default" method="GET" action="/" type="submit" id="form--event-add">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</body>
