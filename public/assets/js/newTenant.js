@@ -1,20 +1,17 @@
 $(document).ready(function() {
 
     // Getting references to the add new tenant inputs
-    var tenantName = $("#tenantName");
-    var tenantSF = $("#tenantSF");
-    var leaseStart = $("#leaseStart");
-    var leaseEnd = $("#leaseEnd");
-    var basePSF = $("#basePSF");
-    var camPSF = $("#camPSF");
-    var salesPSF = $("#salesPSF");
-    var noticeDate = $("#noticeDate");
-    var noticeRent = $("#noticeRent");
+    var CenterId = $("[name=centerId]");
 
-    var totalPSF = parseInt(req.body.basePSF) + parseInt(req.body.camPSF);
-    var annualRent = parseInt(req.body.basePSF) * parseInt(req.body.tenantSF);
-    var annualSales = parseInt(salesPSF) * parseInt(req.body.tenantSF);
-    var occupancy = parseInt(salesPSF) / parseInt(totalPSF);
+    var tenantName = $("[name=tenantName]");
+    var tenantSF = $("[name=tenantSF]");
+    var leaseStart = $("[name=leaseStart]");
+    var leaseEnd = $("[name=leaseEnd]");
+    var basePSF = $("[name=basePSF]");
+    var camPSF = $("[name=camPSF]");
+    var salesPSF = $("[name=salesPSF]");
+    var noticeDate = $("[name=noticeDate]");
+    var noticeRent = $("[name=noticeRent]");
 
     // Handle new tenant submit
     $(document).on("submit", "#form--event-add", handleTenantFormSubmit);
@@ -31,9 +28,20 @@ $(document).ready(function() {
             return;
         }
 
+        // A function for creating a new tenant
+        function newTenant(tenantData) {
+            console.log(tenantData);
+            $.post("/api/newTenant", tenantData, function(){
+                console.log('request ended')
+            })
+            console.log("running new tenant funciton with tenantData");
+        }
+
         // Calling the newTenant function and passing in the values in the new tenant input
         newTenant({
-
+            CenterId: CenterId
+                .val()
+                .trim(),
             tenantName: tenantName
                 .val()
                 .trim(),
@@ -52,19 +60,7 @@ $(document).ready(function() {
             camPSF: camPSF
                 .val()
                 .trim(),
-            totalPSF: totalPSF
-                .val()
-                .trim(),
-            annualRent: annualRent
-                .val()
-                .trim(),
             salesPSF: salesPSF
-                .val()
-                .trim(),
-            annualSales: annualSales
-                .val()
-                .trim(),
-            occupancy: occupancy
                 .val()
                 .trim(),
             noticeDate: noticeDate
@@ -75,13 +71,6 @@ $(document).ready(function() {
                 .trim()
 
         });
-
-
-        // A function for creating a new tenant
-        function newTenant(tenantData) {
-            $.post("/api/newTenant", tenantData)
-            console.log("running new tenant funciton with tenantData");
-        }
 
     };
 

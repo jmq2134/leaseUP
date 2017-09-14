@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     tenantName: DataTypes.STRING,
     tenantSF: DataTypes.STRING,
     leaseStart: DataTypes.STRING,
-    leaseEnd: DataTypes.BOOLEAN,
+    leaseEnd: DataTypes.STRING,
     basePSF: DataTypes.STRING,
     camPSF: DataTypes.STRING,
     totalPSF: DataTypes.STRING,

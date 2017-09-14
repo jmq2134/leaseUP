@@ -1,6 +1,6 @@
 <body>
     <div class="wrapper">
-        <div class="sidebar" data-color="green" data-image="../../public/assets/img/full-screen-image-3.jpg">
+        <div class="sidebar" data-color="green" data-image="/assets/img/full-screen-image-3.jpg">
             <!--
             Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
             Tip 2: you can also add an image using data-image tag
@@ -22,7 +22,7 @@
                 </div> -->
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                        UserName
+                        Username
 <!--                         <b class="caret"></b> -->
                     </a>
                         <!--                     <div class="collapse" id="collapseExample">
@@ -54,7 +54,7 @@
                             <ul class="nav">
                                 {{#each centers}}
                                 <li>
-                                    <li><a href="/center/{{this.id}}">{{this.centerName}}</a></li>
+                                    <a href="/center/{{this.id}}">{{this.centerName}}</a>
                                 </li>
                                 {{/each}}
                             </ul>
@@ -187,12 +187,12 @@
                 </div>
             </nav>
             <h2>CENTER PAGE</h2>
-            <p>{{this.CenterId}}</p>
+            <p>{{centerName}}</p>
             <p>hello</p>
             <div class="row">
                 <div class="col-md-6">
                     <!-- create button -->
-                    <button type="button" class="btn btn-default btn-lg btn-block" id="button-create" data-toggle='modal' data-target='#modal--create'>Create an Event</button>
+                    <button type="button" class="btn btn-default btn-lg btn-block" id="button-create" data-toggle='modal' data-target='#modal--create'>Add Tenant</button>
                 </div>
             </div>
             <!-- Modal for Create Feature -->
@@ -201,28 +201,50 @@
                     <div class="modal-content">
                         <div class="modal-body">
                             <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Enter Information on Your Event</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <form method="POST" action="/api/newGame" id="form--event-add">
-                                        <div class="input-group">
-                                            <label class="input-group-addon" for="course">Player Information</label>
-                                            <input type="text" id="player-name" name="playername" class="form-control" placeholder="Player Name">
-                                            <input type="text" id="player-email" name="email" class="form-control" placeholder="Email Address">
-                                            <input type="text" id="player-password" name="password" class="form-control" placeholder="Password">
-                                        </div>
-                                        <div class="input-group">
-                                            <label class="input-group-addon" for="player">Event Information</label>
-                                            <input type="text" id="team-name" name="teamname" class="form-control" placeholder="Team Name">
-                                            <input type="text" id="course-name" name="coursename" class="form-control" placeholder="Course Name">
-                                            <input type="text" id="event-date" name="date" class="form-control" placeholder="Date">
-                                            <input type="text" id="event-time" name="time" class="form-control" placeholder="Time">
-                                        </div>
-                                        <!-- Submit Button -->
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button class="btn btn-default" method="GET" action="/" type="submit" id="form--event-add">Submit</button>
-                                    </form>
+                                <div class="row ">
+                                    <div class="panel-heading ">
+                                        <h3 class="panel-title ">Enter Tenant Info</h3>
+                                    </div>
+                                    <div class="panel-body ">
+                                        <form class="create-update-form" action="/api/newTenant" method="POST">
+                                            <input type="hidden" name="centerId" value="{{center}}" />
+                                            <div class="col-md-5">
+                                                <input type="text" placeholder="Tenant Name" id="tenantName" name="tenantName" class="form-control">
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" placeholder="Square Footage" id="tenantSF"  name="tenantSF" class="form-control">
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group ">
+                                                    <input type="text" class="form-control datepicker" id="leaseStart" name="leaseStart" placeholder="Lease Start" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group ">
+                                                    <input type="text" class="form-control datepicker" id="leaseEnd" name="leaseEnd" placeholder="Lease End" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" placeholder="Base Rent PSF" id="basePSF" name="basePSF" class="form-control">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" placeholder="CAM Rent PSF" id="camPSF" name="camPSF" class="form-control">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" placeholder="Sales PSF" id="salesPSF" name="salesPSF" class="form-control">
+                                            </div>
+                                            <div class="col-md-4 ">
+                                                <div class="form-group ">
+                                                    <input type="text" class="form-control datepicker" id="noticeDate" name="noticeDate" placeholder="Notice Date" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" placeholder="Notice Rent" id="noticeRent" name="noticeRent" class="form-control ">
+                                            </div>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal ">Close</button>
+                                            <button class="btn btn-default " method="GET" action="/" type="submit " id="form--event-add">Submit</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

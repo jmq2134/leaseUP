@@ -37,13 +37,13 @@ module.exports = function(app) {
     });
 
     /// ROUTE TO SHOPPING CENTER PAGE BY ID
-    app.get("/center/:centerID", function(req, res) {
+    app.get("/center/:id", function(req, res) {
         db.Tenants.findAll({
             where: {
-                CenterId: req.params.centerID
+                CenterId: req.params.id
             }
         }).then(function(data) {
-            var hbsObject = { tenants: data };
+            var hbsObject = { tenants: data, center: req.params.id}
             res.render('center', hbsObject);
         });
     });
@@ -66,10 +66,6 @@ module.exports = function(app) {
     })
 
 
-
-
-
-
     // ---------------------------- POST ROUTES ---------------------------- //
 
 
@@ -85,23 +81,33 @@ module.exports = function(app) {
 
     /// ADD A NEW TENANT
 
-    app.post("/api/newTenant/:centerID", function(req, res) {
+    app.post("/api/newTenant", function(req, res) {
 
         // LOG INFO FROM REQ.BODY FROM MODAL FORM
         console.log("------------------------");
-        console.log("centerID:" + req.params.centerID);
         console.log(req.body);
         console.log("------------------------");
 
         // ADD TO TENANTS TABLE
         db.Tenants.create({
-
-
-
+            CenterId: req.body.centerId,
+            tenantName: req.body.tenantName,
+            tenantSF: req.body.tenantSF,
+            leaseStart: req.body.leaseStart,
+            leaseEnd: req.body.leaseEnd,
+            basePSF: req.body.basePSF,
+            camPSF: req.body.camPSF,
+            totalPSF: parseInt(req.body.basePSF) + parseInt(req.body.camPSF),
+            annualRent: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) * parseInt(req.body.tenantSF),
+            salesPSF: req.body.salesPSF,
+            annualSales: parseInt(req.body.salesPSF) * parseInt(req.body.tenantSF),
+            occupancy: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) / parseInt(req.body.salesPSF),
+            noticeDate: req.body.noticeDate,
+            noticeRent: req.body.noticeRent
         }).then(function(data) {
 
             // REDIRECT TO CENTER PAGE
-            res.redirect("/center/" + data.centerID);
+            res.redirect("/center/" + req.body.centerId);
 
         }).catch(function(error) {
 
