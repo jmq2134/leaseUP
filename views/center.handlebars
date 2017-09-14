@@ -186,9 +186,11 @@
                     </div>
                 </div>
             </nav>
-            <h2>CENTER PAGE</h2>
-            <p>{{centerName}}</p>
-            <p>hello</p>
+            <h2>{{center.centerName}}</h2>
+            <p>{{center.id}}</p>
+            {{#each center.Tenants}}
+                {{tenantName}}
+            {{/each}}
             <div class="row">
                 <div class="col-md-6">
                     <!-- create button -->

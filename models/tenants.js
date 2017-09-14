@@ -21,12 +21,12 @@ module.exports = function(sequelize, DataTypes) {
 
   });
 
-  // Tenants.associate = function(models) {
+  Tenants.associate = function(models) {
 
-  //   Tenants.hasOne(models.Centers, {
-  //     onDelete: "cascade"
-  //   });
+    Tenants.belongsTo(models.Centers, {
+      onDelete: "cascade"
+    });
 
-  // };
+  };
   return Tenants;
 };

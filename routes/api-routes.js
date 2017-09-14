@@ -36,17 +36,24 @@ module.exports = function(app) {
         res.render('map', req);
     });
 
+
     /// ROUTE TO SHOPPING CENTER PAGE BY ID
-    app.get("/center/:id", function(req, res) {
-        db.Tenants.findAll({
-            where: {
-                CenterId: req.params.id
-            }
-        }).then(function(data) {
-            var hbsObject = { tenants: data, center: req.params.id}
-            res.render('center', hbsObject);
-        });
+    app.get("/center/test/:id", function(req, res) {
+        db.Centers.findOne({
+            where : {
+                id : req.params.id
+            },
+            include : [{
+                model: db.Tenants,
+                required: false
+            }]
+        }).then(function(center){
+            res.render('center', {
+                center: center
+            });
+        })
     });
+
 
 
     // ---------------------------- API GET ROUTES ---------------------------- //
@@ -128,25 +135,19 @@ module.exports = function(app) {
         console.log(req.body);
         console.log("\n\n\n>>>>");
 
-        var totalPSF = parseInt(req.body.basePSF) + parseInt(req.body.camPSF);
-        var annualRent = parseInt(req.body.basePSF) * parseInt(req.body.tenantSF);
-        var annualSales = parseInt(salesPSF) * parseInt(req.body.tenantSF);
-        var occupancy = parseInt(salesPSF) / parseInt(totalPSF);
-
-        // ADD EDITS TO TENANT TABLE BY TENANTID
         db.Tenants.update({
+            CenterId: req.body.centerId,
             tenantName: req.body.tenantName,
-            centerID: req.params.centerID,
             tenantSF: req.body.tenantSF,
             leaseStart: req.body.leaseStart,
             leaseEnd: req.body.leaseEnd,
             basePSF: req.body.basePSF,
             camPSF: req.body.camPSF,
-            totalPSF: totalPSF,
-            annualRent: annualRent,
+            totalPSF: parseInt(req.body.basePSF) + parseInt(req.body.camPSF),
+            annualRent: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) * parseInt(req.body.tenantSF),
             salesPSF: req.body.salesPSF,
-            annualSales: annualSales,
-            occupancy: occupancy,
+            annualSales: parseInt(req.body.salesPSF) * parseInt(req.body.tenantSF),
+            occupancy: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) / parseInt(req.body.salesPSF),
             noticeDate: req.body.noticeDate,
             noticeRent: req.body.noticeRent
         }, {
@@ -155,7 +156,7 @@ module.exports = function(app) {
             // REDIRECT TO SHOPPING CENTER PAGE
         }).then(function(data) {
 
-            res.redirect("/center/" + data.centerID);
+            res.redirect("/center/" + req.body.centerId);
 
             // CATCH ERRORS
         }).catch(function(error) {
@@ -164,9 +165,9 @@ module.exports = function(app) {
         });
 
 
-        /// DELETE A TENANT
+    /// DELETE A TENANT
 
-        app.post("/api/remove/:centerID/:tenantID", function(req, res) {
+    app.post("/api/remove/:centerID/:tenantID", function(req, res) {
 
             console.log("\n\n\n>>>>");
             console.log("centerID:" + req.params.centerID);
@@ -180,7 +181,7 @@ module.exports = function(app) {
                 // REDIRECT TO SHOPPING CENTER PAGE
             }).then(function(data) {
 
-                res.redirect("/center/" + data.centerID);
+                res.redirect("/center/" + req.body.centerId);
 
                 // CATCH ERRORS
             }).catch(function(error) {
