@@ -187,7 +187,7 @@
                 </div>
             </nav>
             <h2>{{center.centerName}}</h2>
-            <p>{{center.id}}</p>
+            <p>{{center.centerAddress}}</p>
             {{#each center.Tenants}}
                 {{tenantName}}
             {{/each}}
@@ -208,7 +208,7 @@
                                         <h3 class="panel-title ">Enter Tenant Info</h3>
                                     </div>
                                     <div class="panel-body ">
-                                        <form class="create-update-form" action="/api/newTenant" method="POST">
+                                        <form class="create-update-form" action="/api/{{center.id}}/newTenant" method="POST">
                                             <input type="hidden" name="centerId" value="{{center}}" />
                                             <div class="col-md-5">
                                                 <input type="text" placeholder="Tenant Name" id="tenantName" name="tenantName" class="form-control">

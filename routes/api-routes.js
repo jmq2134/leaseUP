@@ -38,7 +38,7 @@ module.exports = function(app) {
 
 
     /// ROUTE TO SHOPPING CENTER PAGE BY ID
-    app.get("/center/test/:id", function(req, res) {
+    app.get("/center/:id", function(req, res) {
         db.Centers.findOne({
             where : {
                 id : req.params.id
@@ -88,7 +88,7 @@ module.exports = function(app) {
 
     /// ADD A NEW TENANT
 
-    app.post("/api/newTenant", function(req, res) {
+    app.post("/api/:id/newTenant", function(req, res) {
 
         // LOG INFO FROM REQ.BODY FROM MODAL FORM
         console.log("------------------------");
@@ -97,7 +97,7 @@ module.exports = function(app) {
 
         // ADD TO TENANTS TABLE
         db.Tenants.create({
-            CenterId: req.body.centerId,
+            CenterId: req.params.id,
             tenantName: req.body.tenantName,
             tenantSF: req.body.tenantSF,
             leaseStart: req.body.leaseStart,
@@ -114,7 +114,7 @@ module.exports = function(app) {
         }).then(function(data) {
 
             // REDIRECT TO CENTER PAGE
-            res.redirect("/center/" + req.body.centerId);
+            res.redirect("/center/" + req.params.id);
 
         }).catch(function(error) {
 
