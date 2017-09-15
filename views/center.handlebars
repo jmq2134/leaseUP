@@ -186,17 +186,19 @@
                     </div>
                 </div>
             </nav>
-            <h2>{{center.centerName}}</h2>
-            <p>{{center.centerAddress}}</p>
-            {{#each center.Tenants}}
-                {{tenantName}}
-            {{/each}}
             <div class="row">
+                <!-- center name and address -->
+                <div class="col-md-3">
+                    <h2>{{center.centerName}}</h2>
+                    <p>{{center.centerAddress}}</p>
+                </div>
+                <!-- add new button -->
                 <div class="col-md-6">
-                    <!-- create button -->
-                    <button type="button" class="btn btn-default btn-lg btn-block" id="button-create" data-toggle='modal' data-target='#modal--create'>Add Tenant</button>
+                    <button type="button" class="btn btn-fill btn-info" id="button-create" data-toggle='modal' data-target='#modal--create'>Add Tenant</button>
                 </div>
             </div>
+
+            {{#each center.Tenants}} {{tenantName}} {{/each}}
             <!-- Modal for Create Feature -->
             <div class="modal fade" id="modal--create" tabindex="-1" role="dialog" aria-labelledby="modal--create">
                 <div class="modal-dialog" role="document">
@@ -209,41 +211,53 @@
                                     </div>
                                     <div class="panel-body ">
                                         <form class="create-update-form" action="/api/{{center.id}}/newTenant" method="POST">
+                                            <!-- hidden center id -->
                                             <input type="hidden" name="centerId" value="{{center}}" />
+                                            <!-- tenantName -->
                                             <div class="col-md-5">
                                                 <input type="text" placeholder="Tenant Name" id="tenantName" name="tenantName" class="form-control">
                                             </div>
+                                            <!-- tenantSF -->
                                             <div class="col-md-5">
-                                                <input type="text" placeholder="Square Footage" id="tenantSF"  name="tenantSF" class="form-control">
+                                                <input type="text" placeholder="Square Footage" id="tenantSF" name="tenantSF" class="form-control">
                                             </div>
+                                            <!-- leaseStart -->
                                             <div class="col-md-5">
                                                 <div class="form-group ">
                                                     <input type="text" class="form-control datepicker" id="leaseStart" name="leaseStart" placeholder="Lease Start" />
                                                 </div>
                                             </div>
+                                            <!-- leaseEnd -->
                                             <div class="col-md-5">
                                                 <div class="form-group ">
                                                     <input type="text" class="form-control datepicker" id="leaseEnd" name="leaseEnd" placeholder="Lease End" />
                                                 </div>
                                             </div>
+                                            <!-- basePSF -->
                                             <div class="col-md-3">
                                                 <input type="text" placeholder="Base Rent PSF" id="basePSF" name="basePSF" class="form-control">
                                             </div>
+                                            <!-- camPSF -->
                                             <div class="col-md-3">
                                                 <input type="text" placeholder="CAM Rent PSF" id="camPSF" name="camPSF" class="form-control">
                                             </div>
+                                            <!-- salesPSF -->
                                             <div class="col-md-3">
                                                 <input type="text" placeholder="Sales PSF" id="salesPSF" name="salesPSF" class="form-control">
                                             </div>
+                                            <!-- noticeDate -->
                                             <div class="col-md-4 ">
                                                 <div class="form-group ">
                                                     <input type="text" class="form-control datepicker" id="noticeDate" name="noticeDate" placeholder="Notice Date" />
                                                 </div>
                                             </div>
+                                            <!-- noticeRent -->
                                             <div class="col-md-4">
                                                 <input type="text" placeholder="Notice Rent" id="noticeRent" name="noticeRent" class="form-control ">
                                             </div>
-                                            <button type="button" class="btn btn-default" data-dismiss="modal ">Close</button>
+                                            <!-- close button -->
+                                            <button  type="button"class="btn btn-danger btn-fill btn-wd" data-dismiss="modal">Close</button>
+                                            <!-- submit button -->
                                             <button class="btn btn-default " method="GET" action="/" type="submit " id="form--event-add">Submit</button>
                                         </form>
                                     </div>
@@ -252,4 +266,5 @@
                         </div>
                     </div>
                 </div>
+
 </body>
