@@ -83,34 +83,32 @@
 
                     </div>
                     <div class="col-md-4 col-md-offset-s1">
-                        <form method="#" action="#">
+                        <form id="signup" name="signup" method="post" action="/signup">
                             <div class="card card-plain">
                                 <div class="content">
+                                    <!-- FIRST NAME -->
                                     <div class="form-group">
-                                        <input type="text" placeholder="Your First Name" class="form-control">
+                                        <input type="text" name ="firstname" placeholder="Your First Name" class="form-control">
                                     </div>
+                                    <!-- LAST NAME -->
                                     <div class="form-group">
-                                        <input type="text" placeholder="Your Last Name" class="form-control">
+                                        <input type="text" name="lastname" placeholder="Your Last Name" class="form-control">
                                     </div>
+                                    <!-- EMAIL -->
                                     <div class="form-group">
-                                        <input type="text" placeholder="Title" class="form-control">
+                                        <input type="email" name="email" placeholder="Enter email" class="form-control">
                                     </div>
+                                    <!-- PASSWORD -->
                                     <div class="form-group">
-                                        <input type="email" placeholder="Enter email" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" placeholder="Password" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" placeholder="Password Confirmation" class="form-control">
+                                        <input type="password" name="password" placeholder="Password" class="form-control">
                                     </div>
                                 </div>
+                                <!-- SUBMIT -->
                                 <div class="footer text-center">
-                                    <button type="submit" class="btn btn-fill btn-success btn-wd">Create Account</button>
+                                    <button type="submit" value="Sign Up" class="btn btn-fill btn-success btn-wd">Create Account</button>
                                 </div>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>

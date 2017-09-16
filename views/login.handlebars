@@ -14,7 +14,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/register">
+                        <a href="/signup">
                         Register
                     </a>
                     </li>
@@ -35,22 +35,22 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                            <form method="#" action="#">
+                            <form id="signin" name="signin" method="post" action="login">
                                 <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
                                 <div class="card card-hidden">
                                     <div class="header text-center">Login</div>
                                     <div class="content">
                                         <div class="form-group">
                                             <label>Email address</label>
-                                            <input type="email" placeholder="Enter email" class="form-control">
+                                            <input type="email" name="email" placeholder="Enter email" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label>Password</label>
-                                            <input type="password" placeholder="Password" class="form-control">
+                                            <input type="password" name="email" placeholder="Password" class="form-control">
                                         </div>
                                     </div>
                                     <div class="footer text-center">
-                                        <button type="submit" class="btn btn-fill btn-primary btn-wd">Login</button>
+                                        <button type="submit" value="Log In" class="btn btn-fill btn-primary btn-wd">Login</button>
                                     </div>
                                 </div>
                             </form>

@@ -19,8 +19,8 @@ module.exports = function(app) {
     });
 
     /// SHOW REGISTER ON BUTTON CLICK
-    app.get("/register", function(req, res) {
-        res.render('register', req);
+    app.get("/signup", function(req, res) {
+        res.render('signup', req);
     });
 
     /// DASHBOARD
