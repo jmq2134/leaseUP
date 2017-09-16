@@ -10,12 +10,12 @@ module.exports = function(app) {
 
     /// REDIRECT TO LOGIN
     app.get('/', function(req, res) {
-        res.redirect('/login');
+        res.redirect('/signin');
     });
 
-    /// LOAD LOGIN
-    app.get('/login', function(req, res) {
-        res.render('login', req);
+    /// LOAD SIGNIN
+    app.get('/signin', function(req, res) {
+        res.render('signin', req);
     });
 
     /// SHOW REGISTER ON BUTTON CLICK
@@ -75,16 +75,6 @@ module.exports = function(app) {
 
     // ---------------------------- POST ROUTES ---------------------------- //
 
-
-    /// PASSPORT AUTHENTICATION
-
-    app.post('/login',
-        passport.authenticate('local', {
-            successRedirect: '/dashboard',
-            failureRedirect: '/login',
-            failureFlash: true
-        })
-    );
 
     /// ADD A NEW TENANT
 
