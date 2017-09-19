@@ -1,32 +1,70 @@
 'use strict';
 var Sequelize = require('sequelize');
 
-module.exports = function(sequelize, DataTypes) {
-  
-  var Tenants = sequelize.define("Tenants", {
+module.exports = function(sequelize, Sequelize) {
 
-    tenantName: DataTypes.STRING,
-    tenantSF: DataTypes.STRING,
-    leaseStart: DataTypes.STRING,
-    leaseEnd: DataTypes.STRING,
-    basePSF: DataTypes.STRING,
-    camPSF: DataTypes.STRING,
-    totalPSF: DataTypes.STRING,
-    annualRent: DataTypes.STRING,
-    salesPSF: DataTypes.STRING,
-    annualSales: DataTypes.STRING,
-    occupancy: DataTypes.STRING,
-    noticeDate: DataTypes.STRING,
-    noticeRent: DataTypes.STRING
+    var Tenants = sequelize.define("Tenants", {
 
-  });
-
-  Tenants.associate = function(models) {
-
-    Tenants.belongsTo(models.Centers, {
-      onDelete: "cascade"
+        tenantName: {
+            type: Sequelize.STRING,
+            defaultValue: 'Vacant'
+        },
+        tenantSF: {
+            type: Sequelize.INTEGER,
+            defaultValue: '0'
+        },
+        leaseStart: {
+            type: Sequelize.STRING,
+            defaultValue: '0'
+        },
+        leaseEnd: {
+            type: Sequelize.STRING,
+            defaultValue: '0'
+        },
+        basePSF: {
+            type: Sequelize.INTEGER,
+            defaultValue: '0'
+        },
+        camPSF: {
+            type: Sequelize.INTEGER,
+            defaultValue: '0'
+        },
+        totalPSF: {
+            type: Sequelize.INTEGER,
+            defaultValue: '0'
+        },
+        annualRent: {
+            type: Sequelize.INTEGER,
+            defaultValue: '0'
+        },
+        salesPSF: {
+            type: Sequelize.INTEGER,
+            defaultValue: '0'
+        },
+        annualSales: {
+            type: Sequelize.INTEGER,
+            defaultValue: '0'
+        },
+        occupancy: {
+            type: Sequelize.INTEGER,
+            defaultValue: '0'
+        },
+        noticeDate: {
+            type: Sequelize.STRING,
+            defaultValue: '0'
+        },
+        noticeRent: {
+            type: Sequelize.INTEGER,
+            defaultValue: '0'
+        }
     });
 
-  };
-  return Tenants;
+    Tenants.associate = function(models) {
+
+        Tenants.belongsTo(models.Centers, {
+            onDelete: "cascade"
+        });
+
+    };
+    return Tenants;
 };

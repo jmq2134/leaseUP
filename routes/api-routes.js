@@ -23,6 +23,11 @@ module.exports = function(app) {
         res.render('signup', req);
     });
 
+    /// SHOW USER PROFILE
+    app.get("/user", function(req, res) {
+        res.render('user', req);
+    });
+
     /// DASHBOARD
     app.get('/dashboard', function(req, res) {
         db.Centers.findAll().then(function(data) {

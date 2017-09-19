@@ -227,7 +227,7 @@
                                         <tr>
                                             <td></td>
                                             <td>{{tenantName}}</td>
-                                            <td>{{tenantSF}}</td>
+                                            <td class="tenantSF">{{tenantSF}}</td>
                                             <td>{{leaseStart}}</td>
                                             <td>{{leaseEnd}}</td>
                                             <td>{{basePSF}}</td>
@@ -240,6 +240,21 @@
                                             <td>{{noticeRent}}</td>
                                         </tr>
                                         {{/each}}
+                                        <tr class="sumRow">
+                                            <td></td>
+                                            <td>Total SF</td>
+                                            <td class="tenantSFsum"></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -332,4 +347,33 @@
                         </div>
                     </div>
                 </div>
+                <!--   Core JS Files and PerfectScrollbar library inside jquery.ui   -->
+                <script src="/assets/js/jquery.min.js" type="text/javascript"></script>
+                <script src="/assets/js/jquery-ui.min.js" type="text/javascript"></script>
+                <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
+                <script type="text/javascript">
+                $(document).ready(function() {
+
+                    var sum = 0
+
+                    $('tr').each(function() {
+                        
+
+                        $(this).find('.tenantSF').each(function() {
+
+                            var tenantSF = $(this).text();
+                            console.log(tenantSF);
+
+                            if (!isNaN(tenantSF) && tenantSF.length !== 0) {
+                                sum += parseFloat(tenantSF);
+                                console.log(sum);
+                            }
+
+                        });
+
+                        $('.tenantSFsum', this).html(sum);
+
+                    });
+                });
+                </script>
 </body>

@@ -20,15 +20,13 @@
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                         UserName
-<!--                         <b class="caret"></b> -->
+                            <b class="caret"></b>
                     </a>
-                        <!--                     <div class="collapse" id="collapseExample">
-                        <ul class="nav">
-                            <li><a href="#">My Profile</a></li>
-                            <li><a href="#">Edit Profile</a></li>
-                            <li><a href="#">Settings</a></li>
-                        </ul>
-                    </div> -->
+                        <div class="collapse" id="collapseExample">
+                            <ul class="nav">
+                                <li><a href="/user">My Profile</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <!-- NAVBAR -->
@@ -50,9 +48,9 @@
                         <div class="collapse" id="componentsExamples">
                             <ul class="nav">
                                 {{#each centers}}
-                                    <li>
-                                        <a href="/center/{{this.id}}">{{this.centerName}}</a>
-                                    </li>
+                                <li>
+                                    <a href="/center/{{this.id}}">{{this.centerName}}</a>
+                                </li>
                                 {{/each}}
                             </ul>
                         </div>
