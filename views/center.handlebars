@@ -226,7 +226,7 @@
                                         {{#each center.Tenants}}
                                         <tr>
                                             <td></td>
-                                            <td>{{tenantName}}</td>
+                                            <td class="tenantName">{{tenantName}}</td>
                                             <td class="tenantSF">{{tenantSF}}</td>
                                             <td>{{leaseStart}}</td>
                                             <td>{{leaseEnd}}</td>
@@ -242,7 +242,7 @@
                                         {{/each}}
                                         <tr class="sumRow">
                                             <td></td>
-                                            <td colspan="2">Total SF</td>
+                                            <td>Total SF</td>
                                             <td class="tenantSFsum"></td>
                                             <td></td>
                                             <td></td>
@@ -354,22 +354,52 @@
                 <script type="text/javascript">
                 $(document).ready(function() {
 
-                    var sum = 0
+                    var sum = 0;
+                    var result = 0;
+                    var vacant = 0;
+                    var occupied = 0;
 
                     $('tr').each(function() {
-                        
 
-                        $(this).find('.tenantSF').each(function() {
+                        $(this).find('.tenantName').each(function() {
 
-                            var tenantSF = $(this).text();
-                            console.log(tenantSF);
+                            var tenantName = $(this).text();
+                            console.log(tenantName);
 
-                            if (!isNaN(tenantSF) && tenantSF.length !== 0) {
-                                sum += parseFloat(tenantSF);
-                                console.log(sum);
+                            if (tenantName == "Vacant") {
+
+                                result = $(this).closest('td').next().text();
+                                console.log(result);
+                                vacant += parseFloat(result);
+                                console.log("Vacant: " + vacant);
+                                sum += parseFloat(result);
+
+                            } else {
+
+                                result = $(this).closest('td').next().text();
+                                console.log(result);
+                                occupied += parseFloat(result);
+                                console.log("Occupied: " + occupied);
+                                sum += parseFloat(result);
+
+
                             }
 
                         });
+
+                        console.log("Sum: " + sum);
+
+                        // $(this).find('.tenantSF').each(function() {
+
+                        //     var tenantSF = $(this).text();
+                        //     console.log(tenantSF);
+
+                        //     if (!isNaN(tenantSF) && tenantSF.length !== 0) {
+                        //         sum += parseFloat(tenantSF);
+                        //         console.log("Sum: " + sum);
+                        //     }
+
+                        // });
 
                         $('.tenantSFsum', this).html(sum);
 
