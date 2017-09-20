@@ -7,55 +7,55 @@ module.exports = function(sequelize, Sequelize) {
 
         tenantName: {
             type: Sequelize.STRING,
-            defaultValue: 'Vacant'
+            allowNull: false
         },
         tenantSF: {
             type: Sequelize.INTEGER,
-            defaultValue: '0'
+            allowNull: false
         },
         leaseStart: {
             type: Sequelize.STRING,
-            defaultValue: '0'
+            allowNull: true
         },
         leaseEnd: {
             type: Sequelize.STRING,
-            defaultValue: '0'
+            allowNull: true
         },
         basePSF: {
             type: Sequelize.INTEGER,
-            defaultValue: '0'
+            allowNull: true
         },
         camPSF: {
             type: Sequelize.INTEGER,
-            defaultValue: '0'
+            allowNull: true
         },
         totalPSF: {
             type: Sequelize.INTEGER,
-            defaultValue: '0'
+            allowNull: true
         },
         annualRent: {
             type: Sequelize.INTEGER,
-            defaultValue: '0'
+            allowNull: true
         },
         salesPSF: {
             type: Sequelize.INTEGER,
-            defaultValue: '0'
+            allowNull: true
         },
         annualSales: {
             type: Sequelize.INTEGER,
-            defaultValue: '0'
+            allowNull: true
         },
         occupancy: {
             type: Sequelize.INTEGER,
-            defaultValue: '0'
+            allowNull: true
         },
         noticeDate: {
             type: Sequelize.STRING,
-            defaultValue: '0'
+            allowNull: true
         },
         noticeRent: {
             type: Sequelize.INTEGER,
-            defaultValue: '0'
+            allowNull: true
         }
     });
 

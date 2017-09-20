@@ -45,14 +45,14 @@ module.exports = function(app) {
     /// ROUTE TO SHOPPING CENTER PAGE BY ID
     app.get("/center/:id", function(req, res) {
         db.Centers.findOne({
-            where : {
-                id : req.params.id
+            where: {
+                id: req.params.id
             },
-            include : [{
+            include: [{
                 model: db.Tenants,
                 required: false
             }]
-        }).then(function(center){
+        }).then(function(center) {
             res.render('center', {
                 center: center
             });
@@ -91,33 +91,62 @@ module.exports = function(app) {
         console.log("------------------------");
 
         // ADD TO TENANTS TABLE
-        db.Tenants.create({
-            CenterId: req.params.id,
-            tenantName: req.body.tenantName,
-            tenantSF: req.body.tenantSF,
-            leaseStart: req.body.leaseStart,
-            leaseEnd: req.body.leaseEnd,
-            basePSF: req.body.basePSF,
-            camPSF: req.body.camPSF,
-            totalPSF: parseInt(req.body.basePSF) + parseInt(req.body.camPSF),
-            annualRent: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) * parseInt(req.body.tenantSF),
-            salesPSF: req.body.salesPSF,
-            annualSales: parseInt(req.body.salesPSF) * parseInt(req.body.tenantSF),
-            occupancy: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) / parseInt(req.body.salesPSF),
-            noticeDate: req.body.noticeDate,
-            noticeRent: req.body.noticeRent
-        }).then(function(data) {
 
-            // REDIRECT TO CENTER PAGE
-            res.redirect("/center/" + req.params.id);
+        // CREATE FOR TENANTS
 
-        }).catch(function(error) {
+        if (req.body.basePSF == "") {
+            db.Tenants.create({
+                CenterId: req.params.id,
+                tenantName: req.body.tenantName,
+                tenantSF: req.body.tenantSF
+            }).then(function(data) {
 
-            // REPORT ERRORS
-            res.send(error);
-        });
+                // REDIRECT TO CENTER PAGE
+                res.redirect("/center/" + req.params.id);
+
+            }).catch(function(error) {
+
+                // REPORT ERRORS
+                res.send(error);
+            });
+
+        } else {
+
+            db.Tenants.create({
+
+                CenterId: req.params.id,
+                tenantName: req.body.tenantName,
+                tenantSF: req.body.tenantSF,
+                leaseStart: req.body.leaseStart,
+                leaseEnd: req.body.leaseEnd,
+                basePSF: req.body.basePSF,
+                camPSF: req.body.camPSF,
+                totalPSF: parseInt(req.body.basePSF) + parseInt(req.body.camPSF),
+                annualRent: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) * parseInt(req.body.tenantSF),
+                salesPSF: req.body.salesPSF,
+                annualSales: parseInt(req.body.salesPSF) * parseInt(req.body.tenantSF),
+                occupancy: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) / parseInt(req.body.salesPSF),
+                noticeDate: req.body.noticeDate,
+                noticeRent: req.body.noticeRent
+
+            }).then(function(data) {
+
+                // REDIRECT TO CENTER PAGE
+                res.redirect("/center/" + req.params.id);
+
+            }).catch(function(error) {
+
+                // REPORT ERRORS
+                res.send(error);
+            });
+
+        }
+
 
     });
+
+
+
 
 
     /// EDIT AN EXISTING TENANT
@@ -160,9 +189,9 @@ module.exports = function(app) {
         });
 
 
-    /// DELETE A TENANT
+        /// DELETE A TENANT
 
-    app.post("/api/remove/:centerID/:tenantID", function(req, res) {
+        app.post("/api/remove/:centerID/:tenantID", function(req, res) {
 
             console.log("\n\n\n>>>>");
             console.log("centerID:" + req.params.centerID);

@@ -34,7 +34,7 @@ $(document).ready(function() {
             $.post("/api/newTenant", tenantData, function(){
                 console.log('request ended')
             })
-            console.log("running new tenant funciton with tenantData");
+            console.log("running new tenant function with tenantData");
         }
 
         // Calling the newTenant function and passing in the values in the new tenant input
