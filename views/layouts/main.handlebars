@@ -191,20 +191,25 @@ $(document).ready(function() {
 
         });
 
-        console.log("Sum: " + sum);
-        console.log("Vacant: " + vacant);
-        console.log("Occupied: " + occupied);
-
-        // parseFloat(Math.round(num3 * 100) / 100).toFixed(2);
-
+        /// FIND PERCENTAGE OCCUPIED OR VACANT
         sumPer = parseFloat((sum / sum) * 100).toFixed(2) + "%";
         occupiedPer = parseFloat((occupied / sum) * 100).toFixed(2) + "%";
         vacantPer = parseFloat((vacant / sum) * 100).toFixed(2) + "%";
 
+        /// FUNCTION TO ADD COMMAS
+        function numberWithThousands(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
 
-        $('#totalSF').html(sum);
-        $('#occupiedSF').html(occupied);
-        $('#vacantSF').html(vacant);
+        /// FORMAT SUM, OCCUPIED, VACANT
+        var sumFormat = numberWithThousands(sum);
+        var occupiedFormat = numberWithThousands(occupied);
+        var vacantFormat = numberWithThousands(vacant);
+
+        /// ADD TOTAL SF, OCCUPIED SF, VACANT SF TO GRID
+        $('#totalSF').html(sumFormat);
+        $('#occupiedSF').html(occupiedFormat);
+        $('#vacantSF').html(vacantFormat);
 
         $('#totalSFper').html(sumPer);
         $('#occupiedSFper').html(occupiedPer);
