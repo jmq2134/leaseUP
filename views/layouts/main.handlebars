@@ -83,9 +83,9 @@ var $table = $('#bootstrap-table');
 
 function operateFormatter(value, row, index) {
     return [
-        '<a rel="tooltip" title="View" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">',
-        '<i class="fa fa-image"></i>',
-        '</a>',
+        // '<a rel="tooltip" title="View" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">',
+        // '<i class="fa fa-image"></i>',
+        // '</a>',
         '<a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon table-action edit" href="javascript:void(0)">',
         '<i class="fa fa-edit"></i>',
         '</a>',
@@ -97,12 +97,12 @@ function operateFormatter(value, row, index) {
 
 $().ready(function() {
     window.operateEvents = {
-        'click .view': function(e, value, row, index) {
-            info = JSON.stringify(row);
+        // 'click .view': function(e, value, row, index) {
+        //     info = JSON.stringify(row);
 
-            swal('You click view icon, row: ', info);
-            console.log(info);
-        },
+        //     swal('You click view icon, row: ', info);
+        //     console.log(info);
+        // },
         'click .edit': function(e, value, row, index) {
             info = JSON.stringify(row);
 
