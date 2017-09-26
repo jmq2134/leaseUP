@@ -6,6 +6,9 @@ var sequelize = require("sequelize");
 var session = require('express-session')
 var env = require('dotenv').load();
 var passport = require('passport');
+var Handlebars = require('handlebars');
+var NumeralHelper = require("handlebars.numeral");
+NumeralHelper.registerHelpers(Handlebars);
 
 
 // Sets up the Express App
@@ -27,10 +30,10 @@ app.use(express.static("./public"));
 
 // Sets up Passport
 // =============================================================
-app.use(session({
-    secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true
+app.use(session({    
+    secret: 'keyboard cat',
+        resave: true,
+        saveUninitialized: true
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -52,7 +55,7 @@ var authRoute = require('./routes/auth.js')(app, passport);
 
 // Syncing our sequelize models and then starting our express app
 db.sequelize.sync().then(function() {
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
+    app.listen(PORT, function() {
+        console.log("App listening on PORT " + PORT);
+    });
 });
