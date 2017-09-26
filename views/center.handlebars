@@ -1,199 +1,419 @@
 <body>
-    <div class="row">
-        <!-- center name and address -->
-        <div class="col-md-6">
-            <h2>{{center.centerName}}</h2>
-            <p>{{center.centerAddress}}</p>
-        </div>
-        <!-- add new button -->
-    </div>
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="toolbar">
-                            <!--        Here you can write extra buttons/actions for the toolbar              -->
-                            <div class="col-md-3">
-                                <button type="button" class="btn btn-fill btn-info" id="button-create" data-toggle='modal' data-target='#modal--create'>Add New Tenant</button>
-                            </div>
+    <!-- SIDE NAV -->
+    <div class="wrapper">
+        <div class="sidebar" data-color="green" data-image="../../public/assets/img/full-screen-image-3.jpg">
+            <!--
+            Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+            Tip 2: you can also add an image using data-image tag
+        -->
+            <div class="logo">
+                <a href="" class="logo-text">
+                FIP
+            </a>
+            </div>
+            <div class="logo logo-mini">
+                <a href="" class="logo-text">
+                FIP
+            </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <div class="user">
+                    <div class="info">
+                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                        UserName
+                            <b class="caret"></b>
+                    </a>
+                        <div class="collapse" id="collapseExample">
+                            <ul class="nav">
+                                <li><a href="/user">My Profile</a></li>
+                            </ul>
                         </div>
-                        <table id="bootstrap-table" class="table table-striped">
-                            <thead>
-                                <th data-field="state" data-checkbox="true"></th>
-                                <th data-field="tenantName" class="text-center" data-sortable="true">Tenant</th>
-                                <th data-field="tenantSF" data-sortable="true">SF</th>
-                                <th data-field="leaseStart" data-sortable="true">Start</th>
-                                <th data-field="leaseEnd" data-sortable="true">Expiration</th>
-                                <th data-field="basePSF" data-sortable="true">BasePSF</th>
-                                <th data-field="camPSF" data-sortable="true">CamPSF</th>
-                                <th data-field="totalPSF" data-sortable="true">TotalPSF</th>
-                                <th data-field="totalAnnual" data-sortable="true">Annual Rent</th>
-                                <th data-field="salesPSF" data-sortable="true">Sales PSF</th>
-                                <th data-field="salesAnnual" data-sortable="true">Annual Sales</th>
-                                <th data-field="optionNotice" data-sortable="true">Option Notice</th>
-                                <th data-field="optionRent" data-sortable="true">Option Rent</th>
-                                <th data-field="actions" class="td-actions text-right" data-events="operateEvents" data-formatter="operateFormatter">Actions</th>
-                            </thead>
-                            <tbody>
-                                {{#each center.Tenants}}
-                                <tr>
-                                    <td></td>
-                                    <td class="tenantName">{{tenantName}}</td>
-                                    <td class="tenantSF">{{tenantSF}}</td>
-                                    <td>{{leaseStart}}</td>
-                                    <td>{{leaseEnd}}</td>
-                                    <td>{{basePSF}}</td>
-                                    <td>{{camPSF}}</td>
-                                    <td>{{totalPSF}}</td>
-                                    <td>{{annualRent}}</td>
-                                    <td>{{salesPSF}}</td>
-                                    <td>{{annualSales}}</td>
-                                    <td>{{noticeDate}}</td>
-                                    <td>{{noticeRent}}</td>
-                                </tr>
+                    </div>
+                </div>
+                <!-- NAVBAR -->
+                <ul class="nav">
+                    <li class="active">
+                        <a href="/dashboard">
+                        <i class="pe-7s-graph"></i>
+                        <p>Dashboard</p>
+                    </a>
+                    </li>
+                    <!-- SHOPPING CENTERS -->
+                    <li>
+                        <a data-toggle="collapse" href="#componentsExamples">
+                        <i class="pe-7s-plugin"></i>
+                        <p>Shopping Centers
+                           <b class="caret"></b>
+                        </p>
+                    </a>
+                        <div class="collapse" id="componentsExamples">
+                            <ul class="nav">
+                                {{#each centers}}
+                                <li>
+                                    <a href="/center/{{this.id}}">{{this.centerName}}</a>
+                                </li>
                                 {{/each}}
-                                <div class="table-container-footer">
-                                    <table class="table table-striped table-hover table-condensed table-bordered">
-                                        <tfoot>
-                                            <tr class="sumRow">
-                                                <td></td>
-                                                <td>Total SF</td>
-                                                <td class="tenantSFsum"></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!--  end card  -->
-                </div>
-                <!-- end col-md-12 -->
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- MAP -->
+                    <li>
+                        <a data-toggle="collapse" href="/map">
+                        <i class="pe-7s-map-marker"></i>
+                        <p>Map</p>
+                    </a>
+                    </li>
+                    <!-- CALENDAR -->
+                    <li>
+                        <a href="/calendar">
+                        <i class="pe-7s-date"></i>
+                        <p>Calendar</p>
+                    </a>
+                    </li>
+                </ul>
             </div>
-            <!-- end row -->
         </div>
-    </div>
-    <!-- Modal for Create Feature -->
-    <div class="modal fade" id="modal--create" tabindex="-1" role="dialog" aria-labelledby="modal--create">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="padding: 20px">
-                <div class="modal-body">
-                    <div class="panel panel-default">
-                        <div class="row ">
-                            <div class="panel-body ">
-                                <form class="create-update-form" action="/api/{{center.id}}/newTenant" method="POST">
-                                    <div class="row">
-                                        <legend>Tenant Info</legend>
-                                        <!-- hidden center id -->
-                                        <input type="hidden" name="centerId" value="{{center}}" />
-                                        <!-- tenantName -->
-                                        <div class="col-md-6">
-                                            <input type="text" placeholder="Tenant Name" id="tenantName" name="tenantName" class="form-control">
-                                        </div>
-                                        <!-- tenantSF -->
-                                        <div class="col-md-6">
-                                            <input type="text" placeholder="Square Footage" id="tenantSF" name="tenantSF" class="form-control">
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <legend>Lease Dates</legend>
-                                        <!-- leaseStart -->
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <input type="text" class="form-control datepicker" id="leaseStart" name="leaseStart" placeholder="Lease Start" />
-                                            </div>
-                                        </div>
-                                        <!-- leaseEnd -->
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <input type="text" class="form-control datepicker" id="leaseEnd" name="leaseEnd" placeholder="Lease End" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <legend>Rent and Sales PSF</legend>
-                                        <!-- basePSF -->
-                                        <div class="col-md-4">
-                                            <input type="text" placeholder="Base Rent PSF" id="basePSF" name="basePSF" class="form-control">
-                                        </div>
-                                        <!-- camPSF -->
-                                        <div class="col-md-4">
-                                            <input type="text" placeholder="CAM Rent PSF" id="camPSF" name="camPSF" class="form-control">
-                                        </div>
-                                        <!-- salesPSF -->
-                                        <div class="col-md-4">
-                                            <input type="text" placeholder="Sales PSF" id="salesPSF" name="salesPSF" class="form-control">
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <legend>Option</legend>
-                                        <!-- noticeDate -->
-                                        <div class="col-md-6 ">
-                                            <div class="form-group ">
-                                                <input type="text" class="form-control datepicker" id="noticeDate" name="noticeDate" placeholder="Notice Date" />
-                                            </div>
-                                        </div>
-                                        <!-- noticeRent -->
-                                        <div class="col-md-6">
-                                            <input type="text" placeholder="Notice Rent" id="noticeRent" name="noticeRent" class="form-control ">
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <!-- close button -->
-                                        <button type="button" class="btn btn-danger btn-fill btn-wd" data-dismiss="modal">Close</button>
-                                        <!-- submit button -->
-                                        <button class="btn btn-success btn-fill btn-wd " method="GET" action="/" type="submit " id="form--event-add">Submit</button>
-                                    </div>
-                                </form>
+        <!-- TOP HEADER -->
+        <div class="main-panel">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon">
+                            <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
+                            <i class="fa fa-navicon visible-on-sidebar-mini"></i>
+                        </button>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">FIP ASSET MANAGEMENT DASHBOARD</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <form class="navbar-form navbar-left navbar-search-form" role="search">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                <input type="text" value="" class="form-control" placeholder="Search...">
                             </div>
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="charts.html">
+                                <i class="fa fa-line-chart"></i>
+                                <p>Stats</p>
+                            </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-gavel"></i>
+                                <p class="hidden-md hidden-lg">
+                                    Actions
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Create New Post</a></li>
+                                    <li><a href="#">Manage Something</a></li>
+                                    <li><a href="#">Do Nothing</a></li>
+                                    <li><a href="#">Submit to live</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Another Action</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span class="notification">5</span>
+                                <p class="hidden-md hidden-lg">
+                                    Notifications
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Notification 1</a></li>
+                                    <li><a href="#">Notification 2</a></li>
+                                    <li><a href="#">Notification 3</a></li>
+                                    <li><a href="#">Notification 4</a></li>
+                                    <li><a href="#">Another notification</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown dropdown-with-icons">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-list"></i>
+                                <p class="hidden-md hidden-lg">
+                                    More
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                                <ul class="dropdown-menu dropdown-with-icons">
+                                    <li>
+                                        <a href="#">
+                                        <i class="pe-7s-mail"></i> Messages
+                                    </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                        <i class="pe-7s-help1"></i> Help Center
+                                    </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                        <i class="pe-7s-tools"></i> Settings
+                                    </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                        <i class="pe-7s-lock"></i> Lock Screen
+                                    </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-danger">
+                                        <i class="pe-7s-close-circle"></i>
+                                        Log out
+                                    </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- CENTER NAME, ADDRESS -->
+            <div class="row" style="margin: 20px">
+                <!-- center name and address -->
+                <div class="col-md-12">
+                    <h2>{{center.centerName}}</h2>
+                    <p>{{center.centerAddress}}</p>
+                </div>
+                <!-- add new button -->
+            </div>
+            <!-- TOTAL SF, OCCUPIED SF, VACANT SF -->
+            <div class="row" style="margin: 20px">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="content text-center">
+                            <h3>Total SF</h3>
+                            <hr>
+                            <p id="totalSF"></p>
+                            <p id="totalSFper"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="content text-center">
+                            <h3>Occupied SF</h3>
+                            <hr>
+                            <p id="occupiedSF"></p>
+                            <p id="occupiedSFper"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="content text-center">
+                            <h3>Vacant SF</h3>
+                            <hr>
+                            <p id="vacantSF"></p>
+                            <p id="vacantSFper"></p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script type="text/javascript">
-        $(document).ready(function() {
+            <!-- TABLE -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="toolbar">
+                                    <!--        Here you can write extra buttons/actions for the toolbar              -->
+                                    <div class="col-md-3">
+                                        <button type="button" class="btn btn-fill btn-info" id="button-create" data-toggle='modal' data-target='#modal--create'>Add New Tenant</button>
+                                    </div>
+                                </div>
+                                <table id="bootstrap-table" class="table table-striped">
+                                    <thead>
+                                        <th data-field="state" data-checkbox="true"></th>
+                                        <th data-field="tenantName" class="text-center" data-sortable="true">Tenant</th>
+                                        <th data-field="tenantSF" data-sortable="true">SF</th>
+                                        <th data-field="leaseStart" data-sortable="true">Start</th>
+                                        <th data-field="leaseEnd" data-sortable="true">Expiration</th>
+                                        <th data-field="basePSF" data-sortable="true">BasePSF</th>
+                                        <th data-field="camPSF" data-sortable="true">CamPSF</th>
+                                        <th data-field="totalPSF" data-sortable="true">TotalPSF</th>
+                                        <th data-field="totalAnnual" data-sortable="true">Annual Rent</th>
+                                        <th data-field="salesPSF" data-sortable="true">Sales PSF</th>
+                                        <th data-field="salesAnnual" data-sortable="true">Annual Sales</th>
+                                        <th data-field="optionNotice" data-sortable="true">Option Notice</th>
+                                        <th data-field="optionRent" data-sortable="true">Option Rent</th>
+                                        <th data-field="actions" class="td-actions text-right" data-events="operateEvents" data-formatter="operateFormatter">Actions</th>
+                                    </thead>
+                                    <tbody>
+                                        {{#each center.Tenants}}
+                                        <tr>
+                                            <td></td>
+                                            <td class="tenantName">{{tenantName}}</td>
+                                            <td class="tenantSF">{{tenantSF}}</td>
+                                            <td>{{leaseStart}}</td>
+                                            <td>{{leaseEnd}}</td>
+                                            <td>{{basePSF}}</td>
+                                            <td>{{camPSF}}</td>
+                                            <td>{{totalPSF}}</td>
+                                            <td>{{annualRent}}</td>
+                                            <td>{{salesPSF}}</td>
+                                            <td>{{annualSales}}</td>
+                                            <td>{{noticeDate}}</td>
+                                            <td>{{noticeRent}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        <!--                                         <div class="table-container-footer">
+                                            <table class="table table-striped table-hover table-condensed table-bordered">
+                                                <tfoot>
+                                                    <tr class="sumRow">
+                                                        <td></td>
+                                                        <td>Total SF</td>
+                                                        <td class="tenantSFsum"></td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--  end card  -->
+                        </div>
+                        <!-- end col-md-12 -->
+                    </div>
+                    <!-- end row -->
+                </div>
+            </div>
+            <!-- Modal for Create Feature -->
+            <div class="modal fade" id="modal--create" tabindex="-1" role="dialog" aria-labelledby="modal--create">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="padding: 20px">
+                        <div class="modal-body">
+                            <div class="panel panel-default">
+                                <div class="row ">
+                                    <div class="panel-body ">
+                                        <form class="create-update-form" action="/api/{{center.id}}/newTenant" method="POST">
+                                            <div class="row">
+                                                <legend>Tenant Info</legend>
+                                                <!-- hidden center id -->
+                                                <input type="hidden" name="centerId" value="{{center}}" />
+                                                <!-- tenantName -->
+                                                <div class="col-md-6">
+                                                    <input type="text" placeholder="Tenant Name" id="tenantName" name="tenantName" class="form-control">
+                                                </div>
+                                                <!-- tenantSF -->
+                                                <div class="col-md-6">
+                                                    <input type="text" placeholder="Square Footage" id="tenantSF" name="tenantSF" class="form-control">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <legend>Lease Dates</legend>
+                                                <!-- leaseStart -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group ">
+                                                        <input type="text" class="form-control datepicker" id="leaseStart" name="leaseStart" placeholder="Lease Start" />
+                                                    </div>
+                                                </div>
+                                                <!-- leaseEnd -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group ">
+                                                        <input type="text" class="form-control datepicker" id="leaseEnd" name="leaseEnd" placeholder="Lease End" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <legend>Rent and Sales PSF</legend>
+                                                <!-- basePSF -->
+                                                <div class="col-md-4">
+                                                    <input type="text" placeholder="Base Rent PSF" id="basePSF" name="basePSF" class="form-control">
+                                                </div>
+                                                <!-- camPSF -->
+                                                <div class="col-md-4">
+                                                    <input type="text" placeholder="CAM Rent PSF" id="camPSF" name="camPSF" class="form-control">
+                                                </div>
+                                                <!-- salesPSF -->
+                                                <div class="col-md-4">
+                                                    <input type="text" placeholder="Sales PSF" id="salesPSF" name="salesPSF" class="form-control">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <legend>Option</legend>
+                                                <!-- noticeDate -->
+                                                <div class="col-md-6 ">
+                                                    <div class="form-group ">
+                                                        <input type="text" class="form-control datepicker" id="noticeDate" name="noticeDate" placeholder="Notice Date" />
+                                                    </div>
+                                                </div>
+                                                <!-- noticeRent -->
+                                                <div class="col-md-6">
+                                                    <input type="text" placeholder="Notice Rent" id="noticeRent" name="noticeRent" class="form-control ">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <!-- close button -->
+                                                <button type="button" class="btn btn-danger btn-fill btn-wd" data-dismiss="modal">Close</button>
+                                                <!-- submit button -->
+                                                <button class="btn btn-success btn-fill btn-wd " method="GET" action="/" type="submit " id="form--event-add">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--                 <script type="text/javascript">
+                $(document).ready(function() {
 
-            var sum = 0;
-            var result = 0;
-            var vacant = 0;
-            var occupied = 0;
+                    var sum = 0;
+                    var result = 0;
+                    var vacant = 0;
+                    var occupied = 0;
 
-            $('tr').each(function() {
+                    $('tr').each(function() {
 
-                $(this).find('.tenantName').each(function() {
+                        $(this).find('.tenantName').each(function() {
 
-                    var tenantName = $(this).text();
-                    console.log(tenantName);
+                            var tenantName = $(this).text();
+                            console.log(tenantName);
 
-                    if (tenantName == "Vacant") {
+                            if (tenantName == "Vacant") {
 
-                        result = $(this).closest('td').next().text();
-                        vacant += parseFloat(result);
-                        sum += parseFloat(result);
+                                result = $(this).closest('td').next().text();
+                                vacant += parseFloat(result);
+                                sum += parseFloat(result);
 
-                    } else {
+                            } else {
 
-                        result = $(this).closest('td').next().text();
-                        occupied += parseFloat(result);
-                        sum += parseFloat(result);
+                                result = $(this).closest('td').next().text();
+                                occupied += parseFloat(result);
+                                sum += parseFloat(result);
 
-                    }
+                            }
 
+                        });
+
+                        console.log("Sum: " + sum);
+                        console.log("Vacant: " + vacant);
+                        console.log("Occupied: " + occupied);
+
+                        $('#totalSF').html(sum);
+                        $('.occupiedSF').html(occupied);
+                        $('.vacantSF').html(vacant);
+
+                    });
                 });
-
-                console.log("Sum: " + sum);
-                console.log("Vacant: " + vacant);
-                console.log("Occupied: " + occupied);
-
-                $('.tenantSFsum', this).html(sum);
-
-            });
-        });
-        </script>
+                </script> -->
 </body>

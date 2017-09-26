@@ -24,8 +24,16 @@ module.exports = function(app) {
     });
 
     /// SHOW USER PROFILE
-    app.get("/user", function(req, res) {
-        res.render('user', req);
+    app.get("/user/:userID", function(req, res) {
+        db.Users.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).then(function(user) {
+            res.render('user', {
+                user: user
+            });
+        })
     });
 
     /// DASHBOARD
@@ -53,12 +61,27 @@ module.exports = function(app) {
                 required: false
             }]
         }).then(function(center) {
+            //res.json(center);
             res.render('center', {
                 center: center
             });
         })
     });
 
+    // /// ROUTE TO SHOPPING CENTER PAGE BY ID
+    // app.get("/center/:id", function(req, res) {
+    //     db.Centers.findAll({
+    //         include: [{
+    //             model: db.Tenants,
+    //             required: false
+    //         }]
+    //     }).then(function(center) {
+    //         // res.json(center);
+    //         res.render('center', {
+    //             center: center
+    //         });
+    //     })
+    // });
 
 
     // ---------------------------- API GET ROUTES ---------------------------- //
@@ -81,7 +104,7 @@ module.exports = function(app) {
     // ---------------------------- POST ROUTES ---------------------------- //
 
 
-    /// ADD A NEW TENANT
+    /// ---------------  ADD A NEW TENANT --------------- ///
 
     app.post("/api/:id/newTenant", function(req, res) {
 
@@ -92,9 +115,10 @@ module.exports = function(app) {
 
         // ADD TO TENANTS TABLE
 
-        // CREATE FOR TENANTS
+        /// VACANT TENANT
 
         if (req.body.basePSF == "") {
+
             db.Tenants.create({
                 CenterId: req.params.id,
                 tenantName: req.body.tenantName,
@@ -109,6 +133,8 @@ module.exports = function(app) {
                 // REPORT ERRORS
                 res.send(error);
             });
+
+        /// NON VACANT TENANTS
 
         } else {
 
@@ -139,19 +165,13 @@ module.exports = function(app) {
                 // REPORT ERRORS
                 res.send(error);
             });
-
         }
-
-
     });
 
 
+    /// ---------------  EDIT A EXISTING TENANT --------------- ///
 
-
-
-    /// EDIT AN EXISTING TENANT
-
-    app.post("/api/edit/:centerID/:tenantID", function(req, res) {
+    app.post("/api/edit/:tenantID", function(req, res) {
 
         console.log("\n\n\n>>>>");
         console.log("centerID:" + req.params.centerID);
@@ -189,7 +209,7 @@ module.exports = function(app) {
         });
 
 
-        /// DELETE A TENANT
+        /// ---------------  DELETE TENANT --------------- ///
 
         app.post("/api/remove/:centerID/:tenantID", function(req, res) {
 
@@ -213,6 +233,47 @@ module.exports = function(app) {
                 res.send(error);
             });
 
+        });
+
+    });
+
+    /// ---------------  EDIT AN EXISTING USER --------------- ///
+
+    app.post("/api/edit/:centerID/:tenantID", function(req, res) {
+
+        console.log("\n\n\n>>>>");
+        console.log("centerID:" + req.params.centerID);
+        console.log("tenantID:" + req.params.tenantID);
+        console.log(req.body);
+        console.log("\n\n\n>>>>");
+
+        db.Tenants.update({
+            CenterId: req.body.centerId,
+            tenantName: req.body.tenantName,
+            tenantSF: req.body.tenantSF,
+            leaseStart: req.body.leaseStart,
+            leaseEnd: req.body.leaseEnd,
+            basePSF: req.body.basePSF,
+            camPSF: req.body.camPSF,
+            totalPSF: parseInt(req.body.basePSF) + parseInt(req.body.camPSF),
+            annualRent: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) * parseInt(req.body.tenantSF),
+            salesPSF: req.body.salesPSF,
+            annualSales: parseInt(req.body.salesPSF) * parseInt(req.body.tenantSF),
+            occupancy: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) / parseInt(req.body.salesPSF),
+            noticeDate: req.body.noticeDate,
+            noticeRent: req.body.noticeRent
+        }, {
+            where: { _id: req.params.id }
+
+            // REDIRECT TO SHOPPING CENTER PAGE
+        }).then(function(data) {
+
+            res.redirect("/center/" + req.body.centerId);
+
+            // CATCH ERRORS
+        }).catch(function(error) {
+
+            res.send(error);
         });
 
     });
