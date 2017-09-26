@@ -178,12 +178,14 @@ $(document).ready(function() {
             if (tenantName == "Vacant") {
 
                 result = $(this).closest('td').next().text();
+                result=result.replace(/\,/g,'');
                 vacant += parseFloat(result);
                 sum += parseFloat(result);
 
             } else {
 
                 result = $(this).closest('td').next().text();
+                result=result.replace(/\,/g,'');
                 occupied += parseFloat(result);
                 sum += parseFloat(result);
 
