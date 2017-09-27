@@ -122,35 +122,72 @@ module.exports = function(app) {
         // LOG INFO FROM REQ.BODY FROM MODAL FORM
         console.log("------------------------");
         console.log(req.body);
+        console.log(req.body.id);
         console.log("------------------------");
 
-        // ADD TO TENANTS TABLE
+        if (req.body.id == "") {
 
-        /// VACANT TENANT
+            //// ADD NEW TO TENANTS TABLE
 
-        if (req.body.basePSF == "") {
+            /// VACANT TENANT
 
-            db.Tenants.create({
-                CenterId: req.params.id,
-                tenantName: req.body.tenantName,
-                tenantSF: req.body.tenantSF
-            }).then(function(data) {
+            if (req.body.basePSF == "") {
 
-                // REDIRECT TO CENTER PAGE
-                res.redirect("/center/" + req.params.id);
+                db.Tenants.create({
+                    CenterId: req.params.id,
+                    tenantName: req.body.tenantName,
+                    tenantSF: req.body.tenantSF
+                }).then(function(data) {
 
-            }).catch(function(error) {
+                    // REDIRECT TO CENTER PAGE
+                    res.redirect("/center/" + req.params.id);
 
-                // REPORT ERRORS
-                res.send(error);
-            });
+                }).catch(function(error) {
 
-            /// NON VACANT TENANTS
+                    // REPORT ERRORS
+                    res.send(error);
+                });
+
+                /// NON VACANT TENANTS
+
+            } else {
+
+                db.Tenants.create({
+
+                    CenterId: req.params.id,
+                    tenantName: req.body.tenantName,
+                    tenantSF: req.body.tenantSF,
+                    leaseStart: req.body.leaseStart,
+                    leaseEnd: req.body.leaseEnd,
+                    basePSF: req.body.basePSF,
+                    camPSF: req.body.camPSF,
+                    totalPSF: parseInt(req.body.basePSF) + parseInt(req.body.camPSF),
+                    annualRent: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) * parseInt(req.body.tenantSF),
+                    salesPSF: req.body.salesPSF,
+                    annualSales: parseInt(req.body.salesPSF) * parseInt(req.body.tenantSF),
+                    occupancy: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) / parseInt(req.body.salesPSF),
+                    noticeDate: req.body.noticeDate,
+                    noticeRent: req.body.noticeRent
+
+                }).then(function(data) {
+
+                    // REDIRECT TO CENTER PAGE
+                    res.redirect("/center/" + req.params.id);
+
+                }).catch(function(error) {
+
+                    // REPORT ERRORS
+                    res.send(error);
+                });
+            }
 
         } else {
 
-            db.Tenants.create({
+            /// EDIT EXISTING TENANT
 
+            console.log("edit tenant");
+
+            db.Tenants.update({
                 CenterId: req.params.id,
                 tenantName: req.body.tenantName,
                 tenantSF: req.body.tenantSF,
@@ -165,18 +202,23 @@ module.exports = function(app) {
                 occupancy: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) / parseInt(req.body.salesPSF),
                 noticeDate: req.body.noticeDate,
                 noticeRent: req.body.noticeRent
+            }, {
+                where: { id: req.body.id }
 
+                // REDIRECT TO SHOPPING CENTER PAGE
             }).then(function(data) {
 
-                // REDIRECT TO CENTER PAGE
                 res.redirect("/center/" + req.params.id);
 
+                // CATCH ERRORS
             }).catch(function(error) {
 
-                // REPORT ERRORS
                 res.send(error);
             });
+
+
         }
+
     });
 
 

@@ -214,11 +214,12 @@
                                 <div class="row ">
                                     <div class="panel-body ">
                                         <form class="create-update-form" action="/api/{{center.id}}/newTenant" method="POST">
-<!--                                         /api/{{center.id}}/newTenant -->
                                             <div class="row">
                                                 <legend>Tenant Info</legend>
                                                 <!-- hidden center id -->
                                                 <input type="hidden" name="centerId" value="{{center}}" />
+                                                <!-- hidden tenant id if available -->
+                                                <input type="hidden" name="id" id="id" />
                                                 <!-- tenantName -->
                                                 <div class="col-md-6">
                                                     <input type="text" placeholder="Tenant Name" id="tenantName" name="tenantName" class="form-control">
@@ -288,5 +289,5 @@
                         </div>
                     </div>
                 </div>
-                
+
 </body>
