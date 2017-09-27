@@ -115,7 +115,7 @@ module.exports = function(app) {
     // ---------------------------- POST ROUTES ---------------------------- //
 
 
-    /// ---------------  ADD A NEW TENANT --------------- ///
+    /// ---------------  ADD OR EDIT TENANTS --------------- ///
 
     app.post("/api/:id/newTenant", function(req, res) {
 
@@ -125,9 +125,10 @@ module.exports = function(app) {
         console.log(req.body.id);
         console.log("------------------------");
 
+        /// IF NO ID IS SENT THROUGH MODAL FORM, IT'S A NEW TENANT
         if (req.body.id == "") {
 
-            //// ADD NEW TO TENANTS TABLE
+            //// ADD NEW TO TENANTS TABLE -- HANDLE VACANT TENANT OR REGULAR TENANT
 
             /// VACANT TENANT
 
@@ -148,7 +149,8 @@ module.exports = function(app) {
                     res.send(error);
                 });
 
-                /// NON VACANT TENANTS
+
+                /// REGULAR TENANTS
 
             } else {
 
@@ -222,32 +224,21 @@ module.exports = function(app) {
     });
 
 
-    /// ---------------  EDIT A EXISTING TENANT --------------- ///
 
-    app.post("/api/edit/:tenantId", function(req, res) {
+    /// ---------------  DELETE TENANT --------------- ///
+
+    app.delete("/api/remove/:thisId", function(req, res) {
 
         console.log("\n\n\n>>>>");
-        console.log("tenantId:" + req.params.tenantId);
+        console.log("remove tenant");
+        console.log(req.params.thisId);
         console.log(req.body);
         console.log("\n\n\n>>>>");
 
-        db.Tenants.update({
-            CenterId: req.body.centerId,
-            tenantName: req.body.tenantName,
-            tenantSF: req.body.tenantSF,
-            leaseStart: req.body.leaseStart,
-            leaseEnd: req.body.leaseEnd,
-            basePSF: req.body.basePSF,
-            camPSF: req.body.camPSF,
-            totalPSF: parseInt(req.body.basePSF) + parseInt(req.body.camPSF),
-            annualRent: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) * parseInt(req.body.tenantSF),
-            salesPSF: req.body.salesPSF,
-            annualSales: parseInt(req.body.salesPSF) * parseInt(req.body.tenantSF),
-            occupancy: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) / parseInt(req.body.salesPSF),
-            noticeDate: req.body.noticeDate,
-            noticeRent: req.body.noticeRent
-        }, {
-            where: { _id: req.params.tenantId }
+        db.Tenants.destroy({
+            where: {
+                id: req.params.thisId,
+            }
 
             // REDIRECT TO SHOPPING CENTER PAGE
         }).then(function(data) {
@@ -260,35 +251,8 @@ module.exports = function(app) {
             res.send(error);
         });
 
-
-        /// ---------------  DELETE TENANT --------------- ///
-
-        app.delete("/api/remove/:thisId", function(req, res) {
-
-            console.log("\n\n\n>>>>");
-            console.log("remove tenant");
-            console.log(req.params.thisId);
-            console.log(req.body);
-            console.log("\n\n\n>>>>");
-
-            db.Tenants.destroy({
-                where: {
-                    id: req.params.thisId,
-                }
-
-                // REDIRECT TO SHOPPING CENTER PAGE
-            }).then(function(data) {
-
-                res.redirect("/center/" + req.body.centerId);
-
-                // CATCH ERRORS
-            }).catch(function(error) {
-
-                res.send(error);
-            });
-
-        });
-
     });
+
+
 
 };
