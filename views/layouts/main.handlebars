@@ -106,14 +106,61 @@ $().ready(function() {
         'click .edit': function(e, value, row, index) {
             info = JSON.stringify(row);
 
-            swal('You click edit icon, row: ', info);
-            console.log(info);
+            // swal('You click edit icon, row: ', info);
+            console.log(row);
+            console.log(row.id);
+
+            // Save tenantId
+            var thisId = row.id;
+
+
+            $.ajax({
+                    method: "GET",
+                    url: "/api/tenants/" + thisId
+                })
+                // Fill modal with tenant info
+                .done(function(data) {
+                    console.log(data);
+                    data = data[0];
+                    $('#modal--create').modal({
+                        show: 'true'
+                    });
+                    $("#tenantName").val(data.tenantName);
+                    $("#tenantSF").val(data.tenantSF);
+                    $("#leaseStart").val(data.leaseStart);
+                    $("#leaseEnd").val(data.leaseEnd);
+                    $("#basePSF").val(data.basePSF);
+                    $("#camPSF").val(data.camPSF);
+                    $("#salesPSF").val(data.salesPSF);
+                    $("#occupancy").val(data.occupancy);
+                    $("#noticeDate").val(data.noticeDate);
+                    $("#noticeRent").val(data.noticeRent);
+                })
+
         },
         'click .remove': function(e, value, row, index) {
+            // console.log(row);
+            // $table.bootstrapTable('remove', {
+            //     field: 'tenantName',
+            //     values: [row.tenantName]
+            // });
+
+            info = JSON.stringify(row);
+
+            // swal('You click edit icon, row: ', info);
             console.log(row);
-            $table.bootstrapTable('remove', {
-                field: 'id',
-                values: [row.id]
+            console.log(row.id);
+
+            // Save the id from the p tag
+            var thisId = row.id;
+
+
+            $.ajax({
+                url: '/api/remove/'  + thisId,
+                type: 'DELETE',
+                success: function(result) {
+                    // Do something with the result
+                }
             });
         }
     };
@@ -178,14 +225,14 @@ $(document).ready(function() {
             if (tenantName == "Vacant") {
 
                 result = $(this).closest('td').next().text();
-                result=result.replace(/\,/g,'');
+                result = result.replace(/\,/g, '');
                 vacant += parseFloat(result);
                 sum += parseFloat(result);
 
             } else {
 
                 result = $(this).closest('td').next().text();
-                result=result.replace(/\,/g,'');
+                result = result.replace(/\,/g, '');
                 occupied += parseFloat(result);
                 sum += parseFloat(result);
 

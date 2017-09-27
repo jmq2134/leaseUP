@@ -100,6 +100,17 @@ module.exports = function(app) {
         });
     })
 
+    /// FIND TENANT BY ID
+    app.get("/api/tenants/:id", function(req, res) {
+        db.Tenants.findAll({
+            where: {
+                id: req.params.id
+            }
+        }).then(function(dbTenants) {
+            res.json(dbTenants);
+        });
+    })
+
 
     // ---------------------------- POST ROUTES ---------------------------- //
 
@@ -134,7 +145,7 @@ module.exports = function(app) {
                 res.send(error);
             });
 
-        /// NON VACANT TENANTS
+            /// NON VACANT TENANTS
 
         } else {
 
@@ -171,11 +182,11 @@ module.exports = function(app) {
 
     /// ---------------  EDIT A EXISTING TENANT --------------- ///
 
-    app.post("/api/edit/:tenantID", function(req, res) {
+    app.post("/api/edit/:tenantName/:tenantSF", function(req, res) {
 
         console.log("\n\n\n>>>>");
-        console.log("centerID:" + req.params.centerID);
-        console.log("tenantID:" + req.params.tenantID);
+        console.log("tenantName:" + req.params.tenantName);
+        console.log("tenantSF:" + req.params.tenantSF);
         console.log(req.body);
         console.log("\n\n\n>>>>");
 
@@ -211,16 +222,18 @@ module.exports = function(app) {
 
         /// ---------------  DELETE TENANT --------------- ///
 
-        app.post("/api/remove/:centerID/:tenantID", function(req, res) {
+        app.delete("/api/remove/:thisId", function(req, res) {
 
             console.log("\n\n\n>>>>");
-            console.log("centerID:" + req.params.centerID);
-            console.log("tenantID:" + req.params.tenantID);
+            console.log("remove tenant");
+            console.log(req.params.thisId);
             console.log(req.body);
             console.log("\n\n\n>>>>");
 
             db.Tenants.destroy({
-                where: { id: req.params.tenantID }
+                where: {
+                    id: req.params.thisId,
+                }
 
                 // REDIRECT TO SHOPPING CENTER PAGE
             }).then(function(data) {

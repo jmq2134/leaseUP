@@ -161,6 +161,7 @@
                                 <table id="bootstrap-table" class="table table-striped">
                                     <thead>
                                         <th data-field="state" data-checkbox="true"></th>
+                                        <th data-field="id" class="text-center">ID</th>
                                         <th data-field="tenantName" class="text-center" data-sortable="true">Tenant</th>
                                         <th data-field="tenantSF" data-sortable="true">SF</th>
                                         <th data-field="leaseStart" data-sortable="true">Start</th>
@@ -179,6 +180,7 @@
                                         {{#each center.Tenants}}
                                         <tr>
                                             <td></td>
+                                            <td class="id">{{id}}</td>
                                             <td class="tenantName">{{tenantName}}</td>
                                             <td class="tenantSF">{{number tenantSF}}</td>
                                             <td>{{leaseStart}}</td>
@@ -193,17 +195,6 @@
                                             <td>{{currency noticeRent}}</td>
                                         </tr>
                                         {{/each}}
-                                        <!--                                         <div class="table-container-footer">
-                                            <table class="table table-striped table-hover table-condensed table-bordered">
-                                                <tfoot>
-                                                    <tr class="sumRow">
-                                                        <td></td>
-                                                        <td>Total SF</td>
-                                                        <td class="tenantSFsum"></td>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div> -->
                                     </tbody>
                                 </table>
                             </div>
