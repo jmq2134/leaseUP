@@ -96,6 +96,11 @@ function operateFormatter(value, row, index) {
 }
 
 $().ready(function() {
+
+    $('.table-action.edit').on('click', function(){
+
+    })
+
     window.operateEvents = {
         // 'click .view': function(e, value, row, index) {
         //     info = JSON.stringify(row);
@@ -113,6 +118,13 @@ $().ready(function() {
             // Save tenantId
             var thisId = row.id;
 
+            // if (thisId ) 
+            // {
+            //     getUpdateModal();
+            // }
+            // else {
+            //     getNewModal();
+            // }
 
             $.ajax({
                     method: "GET",

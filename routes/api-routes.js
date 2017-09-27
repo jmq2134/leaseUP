@@ -182,11 +182,10 @@ module.exports = function(app) {
 
     /// ---------------  EDIT A EXISTING TENANT --------------- ///
 
-    app.post("/api/edit/:tenantName/:tenantSF", function(req, res) {
+    app.post("/api/edit/:tenantId", function(req, res) {
 
         console.log("\n\n\n>>>>");
-        console.log("tenantName:" + req.params.tenantName);
-        console.log("tenantSF:" + req.params.tenantSF);
+        console.log("tenantId:" + req.params.tenantId);
         console.log(req.body);
         console.log("\n\n\n>>>>");
 
@@ -206,7 +205,7 @@ module.exports = function(app) {
             noticeDate: req.body.noticeDate,
             noticeRent: req.body.noticeRent
         }, {
-            where: { _id: req.params.id }
+            where: { _id: req.params.tenantId }
 
             // REDIRECT TO SHOPPING CENTER PAGE
         }).then(function(data) {
@@ -246,47 +245,6 @@ module.exports = function(app) {
                 res.send(error);
             });
 
-        });
-
-    });
-
-    /// ---------------  EDIT AN EXISTING USER --------------- ///
-
-    app.post("/api/edit/:centerID/:tenantID", function(req, res) {
-
-        console.log("\n\n\n>>>>");
-        console.log("centerID:" + req.params.centerID);
-        console.log("tenantID:" + req.params.tenantID);
-        console.log(req.body);
-        console.log("\n\n\n>>>>");
-
-        db.Tenants.update({
-            CenterId: req.body.centerId,
-            tenantName: req.body.tenantName,
-            tenantSF: req.body.tenantSF,
-            leaseStart: req.body.leaseStart,
-            leaseEnd: req.body.leaseEnd,
-            basePSF: req.body.basePSF,
-            camPSF: req.body.camPSF,
-            totalPSF: parseInt(req.body.basePSF) + parseInt(req.body.camPSF),
-            annualRent: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) * parseInt(req.body.tenantSF),
-            salesPSF: req.body.salesPSF,
-            annualSales: parseInt(req.body.salesPSF) * parseInt(req.body.tenantSF),
-            occupancy: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) / parseInt(req.body.salesPSF),
-            noticeDate: req.body.noticeDate,
-            noticeRent: req.body.noticeRent
-        }, {
-            where: { _id: req.params.id }
-
-            // REDIRECT TO SHOPPING CENTER PAGE
-        }).then(function(data) {
-
-            res.redirect("/center/" + req.body.centerId);
-
-            // CATCH ERRORS
-        }).catch(function(error) {
-
-            res.send(error);
         });
 
     });
