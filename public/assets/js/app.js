@@ -67,4 +67,6 @@ app = {
         });
     } // CLOSE INITFINDOCCUPANCY
 
+ 
+
 }; // CLOSE APP FUNCTION
