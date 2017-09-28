@@ -97,7 +97,7 @@ function operateFormatter(value, row, index) {
 
 $().ready(function() {
 
-    $('.table-action.edit').on('click', function(){
+    $('.table-action.edit').on('click', function() {
 
     })
 
@@ -111,21 +111,10 @@ $().ready(function() {
         'click .edit': function(e, value, row, index) {
             info = JSON.stringify(row);
 
-            // swal('You click edit icon, row: ', info);
-            console.log(row);
-            console.log(row.id);
-
-            // Save tenantId
+            // SAVE TENANT ID FROM
             var thisId = row.id;
 
-            // if (thisId ) 
-            // {
-            //     getUpdateModal();
-            // }
-            // else {
-            //     getNewModal();
-            // }
-
+            // FIND TENANT INFO FROM ROW
             $.ajax({
                     method: "GET",
                     url: "/api/tenants/" + thisId
@@ -152,15 +141,7 @@ $().ready(function() {
 
         },
         'click .remove': function(e, value, row, index) {
-            // console.log(row);
-            // $table.bootstrapTable('remove', {
-            //     field: 'tenantName',
-            //     values: [row.tenantName]
-            // });
 
-            info = JSON.stringify(row);
-
-            // swal('You click edit icon, row: ', info);
             console.log(row);
             console.log(row.id);
 
@@ -168,13 +149,19 @@ $().ready(function() {
             var thisId = row.id;
 
 
+            // FIND TENANT INFO FROM ROW
             $.ajax({
-                url: '/api/remove/'  + thisId,
-                type: 'DELETE',
-                success: function(result) {
-                    // Do something with the result
-                }
-            });
+                    method: "GET",
+                    url: "/api/tenants/" + thisId
+                })
+                // Fill modal with tenant info
+                .done(function(data) {
+
+                    data = data[0];
+                    console.log(data);
+                    console.log("remove button clicked");
+                    window.location.href="/api/remove/" + thisId;
+                })
         }
     };
 

@@ -40,6 +40,7 @@ module.exports = function(app) {
     app.get('/dashboard', function(req, res) {
         db.Centers.findAll().then(function(data) {
             var hbsObject = { centers: data };
+            // res.json(hbsObject);
             res.render('dashboard', hbsObject);
         });
     });
@@ -48,6 +49,21 @@ module.exports = function(app) {
     app.get("/map", function(req, res) {
         res.render('map', req);
     });
+
+    // /// ROUTE TO SHOPPING CENTER PAGE BY ID
+    // app.get("/dashboard", function(req, res) {
+    //     db.Centers.findAll({
+    //         include: [{
+    //             model: db.Tenants,
+    //             required: false
+    //         }]
+    //     }).then(function(center) {
+    //         // res.json(center);
+    //         res.render('center', {
+    //             center: center
+    //         });
+    //     })
+    // });
 
 
     /// ROUTE TO SHOPPING CENTER PAGE BY ID
@@ -224,7 +240,6 @@ module.exports = function(app) {
     });
 
 
-
     /// ---------------  DELETE TENANT --------------- ///
 
     app.delete("/api/remove/:thisId", function(req, res) {
@@ -235,9 +250,9 @@ module.exports = function(app) {
         console.log(req.body);
         console.log("\n\n\n>>>>");
 
-        db.Tenants.destroy({
+        Tenants.destroy({
             where: {
-                id: req.params.thisId,
+                id: req.params.thisId
             }
 
             // REDIRECT TO SHOPPING CENTER PAGE
@@ -253,6 +268,4 @@ module.exports = function(app) {
 
     });
 
-
-
-};
+}; // close api export

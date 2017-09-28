@@ -29,7 +29,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static("./public"));
 
 // Sets up Passport
-// =============================================================
+// ============================================================
 app.use(session({    
     secret: 'keyboard cat',
         resave: true,
@@ -47,13 +47,13 @@ app.engine("handlebars", exhb({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 
-// Routes =============================================================
+// Routes =======================================================
 require("./routes/api-routes.js")(app);
 require('./config/passport/passport.js')(passport, db.user);
 var authRoute = require('./routes/auth.js')(app, passport);
 
 
-// Syncing our sequelize models and then starting our express app
+// Syncing sequelize models and then starting the express app
 db.sequelize.sync().then(function() {
     app.listen(PORT, function() {
         console.log("App listening on PORT " + PORT);
