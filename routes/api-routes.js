@@ -50,6 +50,11 @@ module.exports = function(app) {
         res.render('map', req);
     });
 
+    /// CALENDAR
+    app.get("/calendar", function(req, res) {
+        res.render('calendar', req);
+    });
+
     // /// ROUTE TO SHOPPING CENTER PAGE BY ID
     // app.get("/dashboard", function(req, res) {
     //     db.Centers.findAll({

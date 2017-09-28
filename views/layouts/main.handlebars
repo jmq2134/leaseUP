@@ -78,6 +78,11 @@ $().ready(function() {
     demo.initFormExtendedDatetimepickers();
 });
 </script>
+<script>
+$().ready(function() {
+    demo.initFullCalendar();
+});
+</script>
 <script type="text/javascript">
 var $table = $('#bootstrap-table');
 
@@ -160,7 +165,7 @@ $().ready(function() {
                     data = data[0];
                     console.log(data);
                     console.log("remove button clicked");
-                    window.location.href="/api/remove/" + thisId;
+                    window.location.href = "/api/remove/" + thisId;
                 })
         }
     };

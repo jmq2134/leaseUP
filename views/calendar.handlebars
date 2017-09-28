@@ -91,7 +91,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Location Map</a>
+                        <a class="navbar-brand" href="#">FIP ASSET MANAGEMENT DASHBOARD</a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -104,5 +104,24 @@
                     </div>
                 </div>
             </nav>
-            <div id="map" class="full-screen-map"></div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="card card-calendar">
+                                <div class="content">
+                                    <div id="fullCalendar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    $().ready(function() {
+        demo.initFullCalendar();
+    });
+    </script>
 </body>
