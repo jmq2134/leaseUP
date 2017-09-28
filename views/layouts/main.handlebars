@@ -57,6 +57,7 @@
 <script src="/assets/js/light-bootstrap-dashboard.js"></script>
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 <script src="/assets/js/demo.js"></script>
+<script src="/assets/js/app.js"></script>
 <script src="/assets/js/newTenant.js"></script>
 <!-- BACKGROUND IMAGE -->
 <script type="text/javascript">
@@ -220,68 +221,7 @@ $().ready(function() {
 </script>
 <!-- FIND TOTAL, OCCUPIED, VACANT SF ON TABLES -->
 <script type="text/javascript">
-$(document).ready(function() {
-
-    var sum = 0;
-    var result = 0;
-    var vacant = 0;
-    var occupied = 0;
-
-    var sumPer = 0;
-    var vacantPer = 0;
-    var occupiedPer = 0;
-
-    $('tr').each(function() {
-
-        $(this).find('.tenantName').each(function() {
-
-            var tenantName = $(this).text();
-            console.log(tenantName);
-
-            if (tenantName == "Vacant") {
-
-                result = $(this).closest('td').next().text();
-                result = result.replace(/\,/g, '');
-                vacant += parseFloat(result);
-                sum += parseFloat(result);
-
-            } else {
-
-                result = $(this).closest('td').next().text();
-                result = result.replace(/\,/g, '');
-                occupied += parseFloat(result);
-                sum += parseFloat(result);
-
-            }
-
-        });
-
-        /// FIND PERCENTAGE OCCUPIED OR VACANT
-        sumPer = parseFloat((sum / sum) * 100).toFixed(2) + "%";
-        occupiedPer = parseFloat((occupied / sum) * 100).toFixed(2) + "%";
-        vacantPer = parseFloat((vacant / sum) * 100).toFixed(2) + "%";
-
-        /// FUNCTION TO ADD COMMAS
-        function numberWithThousands(x) {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-
-        /// FORMAT SUM, OCCUPIED, VACANT
-        var sumFormat = numberWithThousands(sum);
-        var occupiedFormat = numberWithThousands(occupied);
-        var vacantFormat = numberWithThousands(vacant);
-
-        /// ADD TOTAL SF, OCCUPIED SF, VACANT SF TO GRID
-        $('#totalSF').html(sumFormat);
-        $('#occupiedSF').html(occupiedFormat);
-        $('#vacantSF').html(vacantFormat);
-
-        $('#totalSFper').html(sumPer);
-        $('#occupiedSFper').html(occupiedPer);
-        $('#vacantSFper').html(vacantPer);
-
-    });
-});
+    app.initFindOccupancy();
 </script>
 
 </html>

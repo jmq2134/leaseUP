@@ -24,6 +24,8 @@ demo = {
         /// FIND CENTER ADDRESSES
         var locationsArray = [];
 
+        var geocoder = require('geocoder');
+
         function location(centerName, centerStreet, centerCity, centerState, centerZip) {
             this.centerName = centerName;
             this.centerStreet = centerStreet;
@@ -51,6 +53,12 @@ demo = {
 
                     new location(centerName, centerStreet, centerCity, centerState, centerZip);
                     console.log(locationsArray);
+
+                    geocoder.geocode(location, function(err, data) {
+                        // do something with data 
+                        return data;
+                        console.log(geocode);
+                    });
 
                     // var location = data[i].centerStreet + ' ' + data[i].centerCity + ' ' + data[i].centerState + ' ' + data[i].centerZip;
                     // geocodeAddress(location);

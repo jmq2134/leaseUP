@@ -1,147 +1,70 @@
-$(document).ready(function() {
+app = {
 
+    /// ----------------------------- FIND VACANT, OCCUPIED, TOTAL SF IN TENANT TABLES ----------------------------- ///    
 
-    /// ----------------------------- FIND VACANT, OCCUPIED, TOTAL SF IN TENANT TABLES ----------------------------- ///	
+    initFindOccupancy: function() {
 
-    var sum = 0;
-    var result = 0;
-    var vacant = 0;
-    var occupied = 0;
+        // VARIABLES
+        var sum = 0;
+        var result = 0;
+        var vacant = 0;
+        var occupied = 0;
 
-    $('tr').each(function() {
+        var sumPer = 0;
+        var vacantPer = 0;
+        var occupiedPer = 0;
 
-        $(this).find('.tenantName').each(function() {
+        // FIND VACANT AND OCCUPIED SF BY CHECKING/ADDING VALUES OF TABLE ROWS
 
-            var tenantName = $(this).text();
+        $('tr').each(function() {
 
-            if (tenantName == "Vacant") {
+            $(this).find('.tenantName').each(function() {
 
-                result = $(this).closest('td').next().text();
-                vacant += parseFloat(result);
-                sum += parseFloat(result);
+                var tenantName = $(this).text();
+                console.log(tenantName);
 
-            } else {
+                // VACANCY
+                if (tenantName == "Vacant") {
 
-                result = $(this).closest('td').next().text();
-                occupied += parseFloat(result);
-                sum += parseFloat(result);
+                    result = $(this).closest('td').next().text();
+                    result = result.replace(/\,/g, '');
+                    vacant += parseFloat(result);
+                    sum += parseFloat(result);
 
+                    // OCCUPANCY
+                } else {
+
+                    result = $(this).closest('td').next().text();
+                    result = result.replace(/\,/g, '');
+                    occupied += parseFloat(result);
+                    sum += parseFloat(result);
+                }
+            });
+
+            /// FIND PERCENTAGE OCCUPIED OR VACANT
+            sumPer = parseFloat((sum / sum) * 100).toFixed(2) + "%";
+            occupiedPer = parseFloat((occupied / sum) * 100).toFixed(2) + "%";
+            vacantPer = parseFloat((vacant / sum) * 100).toFixed(2) + "%";
+
+            /// FUNCTION TO ADD COMMAS
+            function numberWithThousands(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
 
+            /// FORMAT SUM, OCCUPIED, VACANT
+            var sumFormat = numberWithThousands(sum);
+            var occupiedFormat = numberWithThousands(occupied);
+            var vacantFormat = numberWithThousands(vacant);
+
+            /// ADD TOTAL SF, OCCUPIED SF, VACANT SF TO GRID
+            $('#totalSF').html(sumFormat);
+            $('#occupiedSF').html(occupiedFormat);
+            $('#vacantSF').html(vacantFormat);
+
+            $('#totalSFper').html(sumPer);
+            $('#occupiedSFper').html(occupiedPer);
+            $('#vacantSFper').html(vacantPer);
         });
+    } // CLOSE INITFINDOCCUPANCY
 
-        console.log("Sum: " + sum);
-        console.log("Vacant: " + vacant);
-        console.log("Occupied: " + occupied);
-
-        // ADD TOTAL SF TO SUM ROW
-        $('.tenantSFsum', this).html(sum);
-
-    });
-});
-
-
-    /// ----------------------------- CENTER CHARTS ----------------------------- ///	
-
-
-initCharts: function() {
-
-
-    /*  **************** OCCUPANCY / VACANCY - Pie Chart ******************** */
-
-
-    var dataPreferences = {
-        series: [
-            [25, 30, 20, 25]
-        ]
-    };
-
-    var optionsPreferences = {
-        donut: true,
-        donutWidth: 40,
-        startAngle: 0,
-        height: "245px",
-        total: 100,
-        showLabel: false,
-        axisX: {
-            showGrid: false
-        }
-    };
-
-    Chartist.Pie('#chartPreferences', dataPreferences, optionsPreferences);
-
-    Chartist.Pie('#chartPreferences', {
-        labels: ['62%', '32%'],
-        series: [62, 32]
-    });
-
-
-    /*  **************** LEASE ROLLOVER  - Bar Chart ******************** */
-
-    /// GET CURRENT YEAR
-
-
-    /// NUMBER OF YEARS TO DISPLAY
-
-    var dataViews = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        series: [
-            [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
-        ]
-    };
-
-    var optionsViews = {
-        seriesBarDistance: 10,
-        classNames: {
-            bar: 'ct-bar ct-azure'
-        },
-        axisX: {
-            showGrid: false
-        }
-    };
-
-    var responsiveOptionsViews = [
-        ['screen and (max-width: 640px)', {
-            seriesBarDistance: 5,
-            axisX: {
-                labelInterpolationFnc: function(value) {
-                    return value[0];
-                }
-            }
-        }]
-    ];
-
-    Chartist.Bar('#chartViews', dataViews, optionsViews, responsiveOptionsViews);
-
-
-
-    var data = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        series: [
-            [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-            [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
-        ]
-    };
-
-    var options = {
-        seriesBarDistance: 10,
-        axisX: {
-            showGrid: false
-        },
-        height: "245px"
-    };
-
-    var responsiveOptions = [
-        ['screen and (max-width: 640px)', {
-            seriesBarDistance: 5,
-            axisX: {
-                labelInterpolationFnc: function(value) {
-                    return value[0];
-                }
-            }
-        }]
-    ];
-
-    Chartist.Bar('#chartActivity', data, options, responsiveOptions);
-
-},
+}; // CLOSE APP FUNCTION
