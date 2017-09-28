@@ -91,7 +91,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">FIP ASSET MANAGEMENT DASHBOARD</a>
+                        <a class="navbar-brand" href="#">{{center.centerName}}</a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -104,17 +104,8 @@
                     </div>
                 </div>
             </nav>
-            <!-- CENTER NAME, ADDRESS -->
-            <div class="row" style="margin: 0px 10px 10px 20px">
-                <!-- center name and address -->
-                <div class="col-sm-12">
-                    <h2>{{center.centerName}}</h2>
-                    <p>{{center.centerAddress}}</p>
-                </div>
-                <!-- add new button -->
-            </div>
             <!-- TOTAL SF, OCCUPIED SF, VACANT SF -->
-            <div class="row" style="margin: 20px">
+            <div class="row" style="margin: 20px 20px 0px 20px">
                 <div class="col-sm-4">
                     <div class="card">
                         <div class="content text-center">
@@ -147,39 +138,45 @@
                 </div>
             </div>
             <!-- EXPIRATIONS CHARTS -->
-            <div class="row" style="margin-left: 20px; margin-right: 20px">
-                <div class="col-md-6">
-                    <div class="card">
+            <div class="row" style="margin: 0px 20px 0px 20px">
+                <div class="col-sm-6">
+                    <div class="card ">
                         <div class="header">
-                            <h4 class="title">Lease Rollover</h4>
-                            <p class="category">Annually</p>
+                            <h4 class="title">2014 Sales</h4>
+                            <p class="category">All products including Taxes</p>
                         </div>
                         <div class="content">
-                            <div id="chartAnnual" class="ct-chart"></div>
+                            <div id="chartActivity" class="ct-chart"></div>
                         </div>
                         <div class="footer">
                             <div class="legend">
-                                <i class="fa fa-circle text-info"></i> Open
-                                <i class="fa fa-circle text-danger"></i> Click
-                                <i class="fa fa-circle text-warning"></i> Click Second Time
+                                <i class="fa fa-circle text-info"></i> Tesla Model S
+                                <i class="fa fa-circle text-danger"></i> BMW 4 Series
+                            </div>
+                            <hr>
+                            <div class="stats">
+                                <i class="fa fa-check"></i> Data information certified
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
+                <div class="col-sm-6">
+                    <div class="card ">
                         <div class="header">
-                            <h4 class="title">Lease Rollover</h4>
-                            <p class="category">Cumulative</p>
+                            <h4 class="title">2014 Sales</h4>
+                            <p class="category">All products including Taxes</p>
                         </div>
                         <div class="content">
-                            <div id="chartCumulative" class="ct-chart"></div>
+                            <div id="chartActivity" class="ct-chart"></div>
                         </div>
                         <div class="footer">
                             <div class="legend">
-                                <i class="fa fa-circle text-info"></i> Open
-                                <i class="fa fa-circle text-danger"></i> Click
-                                <i class="fa fa-circle text-warning"></i> Click Second Time
+                                <i class="fa fa-circle text-info"></i> Tesla Model S
+                                <i class="fa fa-circle text-danger"></i> BMW 5 Series
+                            </div>
+                            <hr>
+                            <div class="stats">
+                                <i class="fa fa-check"></i> Data information certified
                             </div>
                         </div>
                     </div>
