@@ -8,6 +8,7 @@ var env = require('dotenv').load();
 var passport = require('passport');
 var Handlebars = require('handlebars');
 var NumeralHelper = require("handlebars.numeral");
+var geocoder = require('geocoder');
 NumeralHelper.registerHelpers(Handlebars);
 
 

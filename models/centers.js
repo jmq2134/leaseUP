@@ -6,7 +6,10 @@ module.exports = function(sequelize, DataTypes) {
   var Centers = sequelize.define("Centers", {
 
     centerName: DataTypes.STRING,
-    centerAddress: DataTypes.STRING,
+    centerStreet: DataTypes.STRING,
+    centerCity: DataTypes.STRING,
+    centerState: DataTypes.STRING, 
+    centerZip: DataTypes.STRING,
 
   });
 

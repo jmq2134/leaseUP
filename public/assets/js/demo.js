@@ -17,7 +17,78 @@ demo = {
     },
 
     initFullScreenGoogleMap: function() {
+
+        /// HOME LATITUDE/LONGITUDE
         var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
+
+        /// FIND CENTER ADDRESSES
+        var locationsArray = [];
+
+        function location(centerName, centerStreet, centerCity, centerState, centerZip) {
+            this.centerName = centerName;
+            this.centerStreet = centerStreet;
+            this.centerCity = centerCity;
+            this.centerState = centerState;
+            this.centerState = centerState;
+            locationsArray.push(this);
+        }
+
+        $.ajax({
+                method: "GET",
+                url: "/api/centers"
+            })
+            // Fill modal with tenant info
+            .done(function(data) {
+                console.log(data);
+
+                /// PUSH CENTER DATA INTO LOCATION ARRAY
+                for (i = 0; i < data.length; i++) {
+                    var centerName = data[i].centerName;
+                    var centerStreet = data[i].centerStreet;
+                    var centerCity = data[i].centerCity;
+                    var centerState = data[i].centerState;
+                    var centerZip = data[i].centerZip;
+
+                    new location(centerName, centerStreet, centerCity, centerState, centerZip);
+                    console.log(locationsArray);
+
+                    // var location = data[i].centerStreet + ' ' + data[i].centerCity + ' ' + data[i].centerState + ' ' + data[i].centerZip;
+                    // geocodeAddress(location);
+                }
+            });
+
+        function geocodeAddress(location) {
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({
+                'address': centerStreet + ' ' + centerCity + ' ' + centerState + ' ' + centerZip
+            }, function(results, status) {
+                // Drop a pin on map for each geocoded address
+                if (status == 'OK') {
+                    window.mapInstance.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: window.mapInstance,
+                        position: results[0].geometry.location,
+                        title: location.name
+                    });
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: location.name + "<br>" + location.centerStreet + "<br>" + location.centerCity + ' ' + location.centerState + ' ' + locationArray.centerZip,
+                        map: map
+                    });
+
+                    google.maps.event.addListener(marker, 'click', function() {
+                        infowindow.open(map, this);
+                    });
+
+                    // Error alert
+                } else {
+                    alert("geocode of " + address + " failed:" + status);
+                }
+            });
+        }
+
+
+
         var mapOptions = {
             zoom: 13,
             center: myLatlng,
@@ -25,6 +96,7 @@ demo = {
             styles: [{ "featureType": "water", "stylers": [{ "saturation": 43 }, { "lightness": -11 }, { "hue": "#0088ff" }] }, { "featureType": "road", "elementType": "geometry.fill", "stylers": [{ "hue": "#ff0000" }, { "saturation": -100 }, { "lightness": 99 }] }, { "featureType": "road", "elementType": "geometry.stroke", "stylers": [{ "color": "#808080" }, { "lightness": 54 }] }, { "featureType": "landscape.man_made", "elementType": "geometry.fill", "stylers": [{ "color": "#ece2d9" }] }, { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{ "color": "#ccdca1" }] }, { "featureType": "road", "elementType": "labels.text.fill", "stylers": [{ "color": "#767676" }] }, { "featureType": "road", "elementType": "labels.text.stroke", "stylers": [{ "color": "#ffffff" }] }, { "featureType": "poi", "stylers": [{ "visibility": "off" }] }, { "featureType": "landscape.natural", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "color": "#b8cb93" }] }, { "featureType": "poi.park", "stylers": [{ "visibility": "on" }] }, { "featureType": "poi.sports_complex", "stylers": [{ "visibility": "on" }] }, { "featureType": "poi.medical", "stylers": [{ "visibility": "on" }] }, { "featureType": "poi.business", "stylers": [{ "visibility": "simplified" }] }]
 
         }
+
         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
         var marker = new google.maps.Marker({

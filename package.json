@@ -25,6 +25,7 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.5",
     "fs": "0.0.1-security",
+    "geocoder": "^0.2.3",
     "handlebars.numeral": "^0.2.0",
     "mysql": "^2.14.1",
     "mysql2": "^1.4.2",

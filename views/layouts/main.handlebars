@@ -46,7 +46,7 @@
 <!-- Vector Map plugin -->
 <script src="/assets/js/jquery-jvectormap.js"></script>
 <!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHjFjooAs1h0hZBGxthjWqG5HlMgkCxOI"></script>
 <!-- Wizard Plugin    -->
 <script src="/assets/js/jquery.bootstrap.wizard.min.js"></script>
 <!--  Datatable Plugin    -->
@@ -58,6 +58,7 @@
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 <script src="/assets/js/demo.js"></script>
 <script src="/assets/js/newTenant.js"></script>
+<!-- BACKGROUND IMAGE -->
 <script type="text/javascript">
 $().ready(function() {
     lbd.checkFullPageBackgroundImage();
@@ -68,6 +69,7 @@ $().ready(function() {
     }, 700)
 });
 </script>
+<!-- DATE/TIME PICKERS ON ENTER TENANT MODAL -->
 <script type="text/javascript">
 $().ready(function() {
 
@@ -78,11 +80,19 @@ $().ready(function() {
     demo.initFormExtendedDatetimepickers();
 });
 </script>
+<!-- LOAD CALENDAR -->
 <script>
 $().ready(function() {
     demo.initFullCalendar();
 });
 </script>
+<!-- LOAD GOOGLE MAP -->
+<!-- <script>
+$().ready(function() {
+    demo.initFullScreenGoogleMap();
+});
+</script> -->
+<!-- BOOTSTRAP TABLE -->
 <script type="text/javascript">
 var $table = $('#bootstrap-table');
 
@@ -208,6 +218,7 @@ $().ready(function() {
 
 });
 </script>
+<!-- FIND TOTAL, OCCUPIED, VACANT SF ON TABLES -->
 <script type="text/javascript">
 $(document).ready(function() {
 
