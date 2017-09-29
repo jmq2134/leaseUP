@@ -277,11 +277,9 @@ module.exports = function(app) {
                     id: req.params.thisId
                 }
 
-                // REDIRECT TO SHOPPING CENTER PAGE
+                // REFRESH PAGE
             }).then(function() {
                 location.reload();
-
-                // res.redirect("/center/" + centerId);
 
                 // CATCH ERRORS
             }).catch(function(error) {
@@ -290,8 +288,6 @@ module.exports = function(app) {
             });
 
         })
-
-
 
     });
 
