@@ -145,6 +145,43 @@
                     </div>
                 </div>
             </div>
+            <!-- EXPIRATIONS CHARTS -->
+            <div class="row" style="margin: 0px 20px 0px 20px">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">Occupancy</h4>
+                            <p class="category"></p>
+                        </div>
+                        <div class="content">
+                            <div class="ct-chart ct-square"></div>
+                        </div>
+                        <div class="footer">
+                            <div class="legend">
+                                <i class="fa fa-circle text-info"></i> Occupied
+                                <i class="fa fa-circle text-danger"></i> Vacant
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card ">
+                        <div class="header">
+                            <h4 class="title">Lease Rollover</h4>
+                            <p class="category">Cumulative</p>
+                        </div>
+                        <div class="content">
+                            <div id="chartActivity" class="ct-chart"></div>
+                        </div>
+                        <div class="footer">
+                            <div class="legend">
+                                <i class="fa fa-circle text-info"></i> Tesla Model S
+                                <i class="fa fa-circle text-danger"></i> BMW 5 Series
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- TABLE -->
             <div class="content">
                 <div class="container-fluid">
@@ -173,8 +210,7 @@
                                         <th data-field="optionRent" data-sortable="true">Option Rent</th>
                                     </thead>
                                     <tbody>
-                                        {{#each centers}}
-                                        {{#each this.Tenants}}
+                                        {{#each centers}} {{#each this.Tenants}}
                                         <tr>
                                             <td></td>
                                             <td class="id">{{id}}</td>
@@ -191,8 +227,7 @@
                                             <td>{{noticeDate}}</td>
                                             <td>{{currency noticeRent}}</td>
                                         </tr>
-                                        {{/each}}
-                                        {{/each}}
+                                        {{/each}} {{/each}}
                                     </tbody>
                                 </table>
                             </div>
