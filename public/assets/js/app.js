@@ -85,13 +85,16 @@ app = {
                     return { year, value }
                 })
 
-
-
+                // SORT ARRAY BY YEAR
                 reducedObjArr.sort(function(a, b) {
                     return a.year - b.year
                 })
 
                 console.log(reducedObjArr);
+
+                // FIND CURRENT YEAR
+                var currentYear = Date().substr(11,4);
+                console.log(currentYear);
 
             });
 
