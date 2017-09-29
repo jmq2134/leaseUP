@@ -40,8 +40,8 @@ module.exports = function(app) {
     app.get('/dashboard', function(req, res) {
         db.Centers.findAll().then(function(data) {
             var hbsObject = { centers: data };
-            // res.json(hbsObject);
-            res.render('dashboard', hbsObject);
+            res.json(hbsObject);
+            // res.render('dashboard', hbsObject);
         });
     });
 
@@ -55,38 +55,55 @@ module.exports = function(app) {
         res.render('calendar', req);
     });
 
-    // /// ROUTE TO SHOPPING CENTER PAGE BY ID
-    // app.get("/dashboard", function(req, res) {
-    //     db.Centers.findAll({
-    //         include: [{
-    //             model: db.Tenants,
-    //             required: false
-    //         }]
-    //     }).then(function(center) {
-    //         // res.json(center);
-    //         res.render('center', {
-    //             center: center
-    //         });
-    //     })
-    // });
-
-
     /// ROUTE TO SHOPPING CENTER PAGE BY ID
-    app.get("/center/:id", function(req, res) {
-        db.Centers.findOne({
-            where: {
-                id: req.params.id
-            },
+    app.get("/dashboard", function(req, res) {
+        db.Centers.findAll({
             include: [{
                 model: db.Tenants,
                 required: false
             }]
-        }).then(function(center) {
-            //res.json(center);
-            res.render('center', {
-                center: center
+        }).then(function(data) {
+            var hbsObject = { centers: data };
+            // res.json(hbsObject);
+            res.render('dashboard',
+                hbsObject
+            );
+        })
+    });
+
+
+    /// ROUTE TO SHOPPING CENTER PAGE BY ID
+    app.get("/center/:id", function(req, res) {
+
+        var hbsObject = {};
+
+
+        db.Centers.findAll().then(function(data) {
+            hbsObject.centers = data;
+            console.log(hbsObject.centers);
+        }).then(function() {
+            db.Centers.findOne({
+                where: {
+                    id: req.params.id
+                },
+                include: [{
+                    model: db.Tenants,
+                    required: false
+                }]
+            }).then(function(data) {
+
+                hbsObject.tenants = data
+                res.render('center', hbsObject);
+                //res.json(hbsObject);
+
             });
         })
+
+
+
+        //res.json(center);
+
+
     });
 
     // /// ROUTE TO SHOPPING CENTER PAGE BY ID

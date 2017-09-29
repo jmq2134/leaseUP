@@ -42,6 +42,11 @@ app = {
             });
 
             /// FIND PERCENTAGE OCCUPIED OR VACANT
+            sumCalc = parseFloat((sum / sum) * 100).toFixed(2);
+            occupiedCalc = parseFloat((occupied / sum) * 100).toFixed(2);
+            vacantCalc  = parseFloat((vacant / sum) * 100).toFixed(2);
+
+            /// FIND PERCENTAGE OCCUPIED OR VACANT
             sumPer = parseFloat((sum / sum) * 100).toFixed(2) + "%";
             occupiedPer = parseFloat((occupied / sum) * 100).toFixed(2) + "%";
             vacantPer = parseFloat((vacant / sum) * 100).toFixed(2) + "%";
@@ -64,9 +69,34 @@ app = {
             $('#totalSFper').html(sumPer);
             $('#occupiedSFper').html(occupiedPer);
             $('#vacantSFper').html(vacantPer);
+
+            /// CHARTIST 
+
+
+
+
+
         });
+
     } // CLOSE INITFINDOCCUPANCY
 
- 
+
+    // var dataPreferences = {
+    //     series: [
+    //         [25, 30, 20, 25]
+    //     ]
+    // };
+
+
+
+    // Chartist.Pie('#chartPreferences', dataPreferences, optionsPreferences);
+
+
+
+
+
+
+
+
 
 }; // CLOSE APP FUNCTION

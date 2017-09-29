@@ -91,7 +91,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">{{center.centerName}}</a>
+                        <a class="navbar-brand" href="#">{{tenants.centerName}}</a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -140,18 +140,18 @@
             <!-- EXPIRATIONS CHARTS -->
             <div class="row" style="margin: 0px 20px 0px 20px">
                 <div class="col-sm-6">
-                    <div class="card ">
+                    <div class="card">
                         <div class="header">
-                            <h4 class="title">Lease Rollover</h4>
-                            <p class="category">Annual</p>
+                            <h4 class="title">Occupancy</h4>
+                            <p class="category"></p>
                         </div>
                         <div class="content">
-                            <div id="chartActivity" class="ct-chart"></div>
+                            <div class="ct-chart ct-square"></div>
                         </div>
                         <div class="footer">
                             <div class="legend">
-                                <i class="fa fa-circle text-info"></i> Tesla Model S
-                                <i class="fa fa-circle text-danger"></i> BMW 4 Series
+                                <i class="fa fa-circle text-info"></i> Occupied
+                                <i class="fa fa-circle text-danger"></i> Vacant
                             </div>
                         </div>
                     </div>
@@ -205,24 +205,26 @@
                                         <th data-field="actions" class="td-actions text-right" data-events="operateEvents" data-formatter="operateFormatter">Actions</th>
                                     </thead>
                                     <tbody>
-                                        {{#each center.Tenants}}
+
+                                        {{#each tenants.Tenants}}
                                         <tr>
                                             <td></td>
-                                            <td class="id">{{id}}</td>
-                                            <td class="tenantName">{{tenantName}}</td>
-                                            <td class="tenantSF">{{number tenantSF}}</td>
-                                            <td>{{leaseStart}}</td>
-                                            <td>{{leaseEnd}}</td>
-                                            <td>{{currency basePSF}}</td>
-                                            <td>{{currency camPSF}}</td>
-                                            <td>{{currency totalPSF}}</td>
-                                            <td>{{currency annualRent}}</td>
-                                            <td>{{currency salesPSF}}</td>
-                                            <td>{{currency annualSales}}</td>
-                                            <td>{{noticeDate}}</td>
-                                            <td>{{currency noticeRent}}</td>
+                                            <td class="id">{{this.id}}</td>
+                                            <td class="tenantName">{{this.tenantName}}</td>
+                                            <td class="tenantSF">{{number this.tenantSF}}</td>
+                                            <td>{{this.leaseStart}}</td>
+                                            <td>{{this.leaseEnd}}</td>
+                                            <td>{{currency this.basePSF}}</td>
+                                            <td>{{currency this.camPSF}}</td>
+                                            <td>{{currency this.totalPSF}}</td>
+                                            <td>{{currency this.annualRent}}</td>
+                                            <td>{{currency this.salesPSF}}</td>
+                                            <td>{{currency this.annualSales}}</td>
+                                            <td>{{this.noticeDate}}</td>
+                                            <td>{{currency this.noticeRent}}</td>
                                         </tr>
                                         {{/each}}
+
                                     </tbody>
                                 </table>
                             </div>

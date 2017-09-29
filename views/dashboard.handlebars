@@ -176,7 +176,8 @@
                                         <th data-field="actions" class="td-actions text-right" data-events="operateEvents" data-formatter="operateFormatter">Actions</th>
                                     </thead>
                                     <tbody>
-                                        {{#each center.Tenants}}
+                                        {{#each centers}}
+                                        {{#each this.Tenants}}
                                         <tr>
                                             <td></td>
                                             <td class="id">{{id}}</td>
@@ -193,6 +194,7 @@
                                             <td>{{noticeDate}}</td>
                                             <td>{{currency noticeRent}}</td>
                                         </tr>
+                                        {{/each}}
                                         {{/each}}
                                     </tbody>
                                 </table>
