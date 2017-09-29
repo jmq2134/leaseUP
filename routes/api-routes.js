@@ -259,21 +259,38 @@ module.exports = function(app) {
         console.log(req.body);
         console.log("\n\n\n>>>>");
 
-        Tenants.destroy({
+        var centerId = "";
+
+        db.Tenants.findOne({
             where: {
                 id: req.params.thisId
             }
-
-            // REDIRECT TO SHOPPING CENTER PAGE
         }).then(function(data) {
+            console.log(data);
+            centerId = data.CenterId;
+            console.log(centerId);
 
-            res.redirect("/center/" + req.body.centerId);
+        }).then(function() {
 
-            // CATCH ERRORS
-        }).catch(function(error) {
+            db.Tenants.destroy({
+                where: {
+                    id: req.params.thisId
+                }
 
-            res.send(error);
-        });
+                // REDIRECT TO SHOPPING CENTER PAGE
+            }).then(function() {
+
+                res.redirect("/center/" + centerId);
+
+                // CATCH ERRORS
+            }).catch(function(error) {
+
+                res.send(error);
+            });
+
+        })
+
+
 
     });
 

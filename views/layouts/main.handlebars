@@ -167,16 +167,12 @@ $().ready(function() {
 
             // FIND TENANT INFO FROM ROW
             $.ajax({
-                    method: "GET",
-                    url: "/api/tenants/" + thisId
+                    method: "DELETE",
+                    url: "/api/remove/" + thisId
                 })
                 // Fill modal with tenant info
                 .done(function(data) {
-
-                    data = data[0];
-                    console.log(data);
-                    console.log("remove button clicked");
-                    window.location.href = "/api/remove/" + thisId;
+                    alert("removed");
                 })
         }
     };
