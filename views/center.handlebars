@@ -150,8 +150,8 @@
                         </div>
                         <div class="footer">
                             <div class="legend">
-                                <i class="fa fa-circle text-info"></i> Occupied
-                                <i class="fa fa-circle text-danger"></i> Vacant
+                                <i class="fa fa-circle text-info"></i> Occupied SF
+                                <i class="fa fa-circle text-danger"></i> Vacant SF
                             </div>
                         </div>
                     </div>
@@ -166,8 +166,9 @@
                         </div>
                         <div class="footer">
                             <div class="legend">
-                                <i class="fa fa-circle text-info"></i> Tesla Model S
-                                <i class="fa fa-circle text-danger"></i> BMW 5 Series
+                                <i class="fa fa-circle text-info"></i> Annual Rollover (SF)
+                                <i class="fa fa-circle text-danger"></i> Cumulative Rollover (SF)
+
                             </div>
                         </div>
                     </div>
@@ -212,7 +213,7 @@
                                             <td class="tenantName">{{this.tenantName}}</td>
                                             <td class="tenantSF">{{number this.tenantSF}}</td>
                                             <td>{{this.leaseStart}}</td>
-                                            <td>{{this.leaseEnd}}</td>
+                                            <td class="leaseEnd">{{this.leaseEnd}}</td>
                                             <td>{{currency this.basePSF}}</td>
                                             <td>{{currency this.camPSF}}</td>
                                             <td>{{currency this.totalPSF}}</td>

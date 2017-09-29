@@ -6,19 +6,27 @@ app = {
 
         /// FIND OCCUPANCY ================================================================================================================
 
-        // VARIABLES
+        // VARIABLES -- OCCUPANCY
         var sum = 0;
         var result = 0;
         var vacant = 0;
         var occupied = 0;
-
         var sumPer = 0;
         var vacantPer = 0;
         var occupiedPer = 0;
 
+        // VARIABLES -- EXPIRATIONS
+        var expirations = [];
+        var sf = 0;
+        var year = 0;
+        var expireObj = [];
+
+
         // FIND VACANT AND OCCUPIED SF BY CHECKING/ADDING VALUES OF TABLE ROWS
 
         $('tr').each(function() {
+
+            /// ===================== FIND OCCUPANCY ============================= ///
 
             $(this).find('.tenantName').each(function() {
 
@@ -43,108 +51,143 @@ app = {
                 }
             });
 
-            /// FIND PERCENTAGE OCCUPIED OR VACANT
-            sumCalc = parseFloat((sum / sum) * 100).toFixed(2);
-            occupiedCalc = parseFloat((occupied / sum) * 100).toFixed(2);
-            vacantCalc = parseFloat((vacant / sum) * 100).toFixed(2);
+            /// ===================== FIND EXPIRATIONS =========================== ///
 
-            /// FIND PERCENTAGE OCCUPIED OR VACANT
-            sumPer = parseFloat((sum / sum) * 100).toFixed(2) + "%";
-            occupiedPer = parseFloat((occupied / sum) * 100).toFixed(2) + "%";
-            vacantPer = parseFloat((vacant / sum) * 100).toFixed(2) + "%";
+            $(this).find('.leaseEnd').each(function() {
 
-            /// FUNCTION TO ADD COMMAS
-            function numberWithThousands(x) {
-                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }
+                // FIND EXPIRATION DATE
+                var expirationDate = $(this).text();
+                console.log(expirationDate);
 
-            /// FORMAT SUM, OCCUPIED, VACANT
-            var sumFormat = numberWithThousands(sum);
-            var occupiedFormat = numberWithThousands(occupied);
-            var vacantFormat = numberWithThousands(vacant);
+                // FIND EXPIRATION YEAR
+                year = expirationDate.substring(expirationDate.lastIndexOf("/") + 1)
+                console.log(year);
 
-            /// ADD TOTAL SF, OCCUPIED SF, VACANT SF TO GRID
-            $('#totalSF').html(sumFormat);
-            $('#occupiedSF').html(occupiedFormat);
-            $('#vacantSF').html(vacantFormat);
+                // FIND SF OF EXPIRATION YEAR
+                sf = $(this).closest('td').prev().prev().text();
+                console.log(sf);
 
-            $('#totalSFper').html(sumPer);
-            $('#occupiedSFper').html(occupiedPer);
-            $('#vacantSFper').html(vacantPer);
-
-            /// CHARTIST - PIE ================================================================================================================
-
-            var chart = new Chartist.Pie('.ct-chart', {
-                series: [occupiedCalc, vacantCalc],
-                labels: [occupiedPer, vacantPer]
-            }, {
-                donut: true,
-                showLabel: true
-            });
-
-            chart.on('draw', function(data) {
-                if (data.type === 'slice') {
-                    // Get the total path length in order to use for dash array animation
-                    var pathLength = data.element._node.getTotalLength();
-
-                    // Set a dasharray that matches the path length as prerequisite to animate dashoffset
-                    data.element.attr({
-                        'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
-                    });
-
-                    // Create animation definition while also assigning an ID to the animation for later sync usage
-                    var animationDefinition = {
-                        'stroke-dashoffset': {
-                            id: 'anim' + data.index,
-                            dur: 1000,
-                            from: -pathLength + 'px',
-                            to: '0px',
-                            easing: Chartist.Svg.Easing.easeOutQuint,
-                            // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
-                            fill: 'freeze'
-                        }
-                    };
-
-                    // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
-                    if (data.index !== 0) {
-                        animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
-                    }
-
-                    // We need to set an initial value before the animation starts as we are not in guided mode which would do that for us
-                    data.element.attr({
-                        'stroke-dashoffset': -pathLength + 'px'
-                    });
-
-                    // We can't use guided mode as the animations need to rely on setting begin manually
-                    // See http://gionkunz.github.io/chartist-js/api-documentation.html#chartistsvg-function-animate
-                    data.element.animate(animationDefinition, false);
+                // IF NOT VACANT, PUT INFO INTO EXPIRATIONS ARRAY
+                if (year > 0) {
+                    expirations.push({ year: year, sf: parseFloat(sf.replace(/,/g, '')) });
+                    console.log(expirations);
                 }
+
+                // SUM SF PER EXPIRATION YEAR
+                let counts = expirations.reduce((prev, curr) => {
+                    let count = prev.get(curr.year) || 0;
+                    prev.set(curr.year, curr.sf + count);
+                    return prev;
+                }, new Map());
+
+                // then, map your counts object back to an array
+                let reducedObjArr = [...counts].map(([year, value]) => {
+                    return { year, value }
+                })
+
+
+
+                reducedObjArr.sort(function(a, b) {
+                    return a.year - b.year
+                })
+
+                console.log(reducedObjArr);
+
             });
 
-            // For the sake of the example we update the chart every time it's created with a delay of 8 seconds
-            chart.on('created', function() {
-                if (window.__anim21278907124) {
-                    clearTimeout(window.__anim21278907124);
-                    window.__anim21278907124 = null;
-                }
-                window.__anim21278907124 = setTimeout(chart.update.bind(chart), 10000);
-            });
 
+
+        }); // CLOSE EACH TABLE ROW
+
+
+        /// FIND PERCENTAGE OCCUPIED OR VACANT
+        sumCalc = parseFloat((sum / sum) * 100).toFixed(2);
+        occupiedCalc = parseFloat((occupied / sum) * 100).toFixed(2);
+        vacantCalc = parseFloat((vacant / sum) * 100).toFixed(2);
+
+        /// FIND PERCENTAGE OCCUPIED OR VACANT
+        sumPer = parseFloat((sum / sum) * 100).toFixed(2) + "%";
+        occupiedPer = parseFloat((occupied / sum) * 100).toFixed(2) + "%";
+        vacantPer = parseFloat((vacant / sum) * 100).toFixed(2) + "%";
+
+        /// FUNCTION TO ADD COMMAS
+        function numberWithThousands(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        /// FORMAT SUM, OCCUPIED, VACANT
+        var sumFormat = numberWithThousands(sum);
+        var occupiedFormat = numberWithThousands(occupied);
+        var vacantFormat = numberWithThousands(vacant);
+
+        /// ADD TOTAL SF, OCCUPIED SF, VACANT SF TO GRID
+        $('#totalSF').html(sumFormat);
+        $('#occupiedSF').html(occupiedFormat);
+        $('#vacantSF').html(vacantFormat);
+
+        $('#totalSFper').html(sumPer);
+        $('#occupiedSFper').html(occupiedPer);
+        $('#vacantSFper').html(vacantPer);
+
+
+
+        /// CHARTIST - PIE ================================================================================================================
+
+        var chart = new Chartist.Pie('.ct-chart', {
+            series: [occupiedCalc, vacantCalc],
+            labels: [occupiedPer, vacantPer]
+        }, {
+            donut: true,
+            showLabel: true
         });
 
-        /// FIND EXPIRATIONS ================================================================================================================
+        chart.on('draw', function(data) {
+            if (data.type === 'slice') {
+                // Get the total path length in order to use for dash array animation
+                var pathLength = data.element._node.getTotalLength();
 
+                // Set a dasharray that matches the path length as prerequisite to animate dashoffset
+                data.element.attr({
+                    'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
+                });
 
+                // Create animation definition while also assigning an ID to the animation for later sync usage
+                var animationDefinition = {
+                    'stroke-dashoffset': {
+                        id: 'anim' + data.index,
+                        dur: 1000,
+                        from: -pathLength + 'px',
+                        to: '0px',
+                        easing: Chartist.Svg.Easing.easeOutQuint,
+                        // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
+                        fill: 'freeze'
+                    }
+                };
 
+                // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
+                if (data.index !== 0) {
+                    animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
+                }
 
+                // We need to set an initial value before the animation starts as we are not in guided mode which would do that for us
+                data.element.attr({
+                    'stroke-dashoffset': -pathLength + 'px'
+                });
 
+                // We can't use guided mode as the animations need to rely on setting begin manually
+                // See http://gionkunz.github.io/chartist-js/api-documentation.html#chartistsvg-function-animate
+                data.element.animate(animationDefinition, false);
+            }
+        });
 
-
-
-
-
-
-
+        // For the sake of the example we update the chart every time it's created with a delay of 8 seconds
+        chart.on('created', function() {
+            if (window.__anim21278907124) {
+                clearTimeout(window.__anim21278907124);
+                window.__anim21278907124 = null;
+            }
+            window.__anim21278907124 = setTimeout(chart.update.bind(chart), 10000);
+        });
 
 
         /// CHARTIST - BAR ================================================================================================================
@@ -153,8 +196,7 @@ app = {
             labels: ['Q1', 'Q2', 'Q3', 'Q4'],
             series: [
                 [800000, 1200000, 1400000, 1300000],
-                [200000, 400000, 500000, 300000],
-                [100000, 200000, 400000, 600000]
+                [200000, 400000, 500000, 300000]
             ]
         }, {
             stackBars: true,
@@ -171,8 +213,9 @@ app = {
             }
         });
 
+
+
     } // CLOSE INITFINDOCCUPANCY
 
 
-
-}; // CLOSE APP FUNCTION
+} // CLOSE APP
