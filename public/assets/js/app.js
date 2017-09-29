@@ -4,6 +4,8 @@ app = {
 
     initFindOccupancy: function() {
 
+        /// FIND OCCUPANCY ================================================================================================================
+
         // VARIABLES
         var sum = 0;
         var result = 0;
@@ -70,7 +72,7 @@ app = {
             $('#occupiedSFper').html(occupiedPer);
             $('#vacantSFper').html(vacantPer);
 
-            /// CHARTIST ====================================================================================================================
+            /// CHARTIST - PIE ================================================================================================================
 
             var chart = new Chartist.Pie('.ct-chart', {
                 series: [occupiedCalc, vacantCalc],
@@ -130,12 +132,46 @@ app = {
 
         });
 
+        /// FIND EXPIRATIONS ================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// CHARTIST - BAR ================================================================================================================
+
+        new Chartist.Bar('.ct-barchart', {
+            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            series: [
+                [800000, 1200000, 1400000, 1300000],
+                [200000, 400000, 500000, 300000],
+                [100000, 200000, 400000, 600000]
+            ]
+        }, {
+            stackBars: true,
+            axisY: {
+                labelInterpolationFnc: function(value) {
+                    return (value / 1000) + 'k';
+                }
+            }
+        }).on('draw', function(data) {
+            if (data.type === 'bar') {
+                data.element.attr({
+                    style: 'stroke-width: 30px'
+                });
+            }
+        });
+
     } // CLOSE INITFINDOCCUPANCY
-
-
-
-
-
 
 
 
