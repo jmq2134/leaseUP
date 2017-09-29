@@ -228,18 +228,7 @@ module.exports = function(app) {
             db.Tenants.update({
                 CenterId: req.params.id,
                 tenantName: req.body.tenantName,
-                tenantSF: req.body.tenantSF,
-                leaseStart: req.body.leaseStart,
-                leaseEnd: req.body.leaseEnd,
-                basePSF: req.body.basePSF,
-                camPSF: req.body.camPSF,
-                totalPSF: parseInt(req.body.basePSF) + parseInt(req.body.camPSF),
-                annualRent: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) * parseInt(req.body.tenantSF),
-                salesPSF: req.body.salesPSF,
-                annualSales: parseInt(req.body.salesPSF) * parseInt(req.body.tenantSF),
-                occupancy: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) / parseInt(req.body.salesPSF),
-                noticeDate: req.body.noticeDate,
-                noticeRent: req.body.noticeRent
+                tenantSF: req.body.tenantSF
             }, {
                 where: { id: req.body.id }
 
