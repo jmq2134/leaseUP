@@ -20,6 +20,7 @@ app = {
         var sf = 0;
         var year = 0;
         var expireObj = [];
+        var chartYears = [];
 
 
         // FIND VACANT AND OCCUPIED SF BY CHECKING/ADDING VALUES OF TABLE ROWS
@@ -51,6 +52,35 @@ app = {
                 }
             });
 
+            /// FIND PERCENTAGE OCCUPIED OR VACANT
+            sumCalc = parseFloat((sum / sum) * 100).toFixed(2);
+            occupiedCalc = parseFloat((occupied / sum) * 100).toFixed(2);
+            vacantCalc = parseFloat((vacant / sum) * 100).toFixed(2);
+
+            /// FIND PERCENTAGE OCCUPIED OR VACANT
+            sumPer = parseFloat((sum / sum) * 100).toFixed(2) + "%";
+            occupiedPer = parseFloat((occupied / sum) * 100).toFixed(2) + "%";
+            vacantPer = parseFloat((vacant / sum) * 100).toFixed(2) + "%";
+
+            /// FUNCTION TO ADD COMMAS
+            function numberWithThousands(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+
+            /// FORMAT SUM, OCCUPIED, VACANT
+            var sumFormat = numberWithThousands(sum);
+            var occupiedFormat = numberWithThousands(occupied);
+            var vacantFormat = numberWithThousands(vacant);
+
+            /// ADD TOTAL SF, OCCUPIED SF, VACANT SF TO GRID
+            $('#totalSF').html(sumFormat);
+            $('#occupiedSF').html(occupiedFormat);
+            $('#vacantSF').html(vacantFormat);
+
+            $('#totalSFper').html(sumPer);
+            $('#occupiedSFper').html(occupiedPer);
+            $('#vacantSFper').html(vacantPer);
+
             /// ===================== FIND EXPIRATIONS =========================== ///
 
             $(this).find('.leaseEnd').each(function() {
@@ -73,19 +103,18 @@ app = {
                     console.log(expirations);
                 }
 
-                // SUM SF PER EXPIRATION YEAR
+                // SUM SF PER EXPIRATION YEAR iNTO NEW ARRAY
                 let counts = expirations.reduce((prev, curr) => {
                     let count = prev.get(curr.year) || 0;
                     prev.set(curr.year, curr.sf + count);
                     return prev;
                 }, new Map());
 
-                // then, map your counts object back to an array
                 let reducedObjArr = [...counts].map(([year, value]) => {
                     return { year, value }
                 })
 
-                // SORT ARRAY BY YEAR
+                // SORT NEW ARRAY BY YEAR
                 reducedObjArr.sort(function(a, b) {
                     return a.year - b.year
                 })
@@ -93,8 +122,76 @@ app = {
                 console.log(reducedObjArr);
 
                 // FIND CURRENT YEAR
-                var currentYear = Date().substr(11,4);
+                var currentYear = Date().substr(11, 4);
                 console.log(currentYear);
+
+                // FIND CHART YEARS
+                var numYears = 5;
+
+                var chartYears = [];
+
+                for (i = 0; i < numYears; i++) {
+
+                    chartYears.push(parseInt(currentYear) + i);
+
+                }
+
+                console.log(chartYears);
+
+                var chartArray = [];
+                var cumulativeArray = [];
+                var chartSF = [];
+
+                // FILL CHART ARRAY
+
+                for (i = 0; i < chartYears.length; i++) {
+
+                    for (j = 0; j < reducedObjArr.length; j++) {
+
+                        if (parseInt(reducedObjArr[j].year) === chartYears[i]) {
+
+                            chartArray.push({ year: chartYears[i], sf: reducedObjArr[j].value });
+                        }
+                    }
+                }
+
+                console.log(chartArray);
+
+
+
+                for (i = 0; i < reducedObjArr.length; i++) {
+                    chartSF.push(reducedObjArr[i].value);
+                }
+
+                console.log(chartSF);
+
+
+                /// CHARTIST - BAR ================================================================================================================
+
+
+                new Chartist.Bar('.ct-barchart', {
+                    labels: chartYears,
+                    series: [
+                        chartSF
+                    ]
+                }, {
+                    stackBars: true,
+                    axisY: {
+                        labelInterpolationFnc: function(value) {
+                            return (value / 1000) + 'k';
+                        }
+                    }
+                }).on('draw', function(data) {
+                    if (data.type === 'bar') {
+                        data.element.attr({
+                            style: 'stroke-width: 30px'
+                        });
+                    }
+                });
+
+
+
+
 
             });
 
@@ -103,34 +200,7 @@ app = {
         }); // CLOSE EACH TABLE ROW
 
 
-        /// FIND PERCENTAGE OCCUPIED OR VACANT
-        sumCalc = parseFloat((sum / sum) * 100).toFixed(2);
-        occupiedCalc = parseFloat((occupied / sum) * 100).toFixed(2);
-        vacantCalc = parseFloat((vacant / sum) * 100).toFixed(2);
 
-        /// FIND PERCENTAGE OCCUPIED OR VACANT
-        sumPer = parseFloat((sum / sum) * 100).toFixed(2) + "%";
-        occupiedPer = parseFloat((occupied / sum) * 100).toFixed(2) + "%";
-        vacantPer = parseFloat((vacant / sum) * 100).toFixed(2) + "%";
-
-        /// FUNCTION TO ADD COMMAS
-        function numberWithThousands(x) {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-
-        /// FORMAT SUM, OCCUPIED, VACANT
-        var sumFormat = numberWithThousands(sum);
-        var occupiedFormat = numberWithThousands(occupied);
-        var vacantFormat = numberWithThousands(vacant);
-
-        /// ADD TOTAL SF, OCCUPIED SF, VACANT SF TO GRID
-        $('#totalSF').html(sumFormat);
-        $('#occupiedSF').html(occupiedFormat);
-        $('#vacantSF').html(vacantFormat);
-
-        $('#totalSFper').html(sumPer);
-        $('#occupiedSFper').html(occupiedPer);
-        $('#vacantSFper').html(vacantPer);
 
 
 
@@ -193,28 +263,9 @@ app = {
         });
 
 
-        /// CHARTIST - BAR ================================================================================================================
 
-        new Chartist.Bar('.ct-barchart', {
-            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-            series: [
-                [800000, 1200000, 1400000, 1300000],
-                [200000, 400000, 500000, 300000]
-            ]
-        }, {
-            stackBars: true,
-            axisY: {
-                labelInterpolationFnc: function(value) {
-                    return (value / 1000) + 'k';
-                }
-            }
-        }).on('draw', function(data) {
-            if (data.type === 'bar') {
-                data.element.attr({
-                    style: 'stroke-width: 30px'
-                });
-            }
-        });
+
+
 
 
 
