@@ -279,8 +279,9 @@ module.exports = function(app) {
 
                 // REDIRECT TO SHOPPING CENTER PAGE
             }).then(function() {
+                location.reload();
 
-                res.redirect("/center/" + centerId);
+                // res.redirect("/center/" + centerId);
 
                 // CATCH ERRORS
             }).catch(function(error) {
