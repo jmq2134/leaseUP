@@ -243,11 +243,11 @@
                             <div class="panel panel-default">
                                 <div class="row ">
                                     <div class="panel-body ">
-                                        <form class="create-update-form" action="/api/{{center.id}}/newTenant" method="POST">
+                                        <form class="create-update-form" action="/api/{{tenants.id}}/newTenant" method="POST">
                                             <div class="row">
                                                 <legend>Tenant Info</legend>
                                                 <!-- hidden center id -->
-                                                <input type="hidden" name="centerId" value="{{center}}" />
+                                                <input type="hidden" name="centerId" value="{{tenants.id}}" />
                                                 <!-- hidden tenant id if available -->
                                                 <input type="hidden" name="id" id="id" />
                                                 <!-- tenantName -->
@@ -280,7 +280,6 @@
                                                 <legend>Rent and Sales PSF</legend>
                                                 <!-- basePSF -->
                                                 <div class="col-md-4">
-                                                    <span class="input-group-addon">$</span>
                                                     <input type="text" placeholder="Base Rent PSF" id="basePSF" name="basePSF" class="form-control">
                                                 </div>
                                                 <!-- camPSF -->

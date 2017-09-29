@@ -2,28 +2,28 @@
 var db = require("../models/index.js");
 var passport = require("passport");
 
-// Routes ============================================================= //
+// Routes ======================================================================================================= //
 
 module.exports = function(app) {
 
-    // ---------------------------- GET ROUTES ---------------------------- //
+    // --------------------------------------------- GET ROUTES ------------------------------------------------- //
 
-    /// REDIRECT TO LOGIN
+    /// ============= REDIRECT TO LOGIN ============= ///
     app.get('/', function(req, res) {
         res.redirect('/signin');
     });
 
-    /// LOAD SIGNIN
+    /// ================ RENDER SIGNIN =============== ///
     app.get('/signin', function(req, res) {
         res.render('signin', req);
     });
 
-    /// SHOW REGISTER ON BUTTON CLICK
+    /// ================ RENDER SIGNUP =============== ///
     app.get("/signup", function(req, res) {
         res.render('signup', req);
     });
 
-    /// SHOW USER PROFILE
+    /// ================= RENDER USER ================ ///
     app.get("/user/:userID", function(req, res) {
         db.Users.findOne({
             where: {
@@ -36,26 +36,25 @@ module.exports = function(app) {
         })
     });
 
-    /// DASHBOARD
-    app.get('/dashboard', function(req, res) {
+    /// ================ RENDER MAP ================== ///
+    app.get("/map", function(req, res) {
         db.Centers.findAll().then(function(data) {
             var hbsObject = { centers: data };
-            res.json(hbsObject);
-            // res.render('dashboard', hbsObject);
+            // res.json(hbsObject);
+            res.render('map', hbsObject);
         });
     });
 
-    /// MAP
-    app.get("/map", function(req, res) {
-        res.render('map', req);
-    });
-
-    /// CALENDAR
+    /// =============== RENDER CALENDAR ============== ///
     app.get("/calendar", function(req, res) {
-        res.render('calendar', req);
+        db.Centers.findAll().then(function(data) {
+            var hbsObject = { centers: data };
+            // res.json(hbsObject);
+            res.render('calendar', hbsObject);
+        });
     });
 
-    /// ROUTE TO SHOPPING CENTER PAGE BY ID
+    /// ============= ROUTE TO DASHBOARD ============ ///
     app.get("/dashboard", function(req, res) {
         db.Centers.findAll({
             include: [{
@@ -71,12 +70,10 @@ module.exports = function(app) {
         })
     });
 
-
-    /// ROUTE TO SHOPPING CENTER PAGE BY ID
+    /// === ROUTE TO SHOPPING CENTER PAGE BY ID ==== ///
     app.get("/center/:id", function(req, res) {
 
         var hbsObject = {};
-
 
         db.Centers.findAll().then(function(data) {
             hbsObject.centers = data;
@@ -95,15 +92,8 @@ module.exports = function(app) {
                 hbsObject.tenants = data
                 res.render('center', hbsObject);
                 //res.json(hbsObject);
-
             });
         })
-
-
-
-        //res.json(center);
-
-
     });
 
     // /// ROUTE TO SHOPPING CENTER PAGE BY ID
@@ -121,24 +111,33 @@ module.exports = function(app) {
     //     })
     // });
 
+    // /// DASHBOARD
+    // app.get('/dashboard', function(req, res) {
+    //     db.Centers.findAll().then(function(data) {
+    //         var hbsObject = { centers: data };
+    //         res.json(hbsObject);
+    //         // res.render('dashboard', hbsObject);
+    //     });
+    // });
 
-    // ---------------------------- API GET ROUTES ---------------------------- //
 
-    /// SHOW ALL SHOPPING CENTER INFO
+    // ------------------------------------------- API GET ROUTES ----------------------------------------------- //
+
+    /// ================= SHOW ALL CENTERS =================== ///
     app.get("/api/centers", function(req, res) {
         db.Centers.findAll({}).then(function(dbCenters) {
             res.json(dbCenters);
         });
     })
 
-    /// SHOW ALL TENANT INFO
+    /// ================= SHOW ALL TENANTS =================== ///
     app.get("/api/tenants", function(req, res) {
         db.Tenants.findAll({}).then(function(dbTenants) {
             res.json(dbTenants);
         });
     })
 
-    /// FIND TENANT BY ID
+    /// ================= SHOW TENANT BY ID ================== ///
     app.get("/api/tenants/:id", function(req, res) {
         db.Tenants.findAll({
             where: {
@@ -149,11 +148,10 @@ module.exports = function(app) {
         });
     })
 
+    // ------------------------------------------- POST ROUTES ------------------------------------------------- //
 
-    // ---------------------------- POST ROUTES ---------------------------- //
 
-
-    /// ---------------  ADD OR EDIT TENANTS --------------- ///
+    /// =============== ADD OR EDIT TENANTS ================== ///
 
     app.post("/api/:id/newTenant", function(req, res) {
 
@@ -262,7 +260,7 @@ module.exports = function(app) {
     });
 
 
-    /// ---------------  DELETE TENANT --------------- ///
+    /// ==================== DELETE TENANT ====================== ///
 
     app.delete("/api/remove/:thisId", function(req, res) {
 
