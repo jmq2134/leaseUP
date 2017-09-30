@@ -96,30 +96,6 @@ module.exports = function(app) {
         })
     });
 
-    // /// ROUTE TO SHOPPING CENTER PAGE BY ID
-    // app.get("/center/:id", function(req, res) {
-    //     db.Centers.findAll({
-    //         include: [{
-    //             model: db.Tenants,
-    //             required: false
-    //         }]
-    //     }).then(function(center) {
-    //         // res.json(center);
-    //         res.render('center', {
-    //             center: center
-    //         });
-    //     })
-    // });
-
-    // /// DASHBOARD
-    // app.get('/dashboard', function(req, res) {
-    //     db.Centers.findAll().then(function(data) {
-    //         var hbsObject = { centers: data };
-    //         res.json(hbsObject);
-    //         // res.render('dashboard', hbsObject);
-    //     });
-    // });
-
 
     // ------------------------------------------- API GET ROUTES ----------------------------------------------- //
 
@@ -253,7 +229,6 @@ module.exports = function(app) {
 
                 res.send(error);
             });
-
 
         }
 

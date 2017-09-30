@@ -153,17 +153,12 @@ app = {
 
         console.log(chartSF);
 
+        // FIND CUMULATIVE TURNOVER PER YEAR
 
+        var chartSFcumulative = [];
+        chartSF.reduce(function(a, b, i) { return chartSFcumulative[i] = a + b; }, 0);
 
-
-
-
-
-
-
-
-
-
+        console.log(chartSFcumulative);
 
         /// CHARTIST - BAR ================================================================================================================
 
@@ -171,20 +166,20 @@ app = {
         new Chartist.Bar('.ct-barchart', {
             labels: chartYears,
             series: [
-                chartSF
+                chartSF,
+                chartSFcumulative
             ]
         }, {
-            stackBars: true,
+            seriesBarDistance: 10,
+            axisX: {
+                offset: 60
+            },
             axisY: {
+                offset: 80,
                 labelInterpolationFnc: function(value) {
-                    return (value / 1000) + 'k';
-                }
-            }
-        }).on('draw', function(data) {
-            if (data.type === 'bar') {
-                data.element.attr({
-                    style: 'stroke-width: 30px'
-                });
+                    return value 
+                },
+                scaleMinSpace: 15
             }
         });
 
