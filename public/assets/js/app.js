@@ -15,19 +15,9 @@ app = {
         var vacantPer = 0;
         var occupiedPer = 0;
 
-        // VARIABLES -- EXPIRATIONS
-        var expirations = [];
-        var sf = 0;
-        var year = 0;
-        var expireObj = [];
-        var chartYears = [];
-
-
         // FIND VACANT AND OCCUPIED SF BY CHECKING/ADDING VALUES OF TABLE ROWS
 
         $('tr').each(function() {
-
-            /// ===================== FIND OCCUPANCY ============================= ///
 
             $(this).find('.tenantName').each(function() {
 
@@ -52,65 +42,94 @@ app = {
                 }
             });
 
-            /// FIND PERCENTAGE OCCUPIED OR VACANT
-            sumCalc = parseFloat((sum / sum) * 100).toFixed(2);
-            occupiedCalc = parseFloat((occupied / sum) * 100).toFixed(2);
-            vacantCalc = parseFloat((vacant / sum) * 100).toFixed(2);
+        });
 
-            /// FIND PERCENTAGE OCCUPIED OR VACANT
-            sumPer = parseFloat((sum / sum) * 100).toFixed(2) + "%";
-            occupiedPer = parseFloat((occupied / sum) * 100).toFixed(2) + "%";
-            vacantPer = parseFloat((vacant / sum) * 100).toFixed(2) + "%";
+        /// FIND PERCENTAGE OCCUPIED OR VACANT
+        sumCalc = parseFloat((sum / sum) * 100).toFixed(2);
+        occupiedCalc = parseFloat((occupied / sum) * 100).toFixed(2);
+        vacantCalc = parseFloat((vacant / sum) * 100).toFixed(2);
 
-            /// FUNCTION TO ADD COMMAS
-            function numberWithThousands(x) {
-                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }
+        /// FIND PERCENTAGE OCCUPIED OR VACANT
+        sumPer = parseFloat((sum / sum) * 100).toFixed(2) + "%";
+        occupiedPer = parseFloat((occupied / sum) * 100).toFixed(2) + "%";
+        vacantPer = parseFloat((vacant / sum) * 100).toFixed(2) + "%";
 
-            /// FORMAT SUM, OCCUPIED, VACANT
-            var sumFormat = numberWithThousands(sum);
-            var occupiedFormat = numberWithThousands(occupied);
-            var vacantFormat = numberWithThousands(vacant);
+        /// FUNCTION TO ADD COMMAS
+        function numberWithThousands(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
 
-            /// ADD TOTAL SF, OCCUPIED SF, VACANT SF TO GRID
-            $('#totalSF').html(sumFormat);
-            $('#occupiedSF').html(occupiedFormat);
-            $('#vacantSF').html(vacantFormat);
+        /// FORMAT SUM, OCCUPIED, VACANT
+        var sumFormat = numberWithThousands(sum);
+        var occupiedFormat = numberWithThousands(occupied);
+        var vacantFormat = numberWithThousands(vacant);
 
-            $('#totalSFper').html(sumPer);
-            $('#occupiedSFper').html(occupiedPer);
-            $('#vacantSFper').html(vacantPer);
+        /// ADD TOTAL SF, OCCUPIED SF, VACANT SF TO GRID
+        $('#totalSF').html(sumFormat);
+        $('#occupiedSF').html(occupiedFormat);
+        $('#vacantSF').html(vacantFormat);
 
-            /// ===================== FIND EXPIRATIONS =========================== ///
+        $('#totalSFper').html(sumPer);
+        $('#occupiedSFper').html(occupiedPer);
+        $('#vacantSFper').html(vacantPer);
+
+
+        /// FIND EXPIRATIONS ===================================================================================================================
+
+        // VARIABLES -- EXPIRATIONS
+        var expirations = [];
+        var sf = 0;
+        var year = 0;
+        var reducedObjArr = [];
+        var expireObj = [];
+        var chartYears = [];
+
+        // FIND CURRENT YEAR
+        var currentYear = Date().substr(11, 4);
+
+        // FIND CHART YEARS
+        var numYears = 5;
+
+        var chartYears = [];
+
+        // FILL CHART YEARS DEPENDING ON STARTING YEAR & # OF YEARS TO ANALYZE
+        for (i = 0; i < numYears; i++) {
+            chartYears.push(parseInt(currentYear) + i);
+        }
+
+
+        $('tr').each(function() {
 
             $(this).find('.leaseEnd').each(function() {
 
                 // FIND EXPIRATION DATE
                 var expirationDate = $(this).text();
-                console.log(expirationDate);
 
                 // FIND EXPIRATION YEAR
                 year = expirationDate.substring(expirationDate.lastIndexOf("/") + 1)
-                console.log(year);
 
                 // FIND SF OF EXPIRATION YEAR
                 sf = $(this).closest('td').prev().prev().text();
-                console.log(sf);
 
-                // IF NOT VACANT, PUT INFO INTO EXPIRATIONS ARRAY
-                if (year > 0) {
-                    expirations.push({ year: year, sf: parseFloat(sf.replace(/,/g, '')) });
-                    console.log(expirations);
+                // IF YEAR EXISTS IN CHARTYEARS ARRAY, PUT INFO INTO EXPIRATIONS ARRAY
+                for (i = 0; i < chartYears.length; i++) {
+
+                    if (parseInt(year) === chartYears[i]) {
+                        expirations.push({ year: chartYears[i], sf: parseFloat(sf.replace(/,/g, '')) });
+                        console.log(expirations);
+                    } else {
+                        expirations.push({ year: chartYears[i], sf: 0 });
+                    }
                 }
 
-                // SUM SF PER EXPIRATION YEAR iNTO NEW ARRAY
+                // SUM SF PER EXPIRATION YEAR iNTO NEW ARRAY -> reducedObjArr
                 let counts = expirations.reduce((prev, curr) => {
                     let count = prev.get(curr.year) || 0;
                     prev.set(curr.year, curr.sf + count);
                     return prev;
                 }, new Map());
 
-                let reducedObjArr = [...counts].map(([year, value]) => {
+                reducedObjArr = [...counts].map(([year, value]) => {
                     return { year, value }
                 })
 
@@ -119,89 +138,55 @@ app = {
                     return a.year - b.year
                 })
 
-                console.log(reducedObjArr);
-
-                // FIND CURRENT YEAR
-                var currentYear = Date().substr(11, 4);
-                console.log(currentYear);
-
-                // FIND CHART YEARS
-                var numYears = 5;
-
-                var chartYears = [];
-
-                for (i = 0; i < numYears; i++) {
-
-                    chartYears.push(parseInt(currentYear) + i);
-
-                }
-
-                console.log(chartYears);
-
-                var chartArray = [];
-                var cumulativeArray = [];
-                var chartSF = [];
-
-                // FILL CHART ARRAY
-
-                for (i = 0; i < chartYears.length; i++) {
-
-                    for (j = 0; j < reducedObjArr.length; j++) {
-
-                        if (parseInt(reducedObjArr[j].year) === chartYears[i]) {
-
-                            chartArray.push({ year: chartYears[i], sf: reducedObjArr[j].value });
-                        }
-                    }
-                }
-
-                console.log(chartArray);
-
-
-
-                for (i = 0; i < reducedObjArr.length; i++) {
-                    chartSF.push(reducedObjArr[i].value);
-                }
-
-                console.log(chartSF);
-
-
-                /// CHARTIST - BAR ================================================================================================================
-
-
-                new Chartist.Bar('.ct-barchart', {
-                    labels: chartYears,
-                    series: [
-                        chartSF
-                    ]
-                }, {
-                    stackBars: true,
-                    axisY: {
-                        labelInterpolationFnc: function(value) {
-                            return (value / 1000) + 'k';
-                        }
-                    }
-                }).on('draw', function(data) {
-                    if (data.type === 'bar') {
-                        data.element.attr({
-                            style: 'stroke-width: 30px'
-                        });
-                    }
-                });
-
-
-
-
-
             });
 
+        }); // close TR
+
+        console.log(reducedObjArr);
+
+        // PUT SF INTO CHARTSF ARRAY
+        var chartSF = [];
+
+        for (j = 0; j < reducedObjArr.length; j++) {
+            chartSF.push(reducedObjArr[j].value)
+        }
+
+        console.log(chartSF);
 
 
-        }); // CLOSE EACH TABLE ROW
 
 
 
 
+
+
+
+
+
+
+
+        /// CHARTIST - BAR ================================================================================================================
+
+
+        new Chartist.Bar('.ct-barchart', {
+            labels: chartYears,
+            series: [
+                chartSF
+            ]
+        }, {
+            stackBars: true,
+            axisY: {
+                labelInterpolationFnc: function(value) {
+                    return (value / 1000) + 'k';
+                }
+            }
+        }).on('draw', function(data) {
+            if (data.type === 'bar') {
+                data.element.attr({
+                    style: 'stroke-width: 30px'
+                });
+            }
+        });
 
 
         /// CHARTIST - PIE ================================================================================================================
