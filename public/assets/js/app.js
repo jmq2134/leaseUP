@@ -162,7 +162,6 @@ app = {
 
         /// CHARTIST - BAR ================================================================================================================
 
-
         new Chartist.Bar('.ct-barchart', {
             labels: chartYears,
             series: [
@@ -177,10 +176,17 @@ app = {
             axisY: {
                 offset: 80,
                 labelInterpolationFnc: function(value) {
-                    return value 
+                    return value
                 },
                 scaleMinSpace: 15
-            }
+            },
+            chartPadding: {
+                top: 15,
+                right: 10,
+                bottom: 5,
+                left: 10
+            },
+            height: '280px'
         });
 
 
@@ -241,12 +247,6 @@ app = {
             }
             window.__anim21278907124 = setTimeout(chart.update.bind(chart), 10000);
         });
-
-
-
-
-
-
 
 
     } // CLOSE INITFINDOCCUPANCY
