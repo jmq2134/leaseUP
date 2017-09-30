@@ -186,7 +186,7 @@ app = {
                 bottom: 5,
                 left: 10
             },
-            height: '280px'
+            height: '300px'
         });
 
 
