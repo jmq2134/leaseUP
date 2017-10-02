@@ -105,69 +105,99 @@
                 </div>
             </nav>
             <!-- TOTAL SF, OCCUPIED SF, VACANT SF -->
-            <div class="row" style="margin: 20px">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="content text-center">
-                            <h3>Total SF</h3>
-                            <hr>
-                            <p id="totalSF"></p>
-                            <p id="totalSFper"></p>
+            <div class="charts">
+                <!-- EXPIRATIONS CHARTS -->
+                <div class="row" style="margin-left: 20px; margin-right: 20px; margin-top: 20px">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Shopping Center Occupancy</h4>
+                                <p class="category"></p>
+                            </div>
+                            <div class="content">
+                                <div class="ct-chart ct-square"></div>
+                            </div>
+                            <div class="footer">
+                                <div class="legend">
+                                    <i class="fa fa-circle text-info"></i> Occupied SF
+                                    <i class="fa fa-circle text-danger"></i> Vacant SF
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="content text-center">
-                            <h3>Occupied SF</h3>
-                            <hr>
-                            <p id="occupiedSF"></p>
-                            <p id="occupiedSFper"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="content text-center">
-                            <h3>Vacant SF</h3>
-                            <hr>
-                            <p id="vacantSF"></p>
-                            <p id="vacantSFper"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- EXPIRATIONS CHARTS -->
-            <div class="row" style="margin: 0px 20px 0px 20px">
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="header">
-                            <h4 class="title">Occupancy</h4>
-                            <p class="category"></p>
-                        </div>
-                        <div class="content">
-                            <div class="ct-chart ct-square"></div>
-                        </div>
-                        <div class="footer">
-                            <div class="legend">
-                                <i class="fa fa-circle text-info"></i> Occupied
-                                <i class="fa fa-circle text-danger"></i> Vacant
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="card" style="margin-bottom: 20px">
+                                            <div class="content text-center">
+                                                <h3>Total SF</h3>
+                                                <hr>
+                                                <p id="totalSF"></p>
+                                                <p id="totalSFper"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="card" style="margin-bottom: 0px">
+                                            <div class="content text-center">
+                                                <h3>Occupied SF</h3>
+                                                <hr>
+                                                <p id="occupiedSF"></p>
+                                                <p id="occupiedSFper"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="card" style="margin-bottom: 0px">
+                                            <div class="content text-center">
+                                                <h3>Vacant SF</h3>
+                                                <hr>
+                                                <p id="vacantSF"></p>
+                                                <p id="vacantSFper"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="card ">
-                        <div class="header">
-                            <h4 class="title">Lease Rollover</h4>
+                <div class="row" style="margin-left: 20px; margin-right: 20px">
+                    <div class="col-sm-6">
+                        <div class="card ">
+                            <div class="header">
+                                <h4 class="title">Lease Rollover</h4>
+                                <p class="category">Revenue</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartActivity" class="ct-barchartRev"></div>
+                            </div>
+                            <div class="footer">
+                                <div class="legend">
+                                    <i class="fa fa-circle text-info"></i> Annual Rollover ($)
+                                    <i class="fa fa-circle text-danger"></i> Cumulative Rollover ($)
+                                </div>
+                            </div>
                         </div>
-                        <div class="content">
-                            <div id="chartActivity" class="ct-barchart"></div>
-                        </div>
-                        <div class="footer">
-                            <div class="legend">
-                                <i class="fa fa-circle text-info"></i> Annual Rollover (SF)
-                                <i class="fa fa-circle text-danger"></i> Cumulative Rollover (SF)
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card ">
+                            <div class="header">
+                                <h4 class="title">Lease Rollover</h4>
+                                <p class="category">Square Footage</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartActivity" class="ct-barchart"></div>
+                            </div>
+                            <div class="footer">
+                                <div class="legend">
+                                    <i class="fa fa-circle text-info"></i> Annual Rollover (SF)
+                                    <i class="fa fa-circle text-danger"></i> Cumulative Rollover (SF)
+                                </div>
                             </div>
                         </div>
                     </div>
