@@ -267,7 +267,7 @@ app = {
             axisY: {
                 offset: 80,
                 labelInterpolationFnc: function(value) {
-                    return value
+                    return numberWithThousands(value);
                 },
                 scaleMinSpace: 15
             },
@@ -296,7 +296,7 @@ app = {
             axisY: {
                 offset: 80,
                 labelInterpolationFnc: function(value) {
-                    return value
+                    return "$" + numberWithThousands(value);
                 },
                 scaleMinSpace: 15
             },
