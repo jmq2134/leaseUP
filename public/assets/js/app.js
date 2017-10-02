@@ -74,7 +74,7 @@ app = {
         $('#vacantSFper').html(vacantPer);
 
 
-        /// FIND EXPIRATIONS ===================================================================================================================
+        /// FIND EXPIRATIONS (SF) ===================================================================================================================
 
         // VARIABLES -- EXPIRATIONS
         var expirations = [];
@@ -160,13 +160,133 @@ app = {
 
         console.log(chartSFcumulative);
 
-        /// CHARTIST - BAR ================================================================================================================
+
+        /// FIND EXPIRATIONS ($) ===================================================================================================================
+
+        // VARIABLES -- EXPIRATIONS
+        var expirations = [];
+        var sf = 0;
+        var year = 0;
+        var reducedObjArr = [];
+        var expireObj = [];
+        var chartYears = [];
+
+        // FIND CURRENT YEAR
+        var currentYear = Date().substr(11, 4);
+
+        // FIND CHART YEARS
+        var numYears = 5;
+
+        var chartYears = [];
+
+        // FILL CHART YEARS DEPENDING ON STARTING YEAR & # OF YEARS TO ANALYZE
+        for (i = 0; i < numYears; i++) {
+            chartYears.push(parseInt(currentYear) + i);
+        }
+
+
+        $('tr').each(function() {
+
+            $(this).find('.leaseEnd').each(function() {
+
+                // FIND EXPIRATION DATE
+                var expirationDate = $(this).text();
+
+                // FIND EXPIRATION YEAR
+                year = expirationDate.substring(expirationDate.lastIndexOf("/") + 1)
+
+                // FIND SF OF EXPIRATION YEAR
+                Rev = $(this).closest('td').next().next().next().next().text();
+
+                console.log(Rev);
+
+                // parseFloat(textValue.replace(/[^\d\.]/, ''));
+
+                // IF YEAR EXISTS IN CHARTYEARS ARRAY, PUT INFO INTO EXPIRATIONS ARRAY
+                for (i = 0; i < chartYears.length; i++) {
+
+                    if (parseInt(year) === chartYears[i]) {
+                        expirations.push({ year: chartYears[i], Rev: parseFloat(Rev.replace(/[^\d.]/g, ''))});
+                        console.log(expirations);
+                    } else {
+                        expirations.push({ year: chartYears[i], Rev: 0 });
+                    }
+                }
+
+                // SUM Rev PER EXPIRATION YEAR iNTO NEW ARRAY -> reducedObjArr
+                let counts = expirations.reduce((prev, curr) => {
+                    let count = prev.get(curr.year) || 0;
+                    prev.set(curr.year, curr.Rev + count);
+                    return prev;
+                }, new Map());
+
+                reducedObjArr = [...counts].map(([year, value]) => {
+                    return { year, value }
+                })
+
+                // SORT NEW ARRAY BY YEAR
+                reducedObjArr.sort(function(a, b) {
+                    return a.year - b.year
+                })
+
+            });
+
+        }); // close TR
+
+        console.log(reducedObjArr);
+
+        // PUT Rev INTO CHARTRev ARRAY
+        var chartRev = [];
+
+        for (j = 0; j < reducedObjArr.length; j++) {
+            chartRev.push(reducedObjArr[j].value)
+        }
+
+        console.log(chartRev);
+
+        // FIND CUMULATIVE TURNOVER PER YEAR
+
+        var chartRevcumulative = [];
+        chartRev.reduce(function(a, b, i) { return chartRevcumulative[i] = a + b; }, 0);
+
+        console.log(chartRevcumulative);
+
+        /// CHARTIST - BAR (SF) ================================================================================================================
 
         new Chartist.Bar('.ct-barchart', {
             labels: chartYears,
             series: [
                 chartSF,
                 chartSFcumulative
+            ]
+        }, {
+            seriesBarDistance: 10,
+            axisX: {
+                offset: 60
+            },
+            axisY: {
+                offset: 80,
+                labelInterpolationFnc: function(value) {
+                    return value
+                },
+                scaleMinSpace: 15
+            },
+            chartPadding: {
+                top: 15,
+                right: 10,
+                bottom: 5,
+                left: 10
+            },
+            height: '300px'
+        });
+
+        /// CHARTIST - BAR ($) ================================================================================================================
+
+        new Chartist.Bar('.ct-barchartRev', {
+            labels: chartYears,
+            series: [
+                chartRev,
+                chartRevcumulative
             ]
         }, {
             seriesBarDistance: 10,
