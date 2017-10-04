@@ -113,6 +113,65 @@ module.exports = function(app) {
         });
     })
 
+    /// =================== TENANT EVENTS ==================== ///
+    app.get("/api/tenants/events", function(req, res) {
+        db.Tenants.findAll({}).then(function(dbTenants) {
+            return dbTenants
+        }).then(function(data) {
+            var eventsArray = [];
+
+            /// EXPIRATION DATES
+            for (i = 0; i < data.length; i++) {
+
+                if (data[i].tenantName !== "Vacant") {
+                    title = data[i].tenantName + " Expiration";
+
+                    var date = data[i].leaseEnd;
+
+                    var expdate = "" + new Date(date) + "";
+
+                    var arr = date.split("/");
+
+                    year = parseInt(arr[2]);
+                    month = parseInt(arr[0]);
+                    day = parseInt(arr[1]) + 1;
+
+                    var expDate = year + "-" + month + "-" + day;
+
+                    eventsArray.push({ title: title, start: expdate, allDay: true, className: 'event-red' });
+
+                }
+            }
+
+            /// OPTION NOTICE DATES
+            for (i = 0; i < data.length; i++) {
+
+                if (data[i].tenantName !== "Vacant") {
+                    title = data[i].tenantName + " Option Notice";
+
+                    var date = data[i].noticeDate;
+
+                    var expdate = "" + new Date(date) + "";
+
+                    var arr = date.split("/");
+
+                    year = parseInt(arr[2]);
+                    month = parseInt(arr[0]);
+                    day = parseInt(arr[1]) + 1;
+
+                    var expDate = year + "-" + month + "-" + day;
+
+                    eventsArray.push({ title: title, start: expdate, allDay: true, className: 'event-azure' });
+                }
+            }
+
+            return eventsArray
+        }).then(function(eventsArray) {
+            console.log(eventsArray);
+            res.json(eventsArray)
+        })
+    })
+
     /// ================= SHOW TENANT BY ID ================== ///
     app.get("/api/tenants/:id", function(req, res) {
         db.Tenants.findAll({

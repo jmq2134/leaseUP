@@ -206,7 +206,7 @@ app = {
                 for (i = 0; i < chartYears.length; i++) {
 
                     if (parseInt(year) === chartYears[i]) {
-                        expirations.push({ year: chartYears[i], Rev: parseFloat(Rev.replace(/[^\d.]/g, ''))});
+                        expirations.push({ year: chartYears[i], Rev: parseFloat(Rev.replace(/[^\d.]/g, '')) });
                         console.log(expirations);
                     } else {
                         expirations.push({ year: chartYears[i], Rev: 0 });
@@ -370,6 +370,5 @@ app = {
 
 
     } // CLOSE INITFINDOCCUPANCY
-
 
 } // CLOSE APP

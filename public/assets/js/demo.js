@@ -300,6 +300,47 @@ demo = {
         m = today.getMonth();
         d = today.getDate();
 
+        var eventsArray = [];
+        var title = "";
+        var year = 0;
+        var month = 0;
+        var day = 0;
+
+        // FIND TENANT INFO FROM ROW
+        // $.ajax({
+        //         method: "GET",
+        //         url: "/api/tenants/"
+        //     })
+        //     // Fill modal with tenant info
+        //     .done(function(data) {
+        //         console.log(data);
+
+        //         for (i = 0; i < data.length; i++) {
+
+        //             if (data[i].tenantName !== "Vacant") {
+        //                 title = data[i].tenantName + " Expiration";
+
+        //                 var date = data[i].leaseEnd;
+        //                 console.log(date);
+
+        //                 var expdate = "" + new Date(date) + "";
+
+        //                 var arr = date.split("/");
+
+        //                 year = parseInt(arr[2]);
+        //                 month = parseInt(arr[0]);
+        //                 day = parseInt(arr[1]) + 1;
+
+        //                 var expDate = year + "-" + month + "-" + day;
+        //                 console.log(expDate);
+
+        //                 eventsArray.push({ title: title, start: expdate, allDay: true, className: 'event-azure' })
+        //             }
+        //         }
+        //     });
+
+        // console.log(eventsArray);
+
         $calendar.fullCalendar({
             header: {
                 left: 'title',
@@ -342,81 +383,10 @@ demo = {
             },
             editable: true,
             eventLimit: true, // allow "more" link when too many events
+            events: "/api/tenants/events"
 
+            // color classes: [ event-blue | event-azure | event-green | event-orange | event-red 
 
-            // color classes: [ event-blue | event-azure | event-green | event-orange | event-red ]
-
-
-            // // FIND TENANT INFO FROM ROW
-            // $.ajax({
-            //     method: "GET",
-            //     url: "/api/tenants/"
-            // })
-            // // Fill modal with tenant info
-            // .done(function(data) {
-            //     console.log(data);
-            // });
-
-
-            events: [{
-                    title: 'All Day Event',
-                    start: new Date(y, m, 1)
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d - 4, 6, 0),
-                    allDay: false,
-                    className: 'event-blue'
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d + 3, 6, 0),
-                    allDay: false,
-                    className: 'event-blue'
-                },
-                {
-                    title: 'Meeting',
-                    start: new Date(y, m, d - 1, 10, 30),
-                    allDay: false,
-                    className: 'event-green'
-                },
-                {
-                    title: 'Lunch',
-                    start: new Date(y, m, d + 7, 12, 0),
-                    end: new Date(y, m, d + 7, 14, 0),
-                    allDay: false,
-                    className: 'event-red'
-                },
-                {
-                    title: 'LBD Launch',
-                    start: new Date(y, m, d - 2, 12, 0),
-                    allDay: true,
-                    className: 'event-azure'
-                },
-                {
-                    title: 'Birthday Party',
-                    start: new Date(y, m, d + 1, 19, 0),
-                    end: new Date(y, m, d + 1, 22, 30),
-                    allDay: false,
-                },
-                {
-                    title: 'Click for Creative Tim',
-                    start: new Date(y, m, 21),
-                    end: new Date(y, m, 22),
-                    url: 'http://www.creative-tim.com/',
-                    className: 'event-orange'
-                },
-                {
-                    title: 'Click for Google',
-                    start: new Date(y, m, 23),
-                    end: new Date(y, m, 23),
-                    url: 'http://www.creative-tim.com/',
-                    className: 'event-orange'
-                }
-
-            ]
         });
     }
 
