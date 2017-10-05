@@ -19,19 +19,8 @@ demo = {
     initFullScreenGoogleMap: function() {
 
         /// HOME LATITUDE/LONGITUDE
-        var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
+        var myLatlng = new google.maps.LatLng(41.4993, -81.6944);
 
-        /// FIND CENTER ADDRESSES
-        var locationsArray = [];
-
-        function location(centerName, centerStreet, centerCity, centerState, centerZip) {
-            this.centerName = centerName;
-            this.centerStreet = centerStreet;
-            this.centerCity = centerCity;
-            this.centerState = centerState;
-            this.centerState = centerState;
-            locationsArray.push(this);
-        }
 
         $.ajax({
                 method: "GET",
@@ -43,34 +32,26 @@ demo = {
 
                 /// PUSH CENTER DATA INTO LOCATION ARRAY
                 for (i = 0; i < data.length; i++) {
-                    var centerName = data[i].centerName;
-                    var centerStreet = data[i].centerStreet;
-                    var centerCity = data[i].centerCity;
-                    var centerState = data[i].centerState;
-                    var centerZip = data[i].centerZip;
 
-                    new location(centerName, centerStreet, centerCity, centerState, centerZip);
-                    console.log(locationsArray);
+                    var location = data[i].centerStreet + ', ' + data[i].centerCity + ', ' + data[i].centerState + ' ' + data[i].centerZip;
+                    console.log(location);
 
-                    geocoder.geocode(location, function(err, data) {
-                        // do something with data 
-                        return data;
-                        console.log(geocode);
-                    });
-
-                    // var location = data[i].centerStreet + ' ' + data[i].centerCity + ' ' + data[i].centerState + ' ' + data[i].centerZip;
-                    // geocodeAddress(location);
+                    geocodeAddress(location);
                 }
             });
+
+
 
         function geocodeAddress(location) {
             var geocoder = new google.maps.Geocoder();
             geocoder.geocode({
-                'address': centerStreet + ' ' + centerCity + ' ' + centerState + ' ' + centerZip
+                'address': location
             }, function(results, status) {
                 // Drop a pin on map for each geocoded address
                 if (status == 'OK') {
+                    console.log(results);
                     window.mapInstance.setCenter(results[0].geometry.location);
+
                     var marker = new google.maps.Marker({
                         map: window.mapInstance,
                         position: results[0].geometry.location,
@@ -93,8 +74,6 @@ demo = {
             });
         }
 
-
-
         var mapOptions = {
             zoom: 13,
             center: myLatlng,
@@ -105,10 +84,10 @@ demo = {
 
         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            title: "Hello World!"
-        });
+        // var marker = new google.maps.Marker({
+        //     position: myLatlng,
+        //     title: "Hello World!"
+        // });
 
         // To add the marker to the map, call setMap();
         marker.setMap(map);
@@ -299,47 +278,6 @@ demo = {
         y = today.getFullYear();
         m = today.getMonth();
         d = today.getDate();
-
-        var eventsArray = [];
-        var title = "";
-        var year = 0;
-        var month = 0;
-        var day = 0;
-
-        // FIND TENANT INFO FROM ROW
-        // $.ajax({
-        //         method: "GET",
-        //         url: "/api/tenants/"
-        //     })
-        //     // Fill modal with tenant info
-        //     .done(function(data) {
-        //         console.log(data);
-
-        //         for (i = 0; i < data.length; i++) {
-
-        //             if (data[i].tenantName !== "Vacant") {
-        //                 title = data[i].tenantName + " Expiration";
-
-        //                 var date = data[i].leaseEnd;
-        //                 console.log(date);
-
-        //                 var expdate = "" + new Date(date) + "";
-
-        //                 var arr = date.split("/");
-
-        //                 year = parseInt(arr[2]);
-        //                 month = parseInt(arr[0]);
-        //                 day = parseInt(arr[1]) + 1;
-
-        //                 var expDate = year + "-" + month + "-" + day;
-        //                 console.log(expDate);
-
-        //                 eventsArray.push({ title: title, start: expdate, allDay: true, className: 'event-azure' })
-        //             }
-        //         }
-        //     });
-
-        // console.log(eventsArray);
 
         $calendar.fullCalendar({
             header: {

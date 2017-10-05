@@ -1,23 +1,25 @@
 {
   "development": {
-    "username": "root",
-    "password": "Jujupop12",
-    "database": "fip_db",
-    "host": "127.0.0.1",
+    "username": "bf5f0b6e98bd6e",
+    "password": "76a7a264",
+    "database": "heroku_b06535d584048af",
+    "host": "us-cdbr-iron-east-05.cleardb.net",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": "Jujupop12",
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "username": "bf5f0b6e98bd6e",
+    "password": "76a7a264",
+    "database": "heroku_b06535d584048af",
+    "host": "us-cdbr-iron-east-05.cleardb.net",
     "dialect": "mysql"
   },
   "production": {
-    "username": "",
-    "password": "",
-    "database": "",
-    "host": "",
+    "username": "bf5f0b6e98bd6e",
+    "password": "76a7a264",
+    "database": "heroku_b06535d584048af",
+    "host": "us-cdbr-iron-east-05.cleardb.net",
     "dialect": "mysql"
   }
 }
+
+
