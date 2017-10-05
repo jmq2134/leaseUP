@@ -280,14 +280,14 @@
                                             <td class="tenantSF">{{number this.tenantSF}}</td>
                                             <td>{{this.leaseStart}}</td>
                                             <td class="leaseEnd">{{this.leaseEnd}}</td>
-                                            <td>{{style="currency" currency="USD" this.basePSF}}</td>
-                                            <td>{{style="currency" currency="USD" this.camPSF}}</td>
-                                            <td>{{style="currency" currency="USD" this.totalPSF}}</td>
-                                            <td>{{style="currency" currency="USD" this.annualRent}}</td>
-                                            <td>{{style="currency" currency="USD" this.salesPSF}}</td>
-                                            <td>{{style="currency" currency="USD" this.annualSales}}</td>
+                                            <td>{{currency this.basePSF}}</td>
+                                            <td>{{currency this.camPSF}}</td>
+                                            <td>{{currency this.totalPSF}}</td>
+                                            <td>{{currency this.annualRent}}</td>
+                                            <td>{{currency this.salesPSF}}</td>
+                                            <td>{{currency this.annualSales}}</td>
                                             <td>{{this.noticeDate}}</td>
-                                            <td>{{style="currency" currency="USD" this.noticeRent}}</td>
+                                            <td>{{currency this.noticeRent}}</td>
                                         </tr>
                                         {{/each}}
                                     </tbody>
