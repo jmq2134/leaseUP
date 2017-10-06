@@ -203,7 +203,7 @@ module.exports = function(app) {
 
             /// VACANT TENANT
 
-            if (req.body.basePSF == "0") {
+            if (req.body.basePSF == "") {
 
                 db.Tenants.create({
                     CenterId: req.params.id,
