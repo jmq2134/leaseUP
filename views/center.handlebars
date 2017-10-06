@@ -274,14 +274,14 @@
                                             <td class="tenantSF">{{number this.tenantSF}}</td>
                                             <td>{{this.leaseStart}}</td>
                                             <td class="leaseEnd">{{this.leaseEnd}}</td>
-                                            <td>{{formatNumber this.basePSF style="currency" currency="USD"}}</td>
-                                            <td>{{formatNumber this.camPSF currency style="currency" currency="USD" }}</td>
-                                            <td>{{formatNumber this.totalPSF currency style="currency" currency="USD" }}</td>
-                                            <td>{{formatNumber this.annualRent currency style="currency" currency="USD" }}</td>
-                                            <td>{{formatNumber this.salesPSF currency style="currency" currency="USD" }}</td>
-                                            <td>{{formatNumber this.annualSales currency style="currency" currency="USD" }}</td>
-                                            <td>{{this.noticeDate}}</td>
-                                            <td>{{formatNumber this.noticeRent currency style="currency" currency="USD" }}</td>
+                                            <td>{{ currency this.basePSF  }}</td>
+                                            <td>{{ currency this.camPSF   }}</td>
+                                            <td>{{ currency this.totalPSF   }}</td>
+                                            <td>{{ currency this.annualRent   }}</td>
+                                            <td>{{ currency this.salesPSF   }}</td>
+                                            <td>{{ currency this.annualSales   }}</td>
+                                            <td>{{ this.noticeDate}}</td>
+                                            <td>{{ currency this.noticeRent   }}</td>
                                         </tr>
                                         {{/each}}
                                     </tbody>
