@@ -28,31 +28,35 @@ app = {
                 if (tenantName == "Vacant") {
 
                     result = $(this).closest('td').next().text();
+                    console.log(result);
                     result = result.replace(/\,/g, '');
-                    vacant += parseFloat(result);
-                    sum += parseFloat(result);
+                    console.log(result);
+                    vacant += parseInt(result);
+                    sum += parseInt(result);
 
                     // OCCUPANCY
                 } else {
 
                     result = $(this).closest('td').next().text();
+                    console.log(result);
                     result = result.replace(/\,/g, '');
-                    occupied += parseFloat(result);
-                    sum += parseFloat(result);
+                    console.log(result);
+                    occupied += parseInt(result);
+                    sum += parseInt(result);
                 }
             });
 
         });
 
         /// FIND PERCENTAGE OCCUPIED OR VACANT
-        sumCalc = parseFloat((sum / sum) * 100).toFixed(2);
-        occupiedCalc = parseFloat((occupied / sum) * 100).toFixed(2);
-        vacantCalc = parseFloat((vacant / sum) * 100).toFixed(2);
+        sumCalc = parseInt((sum / sum) * 100).toFixed(2);
+        occupiedCalc = parseInt((occupied / sum) * 100).toFixed(2);
+        vacantCalc = parseInt((vacant / sum) * 100).toFixed(2);
 
         /// FIND PERCENTAGE OCCUPIED OR VACANT
-        sumPer = parseFloat((sum / sum) * 100).toFixed(2) + "%";
-        occupiedPer = parseFloat((occupied / sum) * 100).toFixed(2) + "%";
-        vacantPer = parseFloat((vacant / sum) * 100).toFixed(2) + "%";
+        sumPer = parseInt((sum / sum) * 100).toFixed(2) + "%";
+        occupiedPer = parseInt((occupied / sum) * 100).toFixed(2) + "%";
+        vacantPer = parseInt((vacant / sum) * 100).toFixed(2) + "%";
 
         /// FUNCTION TO ADD COMMAS
         function numberWithThousands(x) {
