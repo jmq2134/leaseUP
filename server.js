@@ -7,11 +7,9 @@ var session = require('express-session')
 var env = require('dotenv').load();
 var passport = require('passport');
 var Handlebars = require('handlebars');
-var HandlebarsIntl = require('handlebars-intl');
 var NumeralHelper = require("handlebars.numeral");
 var geocoder = require('geocoder');
 NumeralHelper.registerHelpers(Handlebars);
-HandlebarsIntl.registerWith(Handlebars);
 
 
 // Sets up the Express App
