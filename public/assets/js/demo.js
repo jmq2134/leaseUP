@@ -18,9 +18,17 @@ demo = {
 
     initFullScreenGoogleMap: function() {
 
-        /// HOME LATITUDE/LONGITUDE
-        var myLatlng = new google.maps.LatLng(41.4993, -81.6944);
-
+        var map;
+        var elevator;
+        var locations = [];
+        var mapOptions = {
+            zoom: 11,
+            center: new google.maps.LatLng(41.4993, -81.6944),
+            // mapTypeId: 'terrain',
+            scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
+            styles: [{ "featureType": "water", "stylers": [{ "saturation": 43 }, { "lightness": -11 }, { "hue": "#0088ff" }] }, { "featureType": "road", "elementType": "geometry.fill", "stylers": [{ "hue": "#ff0000" }, { "saturation": -100 }, { "lightness": 99 }] }, { "featureType": "road", "elementType": "geometry.stroke", "stylers": [{ "color": "#808080" }, { "lightness": 54 }] }, { "featureType": "landscape.man_made", "elementType": "geometry.fill", "stylers": [{ "color": "#ece2d9" }] }, { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{ "color": "#ccdca1" }] }, { "featureType": "road", "elementType": "labels.text.fill", "stylers": [{ "color": "#767676" }] }, { "featureType": "road", "elementType": "labels.text.stroke", "stylers": [{ "color": "#ffffff" }] }, { "featureType": "poi", "stylers": [{ "visibility": "off" }] }, { "featureType": "landscape.natural", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "color": "#b8cb93" }] }, { "featureType": "poi.park", "stylers": [{ "visibility": "on" }] }, { "featureType": "poi.sports_complex", "stylers": [{ "visibility": "on" }] }, { "featureType": "poi.medical", "stylers": [{ "visibility": "on" }] }, { "featureType": "poi.business", "stylers": [{ "visibility": "simplified" }] }]
+        };
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
         $.ajax({
                 method: "GET",
@@ -32,66 +40,112 @@ demo = {
 
                 /// PUSH CENTER DATA INTO LOCATION ARRAY
                 for (i = 0; i < data.length; i++) {
-
                     var location = data[i].centerStreet + ', ' + data[i].centerCity + ', ' + data[i].centerState + ' ' + data[i].centerZip;
+                    var title = data[i].centerName;
                     console.log(location);
-
-                    geocodeAddress(location);
+                    console.log(title);
+                    locations.push({ title: title, location: location });
                 }
             });
 
+        console.log(locations);
+        JSON.stringify(locations);
 
 
-        function geocodeAddress(location) {
-            var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({
-                'address': location
-            }, function(results, status) {
-                // Drop a pin on map for each geocoded address
-                if (status == 'OK') {
-                    console.log(results);
-                    window.mapInstance.setCenter(results[0].geometry.location);
+        // "35970 Detroit Road, Avon, Ohio 44011", "23000 Broadway Avenue, Bedford, Ohio 44146", "25001 Cedar Road, Lyndhurst, Ohio 44124", "9150 Mentor Avenue, Mentor, Ohio 44060", "3447 Steelyard Drive, Cleveland, Ohio 44109", "1876 Warrensville Center Road, South Euclid, Ohio 44121", "36363 Eulid Avenue, Willoughby, Ohio 44094"
 
-                    var marker = new google.maps.Marker({
-                        map: window.mapInstance,
-                        position: results[0].geometry.location,
-                        title: location.name
-                    });
 
-                    var infowindow = new google.maps.InfoWindow({
-                        content: location.name + "<br>" + location.centerStreet + "<br>" + location.centerCity + ' ' + location.centerState + ' ' + locationArray.centerZip,
-                        map: map
-                    });
+        var addresses = ["35970 Detroit Road, Avon, Ohio 44011", "23000 Broadway Avenue, Bedford, Ohio 44146", "25001 Cedar Road, Lyndhurst, Ohio 44124", "9150 Mentor Avenue, Mentor, Ohio 44060", "3447 Steelyard Drive, Cleveland, Ohio 44109", "1876 Warrensville Center Road, South Euclid, Ohio 44121", "36363 Eulid Avenue, Willoughby, Ohio 44094"];
 
-                    google.maps.event.addListener(marker, 'click', function() {
-                        infowindow.open(map, this);
-                    });
+        for (var x = 0; x < locations.length; x++) {
+            $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + locations[x].location + '&sensor=false', null, function(data) {
+                var p = data.results[0].geometry.location
+                var latlng = new google.maps.LatLng(p.lat, p.lng);
+                new google.maps.Marker({
+                    position: latlng,
+                    map: map
+                });
 
-                    // Error alert
-                } else {
-                    alert("geocode of " + address + " failed:" + status);
-                }
             });
         }
 
-        var mapOptions = {
-            zoom: 13,
-            center: myLatlng,
-            scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
-            styles: [{ "featureType": "water", "stylers": [{ "saturation": 43 }, { "lightness": -11 }, { "hue": "#0088ff" }] }, { "featureType": "road", "elementType": "geometry.fill", "stylers": [{ "hue": "#ff0000" }, { "saturation": -100 }, { "lightness": 99 }] }, { "featureType": "road", "elementType": "geometry.stroke", "stylers": [{ "color": "#808080" }, { "lightness": 54 }] }, { "featureType": "landscape.man_made", "elementType": "geometry.fill", "stylers": [{ "color": "#ece2d9" }] }, { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{ "color": "#ccdca1" }] }, { "featureType": "road", "elementType": "labels.text.fill", "stylers": [{ "color": "#767676" }] }, { "featureType": "road", "elementType": "labels.text.stroke", "stylers": [{ "color": "#ffffff" }] }, { "featureType": "poi", "stylers": [{ "visibility": "off" }] }, { "featureType": "landscape.natural", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "color": "#b8cb93" }] }, { "featureType": "poi.park", "stylers": [{ "visibility": "on" }] }, { "featureType": "poi.sports_complex", "stylers": [{ "visibility": "on" }] }, { "featureType": "poi.medical", "stylers": [{ "visibility": "on" }] }, { "featureType": "poi.business", "stylers": [{ "visibility": "simplified" }] }]
-
-        }
-
-        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-        // var marker = new google.maps.Marker({
-        //     position: myLatlng,
-        //     title: "Hello World!"
-        // });
-
-        // To add the marker to the map, call setMap();
-        marker.setMap(map);
     },
+
+    //     var locationArray = [];
+
+
+
+
+    //     function geocodeLocation(location) {
+    //         var geocoder = new google.maps.Geocoder();
+    //         geocoder.geocode({
+    //             'address': location
+    //         }, function(results, status) {
+    //             console.log(results);
+    //             console.log(results[0].geometry.viewport.f.b)
+    //             console.log(results[0].geometry.viewport.b.f)
+    //         })
+    //     }
+
+
+
+    //     function geocodeAddress(location) {
+    //         var geocoder = new google.maps.Geocoder();
+    //         geocoder.geocode({
+    //             'address': location
+    //         }, function(results, status) {
+    //             // Drop a pin on map for each geocoded address
+    //             if (status == 'OK') {
+    //                 console.log(results);
+    //                 console.log(results[0].geometry.viewport.f.b);
+    //                 console.log(results[0].geometry.viewport.b.f);
+    //                 var lat = parseInt(results[0].geometry.viewport.f.b);
+    //                 var lng = parseInt(results[0].geometry.viewport.b.f);
+
+    //                 // var latlon = results[0].geometry.viewport.f.b ", " + results[0].geometry.viewport.b.f;
+
+    //                 window.mapInstance.setCenter({ lat: -34, lng: 151 });
+
+    //                 var marker = new google.maps.Marker({
+    //                     map: window.mapInstance,
+    //                     position: results[0].geometry.location,
+    //                     title: location.name
+    //                 });
+
+    //                 var infowindow = new google.maps.InfoWindow({
+    //                     content: location.name + "<br>" + location.centerStreet + "<br>" + location.centerCity + ' ' + location.centerState + ' ' + locationArray.centerZip,
+    //                     map: map
+    //                 });
+
+    //                 google.maps.event.addListener(marker, 'click', function() {
+    //                     infowindow.open(map, this);
+    //                 });
+
+    //                 // Error alert
+    //             } else {
+    //                 alert("geocode of " + address + " failed:" + status);
+    //             }
+    //         });
+    //     }
+
+    //     var mapOptions = {
+    //         zoom: 13,
+    //         center: myLatlng,
+    //         scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
+    //         styles: [{ "featureType": "water", "stylers": [{ "saturation": 43 }, { "lightness": -11 }, { "hue": "#0088ff" }] }, { "featureType": "road", "elementType": "geometry.fill", "stylers": [{ "hue": "#ff0000" }, { "saturation": -100 }, { "lightness": 99 }] }, { "featureType": "road", "elementType": "geometry.stroke", "stylers": [{ "color": "#808080" }, { "lightness": 54 }] }, { "featureType": "landscape.man_made", "elementType": "geometry.fill", "stylers": [{ "color": "#ece2d9" }] }, { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{ "color": "#ccdca1" }] }, { "featureType": "road", "elementType": "labels.text.fill", "stylers": [{ "color": "#767676" }] }, { "featureType": "road", "elementType": "labels.text.stroke", "stylers": [{ "color": "#ffffff" }] }, { "featureType": "poi", "stylers": [{ "visibility": "off" }] }, { "featureType": "landscape.natural", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "color": "#b8cb93" }] }, { "featureType": "poi.park", "stylers": [{ "visibility": "on" }] }, { "featureType": "poi.sports_complex", "stylers": [{ "visibility": "on" }] }, { "featureType": "poi.medical", "stylers": [{ "visibility": "on" }] }, { "featureType": "poi.business", "stylers": [{ "visibility": "simplified" }] }]
+
+    //     }
+
+
+
+    //     // var marker = new google.maps.Marker({
+    //     //     position: myLatlng,
+    //     //     title: "Hello World!"
+    //     // });
+
+    //     // To add the marker to the map, call setMap();
+    //     marker.setMap(map);
+    // },
 
 
     initAnimationsArea: function() {
