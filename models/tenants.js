@@ -22,31 +22,31 @@ module.exports = function(sequelize, Sequelize) {
             allowNull: true
         },
         basePSF: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.DECIMAL,
             allowNull: true
         },
         camPSF: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.DECIMAL,
             allowNull: true
         },
         totalPSF: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.DECIMAL,
             allowNull: true
         },
         annualRent: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.DECIMAL,
             allowNull: true
         },
         salesPSF: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.DECIMAL,
             allowNull: true
         },
         annualSales: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.DECIMAL,
             allowNull: true
         },
         occupancy: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.DECIMAL,
             allowNull: true
         },
         noticeDate: {
@@ -54,7 +54,7 @@ module.exports = function(sequelize, Sequelize) {
             allowNull: true
         },
         noticeRent: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.DECIMAL,
             allowNull: true
         }
     });
