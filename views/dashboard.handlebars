@@ -240,13 +240,13 @@
                                             <td>{{leaseStart}}</td>
                                             <td class="leaseEnd">{{leaseEnd}}</td>
                                             <td>{{formatNumber basePSF style="currency" currency="USD"}}</td>
-                                            <td>{{number camPSF}}</td>
-                                            <td>{{number totalPSF}}</td>
-                                            <td>{{number annualRent}}</td>
-                                            <td>{{number salesPSF}}</td>
-                                            <td>{{number annualSales}}</td>
+                                            <td>{{formatNumber camPSF style="currency" currency="USD"}}</td>
+                                            <td>{{formatNumber totalPSF style="currency" currency="USD"}}</td>
+                                            <td>{{formatNumber annualRent style="currency" currency="USD"}}</td>
+                                            <td>{{formatNumber salesPSF style="currency" currency="USD"}}</td>
+                                            <td>{{formatNumber annualSales style="currency" currency="USD"}}</td>
                                             <td>{{noticeDate}}</td>
-                                            <td>{{number noticeRent}}</td>
+                                            <td>{{formatNumber noticeRent style="currency" currency="USD"}}</td>
                                         </tr>
                                         {{/each}} {{/each}}
                                     </tbody>
