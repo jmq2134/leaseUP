@@ -234,11 +234,11 @@ module.exports = function(app) {
                     leaseEnd: req.body.leaseEnd,
                     basePSF: req.body.basePSF,
                     camPSF: req.body.camPSF,
-                    totalPSF: parseInt(req.body.basePSF) + parseInt(req.body.camPSF),
-                    annualRent: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) * parseInt(req.body.tenantSF),
+                    totalPSF: parseFloat(req.body.basePSF) + parseFloat(req.body.camPSF),
+                    annualRent: (parseFloat(req.body.basePSF) + parseFloat(req.body.camPSF)) * parseFloat(req.body.tenantSF),
                     salesPSF: req.body.salesPSF,
-                    annualSales: parseInt(req.body.salesPSF) * parseInt(req.body.tenantSF),
-                    occupancy: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) / parseInt(req.body.salesPSF),
+                    annualSales: parseFloat(req.body.salesPSF) * parseFloat(req.body.tenantSF),
+                    occupancy: (parseFloat(req.body.basePSF) + parseFloat(req.body.camPSF)) / parseFloat(req.body.salesPSF),
                     noticeDate: req.body.noticeDate,
                     noticeRent: req.body.noticeRent
 
@@ -268,11 +268,11 @@ module.exports = function(app) {
                 leaseEnd: req.body.leaseEnd,
                 basePSF: req.body.basePSF,
                 camPSF: req.body.camPSF,
-                totalPSF: parseInt(req.body.basePSF) + parseInt(req.body.camPSF),
-                annualRent: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) * parseInt(req.body.tenantSF),
+                totalPSF: parseFloat(req.body.basePSF) + parseFloat(req.body.camPSF),
+                annualRent: (parseFloat(req.body.basePSF) + parseFloat(req.body.camPSF)) * parseFloat(req.body.tenantSF),
                 salesPSF: req.body.salesPSF,
-                annualSales: parseInt(req.body.salesPSF) * parseInt(req.body.tenantSF),
-                occupancy: (parseInt(req.body.basePSF) + parseInt(req.body.camPSF)) / parseInt(req.body.salesPSF),
+                annualSales: parseFloat(req.body.salesPSF) * parseFloat(req.body.tenantSF),
+                occupancy: (parseFloat(req.body.basePSF) + parseFloat(req.body.camPSF)) / parseFloat(req.body.salesPSF),
                 noticeDate: req.body.noticeDate,
                 noticeRent: req.body.noticeRent
             }, {
