@@ -1,7 +1,7 @@
 <body>
     <!-- SIDE NAV -->
     <div class="wrapper">
-        <div class="sidebar" data-color="green" data-image="/assets/img/full-screen-image-3.jpg">
+        <div class="sidebar" data-color="azure" data-image="/assets/img/full-screen-image-3.jpg">
             <!--
             Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
             Tip 2: you can also add an image using data-image tag
@@ -108,6 +108,7 @@
             <div class="charts">
                 <!-- EXPIRATIONS CHARTS -->
                 <div class="row" style="margin-left: 20px; margin-right: 20px; margin-top: 20px">
+                {{!-- OCCUPANCY PIE CHART --}}
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="header">
@@ -125,10 +126,12 @@
                             </div>
                         </div>
                     </div>
+                    {{!-- OCCUPANCY TABLE --}}
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="content">
                                 <div class="row">
+                                    {{!-- TOTAL SF --}}
                                     <div class="col-sm-12">
                                         <div class="card" style="margin-bottom: 20px">
                                             <div class="content text-center">
@@ -141,6 +144,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    {{!-- TOTAL OCCUPIED SF --}}
                                     <div class="col-sm-6">
                                         <div class="card" style="margin-bottom: 0px">
                                             <div class="content text-center">
@@ -151,6 +155,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {{!-- TOTAL VACANT SF --}}
                                     <div class="col-sm-6">
                                         <div class="card" style="margin-bottom: 0px">
                                             <div class="content text-center">
@@ -167,7 +172,9 @@
                     </div>
                 </div>
                 <div class="row" style="margin-left: 20px; margin-right: 20px; margin-bottom: -20px">
+                {{!-- LEASE ROLLOVER BAR CHARTS --}}
                     <div class="col-sm-6">
+                    {{!-- LEASE ROLLOVER REVENUE --}}
                         <div class="card ">
                             <div class="header">
                                 <h4 class="title">Lease Rollover</h4>
@@ -185,6 +192,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
+                    {{!-- LEASE ROLLOVER SQUARE FOOTAGE --}}
                         <div class="card ">
                             <div class="header">
                                 <h4 class="title">Lease Rollover</h4>
