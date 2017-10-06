@@ -247,14 +247,14 @@
                                             <td class="tenantSF">{{number tenantSF}}</td>
                                             <td>{{leaseStart}}</td>
                                             <td class="leaseEnd">{{leaseEnd}}</td>
-                                            <td>{{ currency basePSF }}</td>
-                                            <td>{{ currency camPSF }}</td>
-                                            <td>{{ currency totalPSF }}</td>
-                                            <td>{{ currency annualRent }}</td>
-                                            <td>{{ currency salesPSF }}</td>
-                                            <td>{{ currency annualSales }}</td>
+                                            <td>{{ number basePSF "0,0[.]00" }}</td>
+                                            <td>{{ number camPSF }}</td>
+                                            <td>{{ number totalPSF }}</td>
+                                            <td>{{ number annualRent }}</td>
+                                            <td>{{ number salesPSF }}</td>
+                                            <td>{{ number annualSales }}</td>
                                             <td>{{noticeDate}}</td>
-                                            <td>{{ currency noticeRent }}</td>
+                                            <td>{{ number noticeRent }}</td>
                                         </tr>
                                         {{/each}} {{/each}}
                                     </tbody>
