@@ -50,7 +50,7 @@ demo = {
 
 
         function geocode(x, add1, add2) {
-            $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + locations[x] + '&sensor=false', null, function(data) {
+            $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + locations[x] + '&sensor=false', null, function(data) {
                 var p = data.results[0].geometry.location
                 var latlng = new google.maps.LatLng(p.lat, p.lng);
                 var infowindow = new google.maps.InfoWindow({
