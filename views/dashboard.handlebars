@@ -76,7 +76,7 @@
         </div>
         <!-- TOP HEADER -->
         <div class="main-panel">
-            <nav class="navbar navbar-default">
+            <nav class="navbar navbar-default" id="navbar-jump">
                 <div class="container-fluid">
                     <div class="navbar-minimize">
                         <button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon">
@@ -113,7 +113,7 @@
             <div class="charts">
                 <!-- EXPIRATIONS CHARTS -->
                 <div class="row" style="margin-left: 20px; margin-right: 20px; margin-top: 20px">
-                {{!-- OCCUPANCY PIE CHART --}}
+                    {{!-- OCCUPANCY PIE CHART --}}
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="header">
@@ -177,9 +177,9 @@
                     </div>
                 </div>
                 <div class="row" style="margin-left: 20px; margin-right: 20px; margin-bottom: -20px">
-                {{!-- LEASE ROLLOVER BAR CHARTS --}}
+                    {{!-- LEASE ROLLOVER BAR CHARTS --}}
                     <div class="col-sm-6">
-                    {{!-- LEASE ROLLOVER REVENUE --}}
+                        {{!-- LEASE ROLLOVER REVENUE --}}
                         <div class="card ">
                             <div class="header">
                                 <h4 class="title">Lease Rollover</h4>
@@ -197,7 +197,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                    {{!-- LEASE ROLLOVER SQUARE FOOTAGE --}}
+                        {{!-- LEASE ROLLOVER SQUARE FOOTAGE --}}
                         <div class="card ">
                             <div class="header">
                                 <h4 class="title">Lease Rollover</h4>
@@ -270,6 +270,15 @@
                         <!-- end col-md-12 -->
                     </div>
                     <!-- end row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="pull-right">
+                                <a class="btn btn-fill btn-info" href="#navbar-jump">
+                                    <i class="pe-7s-angle-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Modal for Create Feature -->

@@ -76,7 +76,7 @@
         </div>
         <!-- TOP HEADER -->
         <div class="main-panel">
-            <nav class="navbar navbar-default">
+            <nav class="navbar navbar-default" id="navbar-jump">
                 <div class="container-fluid">
                     <div class="navbar-minimize">
                         <button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon">
@@ -279,14 +279,14 @@
                                             <td class="tenantSF">{{number this.tenantSF}}</td>
                                             <td>{{this.leaseStart}}</td>
                                             <td class="leaseEnd">{{this.leaseEnd}}</td>
-                                            <td>{{ number this.basePSF  }}</td>
-                                            <td>{{ number this.camPSF   }}</td>
-                                            <td>{{ number this.totalPSF   }}</td>
-                                            <td>{{ number this.annualRent   }}</td>
-                                            <td>{{ number this.salesPSF   }}</td>
-                                            <td>{{ number this.annualSales   }}</td>
+                                            <td>{{ number this.basePSF }}</td>
+                                            <td>{{ number this.camPSF }}</td>
+                                            <td>{{ number this.totalPSF }}</td>
+                                            <td>{{ number this.annualRent }}</td>
+                                            <td>{{ number this.salesPSF }}</td>
+                                            <td>{{ number this.annualSales }}</td>
                                             <td>{{ this.noticeDate}}</td>
-                                            <td>{{ number this.noticeRent   }}</td>
+                                            <td>{{ number this.noticeRent }}</td>
                                         </tr>
                                         {{/each}}
                                     </tbody>
@@ -297,6 +297,15 @@
                         <!-- end col-md-12 -->
                     </div>
                     <!-- end row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="pull-right">
+                                <a class="btn btn-fill btn-info" href="#navbar-jump">
+                                    <i class="pe-7s-angle-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Modal for Create Feature -->
@@ -305,83 +314,88 @@
                     <div class="modal-content" style="padding: 20px">
                         <div class="modal-body">
                             <div class="panel panel-default">
-                                <div class="row ">
-                                    <div class="panel-body ">
-                                        <form class="create-update-form" action="/api/{{tenants.id}}/newTenant" method="POST">
-                                            <div class="row">
+                                <div class="panel-body ">
+                                    <form class="create-update-form" action="/api/{{tenants.id}}/newTenant" method="POST">
+                                        <div class="row">
+                                            <div class="col-xs-12">
                                                 <legend>Tenant Info</legend>
-                                                <!-- hidden center id -->
-                                                <input type="hidden" name="centerId" value="{{tenants.id}}" />
-                                                <!-- hidden tenant id if available -->
-                                                <input type="hidden" name="id" id="id" />
-                                                <!-- tenantName -->
-                                                <div class="col-md-6">
-                                                    <input type="text" placeholder="Tenant Name" id="tenantName" name="tenantName" class="form-control">
-                                                </div>
-                                                <!-- tenantSF -->
-                                                <div class="col-md-6">
-                                                    <input type="text" placeholder="Square Footage" id="tenantSF" name="tenantSF" class="form-control">
-                                                </div>
                                             </div>
-                                            <br>
-                                            <div class="row">
+                                            <!-- hidden center id -->
+                                            <input type="hidden" name="centerId" value="{{tenants.id}}" />
+                                            <!-- hidden tenant id if available -->
+                                            <input type="hidden" name="id" id="id" />
+                                            <!-- tenantName -->
+                                            <div class="col-md-6">
+                                                <input type="text" placeholder="Tenant Name" id="tenantName" name="tenantName" class="form-control">
+                                            </div>
+                                            <!-- tenantSF -->
+                                            <div class="col-md-6">
+                                                <input type="text" placeholder="Square Footage" id="tenantSF" name="tenantSF" class="form-control">
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-xs-12">
                                                 <legend>Lease Dates</legend>
-                                                <!-- leaseStart -->
-                                                <div class="col-md-6">
-                                                    <div class="form-group ">
-                                                        <input type="text" class="form-control datepicker" id="leaseStart" name="leaseStart" placeholder="Lease Start" />
-                                                    </div>
-                                                </div>
-                                                <!-- leaseEnd -->
-                                                <div class="col-md-6">
-                                                    <div class="form-group ">
-                                                        <input type="text" class="form-control datepicker" id="leaseEnd" name="leaseEnd" placeholder="Lease End" />
-                                                    </div>
+                                            </div>
+                                            <!-- leaseStart -->
+                                            <div class="col-md-6">
+                                                <div class="form-group ">
+                                                    <input type="text" class="form-control datepicker" id="leaseStart" name="leaseStart" placeholder="Lease Start" />
                                                 </div>
                                             </div>
-                                            <br>
-                                            <div class="row">
+                                            <!-- leaseEnd -->
+                                            <div class="col-md-6">
+                                                <div class="form-group ">
+                                                    <input type="text" class="form-control datepicker" id="leaseEnd" name="leaseEnd" placeholder="Lease End" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-xs-12">
                                                 <legend>Rent and Sales PSF</legend>
-                                                <!-- basePSF -->
-                                                <div class="col-md-4">
-                                                    <input type="text" placeholder="Base Rent PSF" id="basePSF" name="basePSF" class="form-control">
-                                                </div>
-                                                <!-- camPSF -->
-                                                <div class="col-md-4">
-                                                    <input type="text" placeholder="CAM Rent PSF" id="camPSF" name="camPSF" class="form-control">
-                                                </div>
-                                                <!-- salesPSF -->
-                                                <div class="col-md-4">
-                                                    <input type="text" placeholder="Sales PSF" id="salesPSF" name="salesPSF" class="form-control">
-                                                </div>
                                             </div>
-                                            <br>
-                                            <div class="row">
+                                            <!-- basePSF -->
+                                            <div class="col-md-4">
+                                                <input type="text" placeholder="Base Rent PSF" id="basePSF" name="basePSF" class="form-control">
+                                            </div>
+                                            <!-- camPSF -->
+                                            <div class="col-md-4">
+                                                <input type="text" placeholder="CAM Rent PSF" id="camPSF" name="camPSF" class="form-control">
+                                            </div>
+                                            <!-- salesPSF -->
+                                            <div class="col-md-4">
+                                                <input type="text" placeholder="Sales PSF" id="salesPSF" name="salesPSF" class="form-control">
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-xs-12">
                                                 <legend>Option</legend>
-                                                <!-- noticeDate -->
-                                                <div class="col-md-6 ">
-                                                    <div class="form-group ">
-                                                        <input type="text" class="form-control datepicker" id="noticeDate" name="noticeDate" placeholder="Notice Date" />
-                                                    </div>
-                                                </div>
-                                                <!-- noticeRent -->
-                                                <div class="col-md-6">
-                                                    <input type="text" placeholder="Notice Rent" id="noticeRent" name="noticeRent" class="form-control ">
+                                            </div>
+                                            <!-- noticeDate -->
+                                            <div class="col-md-6 ">
+                                                <div class="form-group ">
+                                                    <input type="text" class="form-control datepicker" id="noticeDate" name="noticeDate" placeholder="Notice Date" />
                                                 </div>
                                             </div>
-                                            <br>
-                                            <div class="row">
-                                                <!-- close button -->
-                                                <button type="button" class="btn btn-danger btn-fill btn-wd" data-dismiss="modal">Close</button>
-                                                <!-- submit button -->
-                                                <button class="btn btn-success btn-fill btn-wd " method="GET" action="/" type="submit " id="form--event-add">Submit</button>
+                                            <!-- noticeRent -->
+                                            <div class="col-md-6">
+                                                <input type="text" placeholder="Notice Rent" id="noticeRent" name="noticeRent" class="form-control ">
                                             </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <br>
+                                        <div class="row text-center">
+                                            <!-- close button -->
+                                            <button type="button" class="btn btn-danger btn-fill btn-wd" data-dismiss="modal">Close</button>
+                                            <!-- submit button -->
+                                            <button class="btn btn-success btn-fill btn-wd " method="GET" action="/" type="submit " id="form--event-add">Submit</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
 </body>
