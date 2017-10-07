@@ -22,15 +22,15 @@ app = {
             $(this).find('.tenantName').each(function() {
 
                 var tenantName = $(this).text();
-                console.log(tenantName);
+                // console.log(tenantName);
 
                 // VACANCY
                 if (tenantName == "Vacant") {
 
                     result = $(this).closest('td').next().text();
-                    console.log(result);
+                    // console.log(result);
                     result = result.replace(/\,/g, '');
-                    console.log(result);
+                    // console.log(result);
                     vacant += parseInt(result);
                     sum += parseInt(result);
 
@@ -38,9 +38,9 @@ app = {
                 } else {
 
                     result = $(this).closest('td').next().text();
-                    console.log(result);
+                    // console.log(result);
                     result = result.replace(/\,/g, '');
-                    console.log(result);
+                    // console.log(result);
                     occupied += parseInt(result);
                     sum += parseInt(result);
                 }
@@ -120,7 +120,7 @@ app = {
 
                     if (parseInt(year) === chartYears[i]) {
                         expirations.push({ year: chartYears[i], sf: parseFloat(sf.replace(/,/g, '')) });
-                        console.log(expirations);
+                        // console.log(expirations);
                     } else {
                         expirations.push({ year: chartYears[i], sf: 0 });
                     }
@@ -146,7 +146,7 @@ app = {
 
         }); // close TR
 
-        console.log(reducedObjArr);
+        // console.log(reducedObjArr);
 
         // PUT SF INTO CHARTSF ARRAY
         var chartSF = [];
@@ -155,14 +155,14 @@ app = {
             chartSF.push(reducedObjArr[j].value)
         }
 
-        console.log(chartSF);
+        // console.log(chartSF);
 
         // FIND CUMULATIVE TURNOVER PER YEAR
 
         var chartSFcumulative = [];
         chartSF.reduce(function(a, b, i) { return chartSFcumulative[i] = a + b; }, 0);
 
-        console.log(chartSFcumulative);
+        // console.log(chartSFcumulative);
 
 
         /// FIND EXPIRATIONS ($) ===================================================================================================================
@@ -202,7 +202,7 @@ app = {
                 // FIND SF OF EXPIRATION YEAR
                 Rev = $(this).closest('td').next().next().next().next().text();
 
-                console.log(Rev);
+                // console.log(Rev);
 
                 // parseFloat(textValue.replace(/[^\d\.]/, ''));
 
@@ -211,7 +211,7 @@ app = {
 
                     if (parseInt(year) === chartYears[i]) {
                         expirations.push({ year: chartYears[i], Rev: parseFloat(Rev.replace(/[^\d.]/g, '')) });
-                        console.log(expirations);
+                        // console.log(expirations);
                     } else {
                         expirations.push({ year: chartYears[i], Rev: 0 });
                     }
@@ -237,7 +237,7 @@ app = {
 
         }); // close TR
 
-        console.log(reducedObjArr);
+        // console.log(reducedObjArr);
 
         // PUT Rev INTO CHARTRev ARRAY
         var chartRev = [];
@@ -246,14 +246,14 @@ app = {
             chartRev.push(reducedObjArr[j].value)
         }
 
-        console.log(chartRev);
+        // console.log(chartRev);
 
         // FIND CUMULATIVE TURNOVER PER YEAR
 
         var chartRevcumulative = [];
         chartRev.reduce(function(a, b, i) { return chartRevcumulative[i] = a + b; }, 0);
 
-        console.log(chartRevcumulative);
+        // console.log(chartRevcumulative);
 
         /// CHARTIST - BAR (SF) ================================================================================================================
 
