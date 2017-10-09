@@ -54,9 +54,9 @@ app = {
         vacantCalc = parseInt((vacant / sum) * 100).toFixed(2);
 
         /// FIND PERCENTAGE OCCUPIED OR VACANT
-        sumPer = parseInt((sum / sum) * 100).toFixed(2) + "%";
-        occupiedPer = parseInt((occupied / sum) * 100).toFixed(2) + "%";
-        vacantPer = parseInt((vacant / sum) * 100).toFixed(2) + "%";
+        sumPer = parseFloat((sum / sum) * 100).toFixed(2) + "%";
+        occupiedPer = parseFloat((occupied / sum) * 100).toFixed(2) + "%";
+        vacantPer = parseFloat((vacant / sum) * 100).toFixed(2) + "%";
 
         /// FUNCTION TO ADD COMMAS
         function numberWithThousands(x) {
